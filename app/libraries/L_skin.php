@@ -12,8 +12,9 @@ class L_skin {
 	function apps_config($key)
     {
 		$data = array(
-			'title' 		=> 'Core V4',
-			'logo' 			=> 'img/logo-imip-medium.png',
+			'title' 		=> 'Warung Gratcio',
+			'logo' 			=> 'img/gratcio_lebar.jpeg',
+			'login' 		=> 'img/dashboard.jpeg',
 			'favicon' 		=> 'img/favicon.ico',
 			'noimage' 		=> 'img/noimage.png',
 			'loading' 		=> 'img/loading.gif',

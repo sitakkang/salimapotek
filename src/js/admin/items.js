@@ -17,13 +17,11 @@ $(document).ready(function(){
             table.$('tr.actived').removeClass('actived');
             $(this).addClass('actived');
         }
-    	//rowIndex = table.row(this).index();
 		rowId = table.row(this).id();
 		leftWidht = e.pageX-50;
     	$('#popup_menu').css({left:leftWidht+"px",top:e.pageY+"px"}).show("fast", function(){
     		$("button#edit_btn").attr('data-id', rowId);
     		$("button#delete_btn").attr('data-id', rowId);
-    		$("button#reset_btn").attr('data-id', rowId);
     	});
     });
 
@@ -34,7 +32,7 @@ $(document).ready(function(){
     	}
 	});
 
-
+	// Add Button
     $(document).on('click','#add_btn',function(e){
 		e.preventDefault();
 		$.ajax({
@@ -43,10 +41,10 @@ $(document).ready(function(){
 			url:url_ctrl+'add'
 		})
 		.done(function(view) {
-			$('#MyModalTitle').html('<b>Tambah</b>');
-			$('div.modal-dialog').addClass('modal-sm');
+			$('#MyModalTitle').html('<b>Tambah Item</b>');
+			$('div.modal-dialog').removeClass('modal-sm').addClass('modal-lg');
 			$("div#MyModalContent").html(view);
-			$("div#MyModalFooter").html('<button type="submit" class="btn btn-default center-block" id="save_add_btn">Simpan</button>');
+			$("div#MyModalFooter").html('<button type="submit" class="btn btn-primary center-block" id="save_add_btn"><i class="fa fa-save"></i> Simpan</button>');
 			$("div#MyModal").modal('show');
 		})
 		.fail(function(res){
@@ -55,24 +53,30 @@ $(document).ready(function(){
 		});
 	});
 
-
+	// Save Add
 	$(document).on('click','#save_add_btn',function(e){
 		e.preventDefault();
 
 		var lastnum = table.data().count() + 1;
-		var item_number = $("input#item_number").val();
-		var item_name = $("input#item_name").val();
+		var formData = new FormData();
+		formData.append('kodeitem', $("input#kodeitem").val());
+		formData.append('namaitem', $("input#namaitem").val());
+		formData.append('hargasatuan', $("input#hargasatuan").val());
+		formData.append('deskripsi', $("textarea#deskripsi").val());
+		
+		// Append file if exists
+		var fileInput = document.getElementById('itemimage');
+		if(fileInput.files.length > 0) {
+			formData.append('itemimage', fileInput.files[0]);
+		}
 
 		$.ajax({
 			method:"POST",
 			url:url_ctrl+'act_add',
 			cache:false,
-			data: {
-				item_number:item_number,
-	            item_name:item_name,
-	            item_number:$("input#item_number").val(),
-	            item_name:$("input#item_name").val(),
-			}
+			data: formData,
+			processData: false,
+			contentType: false
 		})
 		.done(function(result) {
 			var obj = jQuery.parseJSON(result);
@@ -85,8 +89,10 @@ $(document).ready(function(){
 				table.row.add({
             		"DT_RowId" : obj.lastid,
             		"0" : lastnum,
-				    "1" : item_number,
-				    "2" : item_name,
+				    "1" : $("input#kodeitem").val(),
+				    "2" : $("input#namaitem").val(),
+				    "3" : 'Rp ' + formatNumber($("input#hargasatuan").val()),
+				    "4" : $("textarea#deskripsi").val().substr(0, 50) + '...'
 		        }).draw(false);
 			}
 		})
@@ -106,10 +112,10 @@ $(document).ready(function(){
 			data:{id:$(this).attr('data-id')}
 		})
 		.done(function(view) {
-			$('#MyModalTitle').html('<b>Ubah</b>');
-			$('div.modal-dialog').addClass('modal-sm');
+			$('#MyModalTitle').html('<b>Ubah Item</b>');
+			$('div.modal-dialog').removeClass('modal-sm').addClass('modal-lg');
 			$("div#MyModalContent").html(view);
-			$("div#MyModalFooter").html('<button type="submit" class="btn btn-default center-block" id="save_edit_btn">Ubah</button>');
+			$("div#MyModalFooter").html('<button type="submit" class="btn btn-primary center-block" id="save_edit_btn"><i class="fa fa-save"></i> Ubah</button>');
 			$("div#MyModal").modal('show');
 		})
 		.fail(function(res){
@@ -118,19 +124,29 @@ $(document).ready(function(){
 		});
 	});
 
-    
+    // Save Edit
 	$(document).on('click','#save_edit_btn',function(e){
 		e.preventDefault();
-		var item_number = $("input#item_number").val();
-		var item_name = $("input#item_name").val();
+		
+		var formData = new FormData();
+		formData.append('id', $("input#id").val());
+		formData.append('kodeitem', $("input#kodeitem").val());
+		formData.append('namaitem', $("input#namaitem").val());
+		formData.append('hargasatuan', $("input#hargasatuan").val());
+		formData.append('deskripsi', $("textarea#deskripsi").val());
+		
+		// Append file if exists
+		var fileInput = document.getElementById('itemimage');
+		if(fileInput && fileInput.files.length > 0) {
+			formData.append('itemimage', fileInput.files[0]);
+		}
+
 		$.ajax({
 			method:"POST",
 			url:url_ctrl+'act_edit',
-			data: {
-				id:$("input#id").val(),
-				item_number:item_number,
-	            item_name:item_name
-			}
+			data: formData,
+			processData: false,
+			contentType: false
 		})
 		.done(function(result) {
 			var obj = jQuery.parseJSON(result);
@@ -141,8 +157,10 @@ $(document).ready(function(){
 				$("div#MyModal").modal('hide');
                 notifYesAuto(obj.notif);
                 var temp = table.row('tr.actived').data(); 
-                temp[1] = item_number;
-				temp[2] = item_name;
+                temp[1] = $("input#kodeitem").val();
+				temp[2] = $("input#namaitem").val();
+				temp[3] = 'Rp ' + formatNumber($("input#hargasatuan").val());
+				temp[4] = $("textarea#deskripsi").val().substr(0, 50) + '...';
 				table.row('tr.actived').data(temp).invalidate();
 			}
 		})
@@ -157,10 +175,10 @@ $(document).ready(function(){
 		e.preventDefault();
 		var id = $(this).attr('data-id');
 		var rowData = table.row('tr.actived').data();
-		var item_name = rowData['2'];
+		var namaitem = rowData['2'];
 		swal({
 			title: 'Anda yakin ?',
-			text: 'Items data '+item_name+' akan dihapus ?',
+			text: 'Item '+namaitem+' akan dihapus ?',
 			type: 'question',
 			showCancelButton: true,
 			confirmButtonText: 'Ya, hapus !',
@@ -172,7 +190,7 @@ $(document).ready(function(){
 					url:url_ctrl+'act_del',
 					data: {
 						id:id,
-						item_name:item_name
+						namaitem:namaitem
 					}
 				})
 				.done(function(result) {
@@ -192,5 +210,22 @@ $(document).ready(function(){
 				});
 			}
 		})
+	});
+
+	// Format number helper
+	function formatNumber(num) {
+		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	}
+
+	// Preview image
+	$(document).on('change', '#itemimage', function(e) {
+		var file = e.target.files[0];
+		if (file) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#image_preview').html('<img src="'+e.target.result+'" class="img-thumbnail" style="max-width: 200px; margin-top: 10px;">');
+			}
+			reader.readAsDataURL(file);
+		}
 	});
 });
