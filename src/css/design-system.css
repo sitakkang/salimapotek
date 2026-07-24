@@ -1121,6 +1121,10 @@ table.dataTable.DTFC_Cloned tbody tr:last-child td {
 .pem-compact .chosen-container { z-index: 1000 !important; }
 .pem-compact .chosen-drop { z-index: 1000 !important; }
 
+/* Chosen dropdowns in cards — ensure visible above overflow:hidden siblings */
+.ds-card .chosen-container { z-index: 1000 !important; }
+.ds-card .chosen-drop { z-index: 1000 !important; }
+
 .pem-compact .chosen-container .chosen-single {
     font-size: 12px;
     padding: 3px 10px;

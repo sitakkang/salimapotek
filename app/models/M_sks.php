@@ -41,7 +41,7 @@ class M_sks extends CI_Model {
     }
 
     public function get_sks_by_id($id) {
-        $this->db->select('sks.*, doctor.fullname AS fullname, creator.fullname AS insert_name, updater.fullname AS update_name');
+        $this->db->select('sks.*, doctor.fullname AS fullname, doctor.nip AS nip, creator.fullname AS insert_name, updater.fullname AS update_name');
         $this->db->from('sks');
         $this->db->join('conf_users AS doctor', 'sks.doctby = doctor.id_user', 'left');
         $this->db->join('conf_users AS creator', 'sks.insertby = creator.id_user', 'left');

@@ -15,6 +15,7 @@
 
     <!-- Filter Card -->
     <div class="ds-card" style="margin-bottom: 16px;">
+        <div class="ds-card-bd" style="padding: 14px 20px; overflow: visible;">
         <div class="ds-card-bd" style="padding: 14px 20px;">
             <form id="search_form" onsubmit="return false;">
                 <div class="row" style="margin: 0 -6px; align-items: flex-end;">

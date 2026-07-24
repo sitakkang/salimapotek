@@ -146,6 +146,7 @@ class Dokter extends CI_Controller {
             'lib/mask/jquery.mask.min.js',
             'lib/sweetalert/sweetalert2.all.min.js',
             'src/js/admin/dokter.js',
+            'src/js/admin/pemeriksaandokter.js',
         );
         $data['panel'] = '<i class="fa fa-stethoscope"></i> &nbsp;<b>Pemeriksaan Pasien</b>';
         $this->l_skin->main($this->dir_v.'pemeriksaan', $data);

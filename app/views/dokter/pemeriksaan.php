@@ -140,22 +140,22 @@ if (!empty($row->patient_bod)) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-obat" role="tab">
+                            <a class="nav-link" data-toggle="tab" id="obat-tab" href="#tab-obat" role="tab">
                                 <i class="fa fa-pills"></i> Obat
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-sks" role="tab">
+                            <a class="nav-link" data-toggle="tab" id="sks-tab" href="#tab-sks" role="tab">
                                 <i class="fa fa-file-signature"></i> SKS
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-skbs" role="tab">
+                            <a class="nav-link" data-toggle="tab" id="skbs-tab" href="#tab-skbs" role="tab">
                                 <i class="fa fa-heartbeat"></i> SKBS
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-skmb" role="tab">
+                            <a class="nav-link" data-toggle="tab" id="skmb-tab" href="#tab-skmb" role="tab">
                                 <i class="fa fa-ambulance"></i> SKMB
                             </a>
                         </li>
