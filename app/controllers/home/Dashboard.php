@@ -87,6 +87,23 @@ class Dashboard extends CI_Controller {
 										)
 		);
 
+		// SKS & Pharmacy counters
+		$data['sks_hari_ini'] = $this->db->query(
+			"SELECT COUNT(*) AS jml FROM sks WHERE DATE(insertdt) = CURDATE()"
+		)->row()->jml;
+
+		$data['sks_bulan_ini'] = $this->db->query(
+			"SELECT COUNT(*) AS jml FROM sks WHERE MONTH(insertdt) = MONTH(CURDATE()) AND YEAR(insertdt) = YEAR(CURDATE())"
+		)->row()->jml;
+
+		$data['total_pasien'] = $this->db->query(
+			"SELECT COUNT(*) AS jml FROM ms_patient WHERE patient_status = 1"
+		)->row()->jml;
+
+		$data['total_doctor'] = $this->db->query(
+			"SELECT COUNT(*) AS jml FROM conf_users WHERE level = 3"
+		)->row()->jml;
+
 		$this->l_skin->main('home/dashboard', $data);
 	}
 

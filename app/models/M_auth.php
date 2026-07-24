@@ -36,21 +36,53 @@ class M_auth extends CI_Model {
     }
 
 	// HAK AKSES MENU
+    // function check_akses()
+    // {
+	// 	if($this->get_session('log') == TRUE){
+	// 		$uri = $this->uri->segment(1).'/'.$this->uri->segment(2);
+	// 		$LevelUser = $this->session->userdata('sess_level');
+	// 		$query_menu = $this->db->query('SELECT id_menu FROM conf_menu WHERE status=1 AND sub=1 AND link="'.$uri.'" AND level LIKE "%'.$LevelUser.'%" LIMIT 1');
+	// 		$query_sub = $this->db->query('SELECT id_submenu FROM conf_submenu WHERE status=1 AND link="'.$uri.'" AND level LIKE "%'.$LevelUser.'%" LIMIT 1');
+	// 		if($query_menu->num_rows() < 1) {
+	// 			if($query_sub->num_rows() < 1) {
+	// 				redirect(base_url());
+	// 			}
+	// 		}
+	// 	}else{
+	// 		redirect(base_url());
+	// 	}
+	// }
     function check_akses()
     {
-		if($this->get_session('log') == TRUE){
-			$uri = $this->uri->segment(1).'/'.$this->uri->segment(2);
-			$LevelUser = $this->session->userdata('sess_level');
-			$query_menu = $this->db->query('SELECT id_menu FROM conf_menu WHERE status=1 AND sub=1 AND link="'.$uri.'" AND level LIKE "%'.$LevelUser.'%" LIMIT 1');
-			$query_sub = $this->db->query('SELECT id_submenu FROM conf_submenu WHERE status=1 AND link="'.$uri.'" AND level LIKE "%'.$LevelUser.'%" LIMIT 1');
-			if($query_menu->num_rows() < 1) {
-				if($query_sub->num_rows() < 1) {
-					redirect(base_url());
-				}
-			}
-		}else{
-			redirect(base_url());
-		}
+        if ($this->get_session('log') == TRUE) {
+            $uri                                = $this->uri->segment(1);
+
+            $LevelUser                          = $this->session->userdata('sess_level');
+            $query_menu                         = $this->db->query(
+                "
+                    SELECT id_menu 
+                    FROM conf_menu 
+                    WHERE status = 1  
+                    AND sub      = 1 
+                    AND link='" . $uri . "' 
+                    AND level LIKE '%" . $LevelUser . "%' LIMIT 1"
+            );
+            $query_sub = $this->db->query(
+                "
+                    SELECT id_submenu 
+                    FROM conf_submenu 
+                    WHERE status = 1  
+                    AND link='" . $uri . "'
+                    AND level LIKE '%" . $LevelUser . "%' LIMIT 1"
+            );
+            if ($query_menu->num_rows() < 1) {
+                if ($query_sub->num_rows() < 1) {
+                    redirect(base_url());
+                }
+            }
+        } else {
+            redirect(base_url());
+        }
 	}
 
 	// TOKEN CSRF

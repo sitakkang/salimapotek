@@ -16,7 +16,8 @@
 <link rel="stylesheet" href="<?=base_url('lib/sidenav/sidenav.min.css');?>">
 <?php if(isset($css)){$this->l_skin->css_load($css);} ?>
 <link rel="stylesheet" href="<?=base_url('src/css/global.css?v='.filemtime('src/css/global.css').'');?>">
-<link rel="icon" href="<?=base_url($this->l_skin->apps_config('favicon'));?>" type="image/x-icon">
+<link rel="stylesheet" href="<?=base_url('src/css/design-system.css?v='.filemtime('src/css/design-system.css').'');?>">
+<link rel="icon" href="<?=base_url($this->l_skin->apps_config('favicon'));?>">
 <script>var site_url='<?=site_url();?>';</script>
 </head>
 <body>

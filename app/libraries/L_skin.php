@@ -12,17 +12,17 @@ class L_skin {
 	function apps_config($key)
     {
 		$data = array(
-			'title' 		=> 'Warung Gratcio',
-			'logo' 			=> 'img/gratcio_lebar.jpeg',
+			'title' 		=> 'Alif Medika',
+			'logo' 			=> 'img/apotek-sidebar-logo.jpeg',
 			'login' 		=> 'img/dashboard.jpeg',
-			'favicon' 		=> 'img/favicon.ico',
+			'favicon' 		=> 'img/apotek_logo_text.png',
 			'noimage' 		=> 'img/noimage.png',
 			'loading' 		=> 'img/loading.gif',
 			'email' 		=> 'info@imip.co.id',
-			'footer' 		=> 'PT Indonesia Morowali Industrial Park - Copyright @2019 Allright Reserved',
-			'meta_desc' 	=> 'IMIP Application',
+			'footer' 		=> 'Apotek Alif Medika',
+			'meta_desc' 	=> 'Aplikasi Apotek Alif Medika',
 			'meta_key' 		=> 'PT Indonesia Morowali Industrial Park',
-			'head_title' 	=> 'PT Indonesia Morowali Industrial Park',
+			'head_title' 	=> 'Apotek Alif Medika',
 			'head_subtitle' => 'A Human Resources Information System (HRIS) is a software or online solution that is used for data entry, data tracking and the data information requirements of an organizations human resources (HR) management, payroll and bookkeeping operations'
 		);
     	return $data[$key];
@@ -38,7 +38,7 @@ class L_skin {
 			$data['footer'] = $this->skin->load->view('skin/footer', $data, TRUE);
 			$this->skin->load->view('skin/master', $data);
 		}else{
-			$this->skin->load->view('$template', $data);
+			$this->skin->load->view($template, $data);
 		}
 	}
 
@@ -53,7 +53,7 @@ class L_skin {
 			$data['footer'] = $this->skin->load->view('skin/footer', $data, TRUE);
 			$this->skin->load->view('skin/master_config', $data);
 		}else{
-			$this->skin->load->view('$template', $data);
+			$this->skin->load->view($template, $data);
 		}
 	}
 
@@ -63,7 +63,7 @@ class L_skin {
 			$data['content'] = $this->skin->load->view($template, $data, TRUE);
 			$this->skin->load->view('skin/master_login', $data);
 		}else{
-			$this->skin->load->view('$template', $data);
+			$this->skin->load->view($template, $data);
 		}
 	}
 

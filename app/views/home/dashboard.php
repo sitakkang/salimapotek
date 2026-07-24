@@ -1,54 +1,91 @@
-<div class="jumbotron">
-	<div class="container-fluid">
-		<h2><?=(isset($head_title)) ? $head_title : $this->l_skin->apps_config('head_title');?></h2>
-		<p class="text-justify"><?=(isset($head_subtitle)) ? $head_subtitle : $this->l_skin->apps_config('head_subtitle');?></p>
-	</div>
-</div>
+<?php
+$hour = (int)date('H');
+if ($hour < 12)       $greeting = 'Selamat Pagi';
+elseif ($hour < 17)   $greeting = 'Selamat Siang';
+else                  $greeting = 'Selamat Malam';
+?>
 
-<div  class="container-fluid">
-	<div class="row">
+<div class="ds-dashboard">
 
-		<div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
-			<div class="card">
-				<div class="card-header">
-					<h5 class="card-title"><b>Repositories</b></h5>
-				</div>
-  				<div class="card-body is-no-padding">
+  <!-- Page Header -->
+  <div class="ds-dash-header">
+    <div class="ds-dash-header-left">
+      <h1 class="ds-dash-title"><?=$greeting?>, <?=explode(' ', $this->m_auth->get_session('name'))[0]; ?></h1>
+      <p class="ds-dash-subtitle"><?=date('l, d F Y');?> · <?=$this->l_skin->apps_config('title');?></p>
+    </div>
+    <div class="ds-dash-header-right">
+      <span class="ds-dash-badge"><i class="fa fa-calendar-alt"></i> <?=date('d/m/Y');?></span>
+    </div>
+  </div>
 
-  					<nav class="nav flex-column"">
-  						<?php ksort($sidebar_data); foreach ($sidebar_data as $k => $v ) { ?>
-  							<a class="nav-link" href="<?=$v['link'];?>"><i class="fa fa-caret-right"></i> <?=$k;?></a>
-  						<?php } ?>
-					</nav>
+  <!-- Stat Cards -->
+  <div class="ds-dash-grid">
+    <div class="ds-dash-card">
+      <div class="ds-dash-card-icon ds-icon-green"><i class="fa fa-file-medical"></i></div>
+      <div class="ds-dash-card-body">
+        <div class="ds-dash-card-value"><?=isset($sks_hari_ini) ? $sks_hari_ini : '&mdash;';?></div>
+        <div class="ds-dash-card-label">SKS Hari Ini</div>
+        <div class="ds-dash-card-desc">Surat keterangan sakit hari ini</div>
+      </div>
+    </div>
+    <div class="ds-dash-card">
+      <div class="ds-dash-card-icon ds-icon-blue"><i class="fa fa-file-invoice"></i></div>
+      <div class="ds-dash-card-body">
+        <div class="ds-dash-card-value"><?=isset($sks_bulan_ini) ? $sks_bulan_ini : '&mdash;';?></div>
+        <div class="ds-dash-card-label">SKS Bulan Ini</div>
+        <div class="ds-dash-card-desc">Total penerbitan bulan berjalan</div>
+      </div>
+    </div>
+    <div class="ds-dash-card">
+      <div class="ds-dash-card-icon ds-icon-orange"><i class="fa fa-users"></i></div>
+      <div class="ds-dash-card-body">
+        <div class="ds-dash-card-value"><?=isset($total_pasien) ? $total_pasien : '&mdash;';?></div>
+        <div class="ds-dash-card-label">Total Pasien</div>
+        <div class="ds-dash-card-desc">Seluruh pasien terdaftar</div>
+      </div>
+    </div>
+    <div class="ds-dash-card">
+      <div class="ds-dash-card-icon ds-icon-red"><i class="fa fa-user-md"></i></div>
+      <div class="ds-dash-card-body">
+        <div class="ds-dash-card-value"><?=isset($total_doctor) ? $total_doctor : '&mdash;';?></div>
+        <div class="ds-dash-card-label">Dokter</div>
+        <div class="ds-dash-card-desc">Tenaga medis tersedia</div>
+      </div>
+    </div>
+  </div>
 
-  				</div>
-  			</div>
-		</div>
+  <!-- Quick Links -->
+  <div class="ds-dash-section-title">Akses Cepat</div>
+  <div class="ds-dash-grid ds-dash-grid-3">
+    <a href="<?=site_url('pengguna');?>" class="ds-dash-link-card">
+      <i class="fa fa-users"></i>
+      <span>Manajemen Pengguna</span>
+    </a>
+    <a href="<?=site_url('patient');?>" class="ds-dash-link-card">
+      <i class="fa fa-user-injured"></i>
+      <span>Pendaftaran Pasien</span>
+    </a>
+    <a href="<?=site_url('anamnesa');?>" class="ds-dash-link-card">
+      <i class="fa fa-stethoscope"></i>
+      <span>Anamnesa</span>
+    </a>
+    <a href="<?=site_url('dokter');?>" class="ds-dash-link-card">
+      <i class="fa fa-user-md"></i>
+      <span>Dokter</span>
+    </a>
+    
+    <a href="<?=site_url('sks');?>" class="ds-dash-link-card">
+      <i class="fa fa-file-signature"></i>
+      <span>SKS</span>
+    </a>
+    <a href="<?=site_url('skbs');?>" class="ds-dash-link-card">
+      <i class="fa fa-heartbeat"></i>
+      <span>SKBS</span>
+    </a>
+    <a href="<?=site_url('skmb');?>" class="ds-dash-link-card">
+      <i class="fa fa-ambulance"></i>
+      <span>SKMB</span>
+    </a>
+  </div>
 
-		<div class="col-xl-10 col-lg-10 col-md-8 col-sm-8">
-			<div class="row justify-content-center">
-
-				<?php foreach ($icon_data as $a => $b ) { ?>
-
-					<div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-						<div class="card is-icon-box">
-							<div class="card-body">
-								<a class="is-link" href="<?=$b['link'];?>">
-									<div class="text-center">
-										<img class="card-img-top" src="<?=base_url($b['icon']);?>" alt="Image Is Not Found !">
-									</div>
-								</a>
-							</div>
-							<div class="card-footer">
-								<p class="card-text text-center"><?=$a;?></p>
-							</div>
-						</div>
-					</div>
-
-				<?php } ?>
-			
-			</div>
-		</div>
-
-	</div>
 </div>

@@ -182,10 +182,10 @@ html, body { margin: 0; padding: 0; height: 100%; background: #fff; }
     <!-- Right: Cover -->
     <div class="lp-cover">
         <img src="<?=base_url($this->l_skin->apps_config('login'));?>" alt="Cover">
-        <div class="lp-cover-overlay">
+        <!-- <div class="lp-cover-overlay">
             <h3><?=$this->l_skin->apps_config('title');?></h3>
             <p>Sistem kasir modern untuk kemudahan transaksi Anda.</p>
-        </div>
+        </div> -->
     </div>
 
 </div>

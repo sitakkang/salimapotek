@@ -1,18 +1,10 @@
-@font-face {
-    font-family: 'Titilium';
-    src: url('../../lib/fonts/titilliumweb-regular-webfont.eot');
-    src: url('../../lib/fonts/titilliumweb-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../../lib/fonts/titilliumweb-regular-webfont.woff2') format('woff2'),
-         url('../../lib/fonts/titilliumweb-regular-webfont.woff') format('woff'),
-         url('../../lib/fonts/titilliumweb-regular-webfont.ttf') format('truetype'),
-         url('../../lib/fonts/titilliumweb-regular-webfont.svg#titillium_webregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 body {
-	font-family: "Titilium", "Raleway", "Segoe UI", "Helvetica", "Arial", sans-serif;
+	font-family: "Inter", "Segoe UI", "Helvetica", "Arial", sans-serif;
     background-color: #efefef;
+    font-weight: 400;
+    letter-spacing: -0.01em;
 }
 
 /*Typografi Stayle*/
@@ -287,4 +279,14 @@ div.card.login-box{
     right: 0px;
     font-weight: 800;
     padding: 3px 10px 2px;
+}
+
+/* --- Card Enhancements (Bootstrap .card used by existing pages) --- */
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.card-body {
+    padding: 20px;
 }

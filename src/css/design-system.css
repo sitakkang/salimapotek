@@ -1,0 +1,2354 @@
+/**
+ * ============================================================
+ *  KLINIK DESIGN SYSTEM
+ *  Core reusable UI components for all pages (modal & non-modal)
+ *  Loaded globally via master templates after global.css
+ * ============================================================
+ */
+
+/* ==========================================================
+   1. DESIGN TOKENS  (CSS Custom Properties)
+   ========================================================== */
+:root {
+    /* Brand palette */
+    --ds-primary:     #2d6a4f;
+    --ds-primary-dk:  #1b4332;
+    --ds-primary-lt:  #d8f3dc;
+    --ds-primary-md:  #52b788;
+    --ds-green:       #27ae60;
+    --ds-red:         #e74c3c;
+
+    /* Text */
+    --ds-text:        #1c2e22;
+    --ds-muted:       #6b8f71;
+
+    /* Borders & backgrounds */
+    --ds-border:      #b7d5c4;
+    --ds-bg:          #f0f7f3;
+    --ds-bg-subtle:   #f4faf6;
+    --ds-bg-hover:    #e8f5ed;
+
+    /* Shadows & radius */
+    --ds-card-sh:     0 2px 10px rgba(45,106,79,.09);
+    --ds-radius:      10px;
+    --ds-radius-sm:   7px;
+
+    /* Gradients */
+    --ds-grad-primary:  linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
+    --ds-grad-header:   linear-gradient(135deg, #d8f3dc, #b7d5c4);
+
+    /* Warning palette */
+    --ds-warn-bg:     #fffdf0;
+    --ds-warn-border: #f9e79f;
+    --ds-warn-accent: #f4d03f;
+    --ds-warn-text:   #7d6608;
+    --ds-warn-icon:   #d4ac0d;
+    --ds-warn-label:  #9a7d0a;
+}
+
+/* ==========================================================
+   2. PAGE LAYOUT WRAPPER
+   ========================================================== */
+.ds-page-wrap {
+    background: transparent;
+    padding: 0 24px 20px;
+    overflow-x: hidden;
+    max-width: 100%;
+}
+.ds-page-wrap > .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Reduce gap between header and content */
+.modern-header { margin-bottom: 0 !important; }
+
+/* ==========================================================
+   2b. PAGE HEADER  (compact, professional panel)
+   ========================================================== */
+.ds-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    box-shadow: var(--ds-card-sh);
+    padding: 14px 20px;
+    margin-bottom: 16px;
+}
+.ds-page-header-start {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.ds-page-header-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--ds-grad-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.ds-page-header-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ds-primary-dk);
+    line-height: 1.3;
+}
+.ds-page-header-desc {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--ds-muted);
+    line-height: 1.3;
+}
+.ds-page-header-end {
+    flex-shrink: 0;
+}
+.ds-btn-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: var(--ds-grad-primary);
+    color: #fff;
+    cursor: pointer;
+    transition: opacity .2s, transform .15s;
+    white-space: nowrap;
+}
+.ds-btn-header:hover {
+    opacity: .9;
+    transform: translateY(-1px);
+    color: #fff;
+}
+.ds-btn-header:active {
+    transform: translateY(0);
+}
+.ds-btn-header i {
+    font-size: 14px;
+}
+
+/* ==========================================================
+   3. BREADCRUMB (card-style)
+   ========================================================== */
+.ds-breadcrumb {
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    box-shadow: var(--ds-card-sh);
+    padding: 11px 18px;
+    margin: 0 15px 16px;
+}
+.ds-breadcrumb .breadcrumb {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: 13.5px;
+    align-items: center;
+}
+.ds-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: "/";
+    color: var(--ds-muted);
+    padding: 0 8px;
+    font-weight: 400;
+}
+.ds-breadcrumb .breadcrumb-item a {
+    color: var(--ds-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+.ds-breadcrumb .breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+.ds-breadcrumb .breadcrumb-item.active {
+    color: var(--ds-text);
+    font-weight: 600;
+}
+
+/* ==========================================================
+   4. CARD SYSTEM
+   ========================================================== */
+.ds-card {
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    box-shadow: var(--ds-card-sh);
+    margin-bottom: 16px;
+    position: relative;
+}
+/* Clip rounded corners on first/last child */
+.ds-card > *:first-child { border-radius: var(--ds-radius) var(--ds-radius) 0 0; overflow: hidden; }
+.ds-card > *:last-child  { border-radius: 0 0 var(--ds-radius) var(--ds-radius); overflow: hidden; }
+.ds-card > *:only-child  { border-radius: var(--ds-radius); overflow: hidden; }
+
+/* Card header */
+.ds-card-hd {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--ds-grad-primary);
+    border-bottom: 1px solid var(--ds-border);
+}
+.ds-card-hd .hd-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+.ds-card-hd span {
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+}
+
+/* Card body */
+.ds-card-bd {
+    padding: 14px 16px;
+}
+
+/* Card footer */
+.ds-card-ft {
+    padding: 10px 16px;
+    background: var(--ds-bg-subtle);
+    border-top: 1px solid var(--ds-border);
+    text-align: center;
+}
+
+/* ==========================================================
+   5. INFO TABLE  (key-value pairs, e.g. patient info)
+   ========================================================== */
+.ds-info-table {
+    width: 100%;
+    font-size: 13px;
+}
+.ds-info-table tr td {
+    padding: 5px 4px;
+    vertical-align: top;
+    color: var(--ds-text);
+}
+.ds-info-table tr td:first-child {
+    color: var(--ds-muted);
+    white-space: nowrap;
+    width: 110px;
+}
+.ds-info-table tr td:nth-child(2) {
+    width: 8px;
+    color: var(--ds-muted);
+}
+.ds-info-table tr td:last-child {
+    font-weight: 500;
+}
+.ds-info-table tr:not(:last-child) td {
+    border-bottom: 1px solid #f0f2f5;
+}
+
+/* ==========================================================
+   6. VITALS GRID
+   ========================================================== */
+.ds-vitals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.ds-vital-item {
+    background: var(--ds-bg-subtle);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius-sm);
+    padding: 7px 10px;
+    font-size: 12px;
+}
+.ds-vital-item .v-label  { color: var(--ds-muted); font-size: 11px; margin-bottom: 2px; }
+.ds-vital-item .v-value  { font-weight: 700; color: var(--ds-text); font-size: 13px; }
+.ds-vital-item .v-unit   { font-size: 10px; color: var(--ds-muted); }
+
+/* Note / warning box inside vitals or any section */
+.ds-note-warn {
+    background: var(--ds-warn-bg);
+    border: 1px solid var(--ds-warn-border);
+    border-radius: var(--ds-radius-sm);
+    padding: 8px 10px;
+    font-size: 12.5px;
+    color: var(--ds-warn-text);
+    margin-top: 4px;
+}
+.ds-note-warn .v-note-label {
+    font-weight: 700;
+    margin-bottom: 2px;
+    color: var(--ds-warn-label);
+}
+
+/* ==========================================================
+   7. TABS
+   ========================================================== */
+.ds-tabs.nav-tabs {
+    border-bottom: 2px solid var(--ds-border);
+    flex-wrap: wrap;
+    gap: 2px;
+    padding-bottom: 0;
+}
+.ds-tabs.nav-tabs .nav-item .nav-link {
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: var(--ds-radius-sm) var(--ds-radius-sm) 0 0;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ds-muted);
+    padding: 7px 13px;
+    transition: all .18s;
+    white-space: nowrap;
+}
+.ds-tabs.nav-tabs .nav-item .nav-link:hover {
+    color: var(--ds-primary);
+    background: var(--ds-primary-lt);
+}
+.ds-tabs.nav-tabs .nav-item .nav-link.active {
+    color: var(--ds-primary);
+    background: #fff;
+    border-color: var(--ds-border);
+    border-bottom-color: #fff;
+    margin-bottom: -2px;
+}
+.ds-tabs.nav-tabs .nav-item .nav-link i {
+    margin-right: 4px;
+    font-size: 11px;
+}
+
+/* Tab content area */
+.ds-tab-content {
+    padding: 16px 4px 4px;
+}
+
+/* ==========================================================
+   8. DATA TABLE  (inside tabs or standalone)
+   — CLEAN MODERN: only horizontal lines, no vertical grid
+   ========================================================== */
+
+/* ─── Step 1: Neutralise ALL DataTable default styles ── */
+/* Must come BEFORE ds-* rules so ds-* can override safely. */
+table.dataTable,
+table.dataTable thead th,
+table.dataTable tbody td,
+table.dataTable.display tbody td,
+table.dataTable.display tbody tr.odd td,
+table.dataTable.display tbody tr.even td,
+table.dataTable.row-border tbody th,
+table.dataTable.row-border tbody td,
+table.dataTable.display tbody th,
+table.dataTable.display tbody td {
+    border: none !important;
+    border-collapse: collapse;
+    background: transparent;
+}
+table.dataTable.stripe tbody tr.odd,
+table.dataTable.display tbody tr.odd,
+table.dataTable.hover tbody tr:hover,
+table.dataTable.display tbody tr:hover {
+    background: transparent;
+}
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    background: none;
+}
+
+/* ─── Step 2: Our custom ds-table styles ────────────── */
+/* These come AFTER the reset, same specificity, so they win. */
+.ds-table {
+    width: 100%;
+    font-size: 13px;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+.ds-table thead tr th {
+    background: var(--ds-grad-header) !important;
+    color: var(--ds-primary-dk);
+    font-weight: 700;
+    font-size: 12px;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--ds-border) !important;
+    white-space: nowrap;
+    text-align: left;
+}
+.ds-table tbody tr td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #e2f0e8;
+    font-size: 13px;
+    vertical-align: middle;
+    color: var(--ds-text);
+    background: #fff !important;
+}
+.ds-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.ds-table tbody tr:hover td { background: var(--ds-bg-hover); }
+
+/* Wide table wrapper (horizontal scroll) */
+.ds-wide-table-wrap { overflow-x: auto; margin-top: 12px; }
+.ds-wide-table-wrap table {
+    width: 100%;
+    font-size: 12.5px;
+    border-collapse: collapse;
+}
+.ds-wide-table-wrap th,
+.ds-wide-table-wrap td {
+    white-space: nowrap;
+}
+
+/* ─── FixedColumns: sync colours with main table ────── */
+/* The cloned table must mirror the main table's row colours exactly. */
+table.dataTable.DTFC_Cloned {
+    box-shadow: 3px 0 10px rgba(0,0,0,.07);
+    border-collapse: collapse;
+}
+/* Header cells — use gradient */
+table.dataTable.DTFC_Cloned thead tr th {
+    border-bottom: 2px solid var(--ds-border) !important;
+    background: var(--ds-grad-header) !important;
+    color: var(--ds-primary-dk);
+    font-weight: 700;
+    font-size: 12px;
+    padding: 10px 12px;
+}
+/* Body cells — white background, no striping, only hover */
+table.dataTable.DTFC_Cloned tbody tr td {
+    border-bottom: 1px solid #e2f0e8 !important;
+    padding: 9px 12px;
+    background: #fff !important;
+}
+table.dataTable.DTFC_Cloned tbody tr:hover td {
+    background: var(--ds-bg-hover) !important;
+}
+/* Last row no border */
+table.dataTable.DTFC_Cloned tbody tr:last-child td {
+    border-bottom: none !important;
+}
+/* Kill ALL borders/shadow on FixedColumns wrapper elements */
+.DTFC_LeftWrapper,
+.DTFC_RightWrapper,
+.DTFC_LeftWrapper *,
+.DTFC_RightWrapper * {
+    border: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    outline: none !important;
+}
+/* Keep only the shadow on the wrapper itself for visual separation */
+.DTFC_LeftWrapper {
+    box-shadow: 3px 0 10px rgba(0,0,0,.07);
+}
+.DTFC_LeftBodyLiner,
+.DTFC_RightBodyLiner {
+    overflow-x: hidden !important;
+}
+
+/* ==========================================================
+   9. ALERT / INFO BAR
+   ========================================================== */
+.ds-info-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ds-warn-bg);
+    border: 1px solid var(--ds-warn-border);
+    border-left: 4px solid var(--ds-warn-accent);
+    border-radius: var(--ds-radius-sm);
+    padding: 8px 14px;
+    font-size: 12.5px;
+    color: var(--ds-warn-text);
+    margin-bottom: 12px;
+}
+.ds-info-bar i { color: var(--ds-warn-icon); }
+.ds-info-bar label { margin: 0; color: var(--ds-red); font-weight: 700; }
+
+/* ==========================================================
+   10. ACTION FOOTER
+   ========================================================== */
+.ds-footer {
+    padding: 12px 20px;
+    background: var(--ds-grad-primary);
+    border-top: 1px solid var(--ds-primary-dk);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.ds-footer .btn {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: var(--ds-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all .18s;
+    border: none;
+}
+.ds-footer .btn-print {
+    background: rgba(255,255,255,.15);
+    border: 1.5px solid rgba(255,255,255,.4);
+    color: #fff;
+}
+.ds-footer .btn-print:hover { background: rgba(255,255,255,.28); color: #fff; }
+.ds-footer .btn-selesai { background: #fff; color: var(--ds-primary); }
+.ds-footer .btn-selesai:hover { background: var(--ds-primary-lt); }
+.ds-footer .btn-batal { background: var(--ds-red); color: #fff; }
+.ds-footer .btn-batal:hover { background: #c0392b; }
+.ds-footer.fixed-bottom { border-radius: 0 !important; }
+
+/* ==========================================================
+   11. UTILITY BUTTONS
+   ========================================================== */
+.ds-btn-action {
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all .18s;
+}
+.ds-btn-green        { background: var(--ds-primary); color: #fff; }
+.ds-btn-green:hover  { background: var(--ds-primary-dk); color: #fff; }
+.ds-btn-blue         { background: var(--ds-primary); color: #fff; }
+.ds-btn-blue:hover   { background: var(--ds-primary-dk); color: #fff; }
+.ds-btn-red          { background: var(--ds-red); color: #fff; }
+.ds-btn-red:hover    { background: #c0392b; color: #fff; }
+.ds-btn-light        { background: #f8f9fa; color: var(--ds-text); border: 1px solid #dee2e6; }
+.ds-btn-light:hover  { background: #e2e6ea; color: var(--ds-text); }
+.ds-btn-yellow       { background: #f0ad4e; color: #fff; }
+.ds-btn-yellow:hover { background: #d9953a; color: #fff; }
+
+/* ==========================================================
+   11b. TABLE ACTION BUTTONS (icon + text, premium)
+   ========================================================== */
+.ds-tbl-btn {
+    height: 30px;
+    padding: 0 12px 0 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    position: relative;
+}
+.ds-tbl-btn i {
+    font-size: 13px;
+    width: 16px;
+    text-align: center;
+}
+.ds-tbl-btn:hover {
+    transform: translateY(-1px);
+}
+.ds-tbl-btn:active {
+    transform: translateY(0);
+}
+
+/* View / Detail — green */
+.ds-tbl-btn-view {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+.ds-tbl-btn-view:hover {
+    background: #2e7d32;
+    color: #fff;
+    border-color: #2e7d32;
+    box-shadow: 0 3px 10px rgba(46,125,50,0.3);
+}
+
+/* Edit — amber */
+.ds-tbl-btn-edit {
+    background: #fff8e1;
+    color: #e65100;
+    border: 1px solid #ffecb3;
+}
+.ds-tbl-btn-edit:hover {
+    background: #e65100;
+    color: #fff;
+    border-color: #e65100;
+    box-shadow: 0 3px 10px rgba(230,81,0,0.3);
+}
+
+/* Delete / Hapus — red */
+.ds-tbl-btn-delete {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+.ds-tbl-btn-delete:hover {
+    background: #c62828;
+    color: #fff;
+    border-color: #c62828;
+    box-shadow: 0 3px 10px rgba(198,40,40,0.3);
+}
+
+/* ==========================================================
+   11c. BUTTON GROUP  (spaced, not touching)
+   ========================================================== */
+.ds-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.ds-btn-group-right  { justify-content: flex-end; }
+.ds-btn-group-center { justify-content: center; }
+.ds-btn-group-between { justify-content: space-between; }
+
+/* Backward compat alias */
+.btn-action-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.btn-action-group-right  { justify-content: flex-end; }
+.btn-action-group-center { justify-content: center; }
+.btn-action-group-between { justify-content: space-between; }
+
+/* ==========================================================
+   12. MODAL  (premium, modern design)
+   ========================================================== */
+
+/* Backdrop overlay — no blur filter to avoid GPU repaint lag */
+#MyModal.show ~ .modal-backdrop,
+.modal-backdrop.show {
+    background-color: rgba(20, 46, 30, 0.45);
+}
+
+/* Override Bootstrap's _adjustDialog which adds padding-right/left inline to
+   the .modal element to compensate for scrollbar width. This inline padding
+   shifts .modal-dialog off-center. !important in a stylesheet beats inline style. */
+#MyModal {
+    padding-right: 0 !important;
+    padding-left:  0 !important;
+}
+
+/* Dialog animation & positioning */
+.ds-modal {
+    border: none;
+    border-radius: 12px;
+    /* overflow: hidden intentionally removed — it clips Chosen/Select2 dropdowns.
+       Border-radius clipping is handled per-section (header/footer) below. */
+    box-shadow:
+        0 8px 32px rgba(45, 106, 79, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ---- Modal animation fix ----
+   Disable ALL transform/transition on .modal-dialog so Bootstrap's
+   internal transitionend listener is never confused.
+   The overall fade is handled by .modal { opacity } which Bootstrap
+   already provides — giving a clean, instant-position fade. */
+.modal.fade .modal-dialog,
+.modal.show .modal-dialog {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* ---- Modal sizing ----
+   Bootstrap 4 .modal-dialog = max-width:500px at @media 576px.
+   We set both min-width AND max-width so the modal always
+   has a proper default size even when content is small.  */
+.modal-dialog {
+    min-width: 600px !important;
+    max-width: 660px !important;
+}
+.modal-dialog.modal-sm {
+    min-width: 320px !important;
+    max-width: 400px !important;
+}
+.modal-dialog.modal-md {
+    min-width: 700px !important;
+    max-width: 740px !important;
+}
+.modal-dialog.modal-lg {
+    min-width: 850px !important;
+    max-width: 950px !important;
+}
+.modal-dialog.modal-xl {
+    min-width: 900px !important;
+    max-width: 95vw  !important;
+}
+@media (min-width: 1200px) {
+    .modal-dialog.modal-xl { max-width: 1200px !important; }
+}
+/* On small screens, fall back to near-full width */
+@media (max-width: 767px) {
+    .modal-dialog,
+    .modal-dialog.modal-sm,
+    .modal-dialog.modal-md,
+    .modal-dialog.modal-lg,
+    .modal-dialog.modal-xl {
+        min-width: auto !important;
+        max-width: calc(100vw - 20px) !important;
+        margin: 10px auto !important;
+    }
+}
+
+/* Vertical positioning — top margin gives breathing room from viewport top edge */
+.modal-dialog {
+    margin: 5vh auto;
+    pointer-events: none; /* clicks pass through to .modal-content */
+}
+.modal-dialog .modal-content {
+    width: 100%;
+    pointer-events: auto;
+}
+
+/* Header */
+.ds-modal .modal-header {
+    background: var(--ds-grad-primary);
+    color: #fff;
+    padding: 14px 20px;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0; /* clips gradient to rounded top corners */
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.ds-modal .modal-header:active {
+    cursor: grabbing;
+}
+.ds-modal .modal-header .modal-title,
+.ds-modal .modal-header #MyModalTitle {
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.ds-modal .modal-header .modal-title i,
+.ds-modal .modal-header #MyModalTitle i {
+    font-size: 15px;
+    opacity: .85;
+}
+
+/* Close button — circle style */
+.ds-modal-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.35);
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background .2s, border-color .2s, transform .2s;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+/* Icon inside close button: pointer-events none so Bootstrap's
+   event.target === event.currentTarget check passes on click */
+.ds-modal-close i,
+.ds-modal-close svg {
+    pointer-events: none;
+}
+.ds-modal-close:hover {
+    background: rgba(255,255,255,.28);
+    border-color: rgba(255,255,255,.6);
+    transform: translateY(-50%) rotate(90deg);
+}
+.ds-modal-close:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255,255,255,.25);
+}
+
+/* Also style old .close inside ds-modal for backward compat */
+.ds-modal .modal-header .close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,.35);
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    text-shadow: none;
+    line-height: 1;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.ds-modal .modal-header .close:hover {
+    background: rgba(255,255,255,.28);
+    border-color: rgba(255,255,255,.6);
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* Body — scroll container untuk form panjang.
+   overflow-y:auto + max-height membuat form bisa discroll tanpa JS.
+   Dropdown Chosen ditangani di global.js dengan position:fixed saat terbuka —
+   TIDAK perlu toggle overflow di sini. */
+.ds-modal .modal-body {
+    padding: 22px 24px;
+    max-height: calc(100vh - 130px);
+    overflow-y: auto;
+}
+.ds-modal .modal-body::-webkit-scrollbar { width: 4px; height: 4px; }
+.ds-modal .modal-body::-webkit-scrollbar-track { background: transparent; }
+.ds-modal .modal-body::-webkit-scrollbar-thumb {
+    background: var(--ds-border);
+    border-radius: 10px;
+}
+.ds-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--ds-primary-md);
+}
+
+/* Global thin scrollbar for ALL scrollable containers inside any modal */
+.modal *::-webkit-scrollbar { width: 4px; height: 4px; }
+.modal *::-webkit-scrollbar-track { background: transparent; }
+.modal *::-webkit-scrollbar-thumb { background: var(--ds-border); border-radius: 10px; }
+.modal *::-webkit-scrollbar-thumb:hover { background: var(--ds-primary-md); }
+/* Firefox — exclude Chosen/Select2 containers so scrollbar-width doesn't interfere */
+.modal *:not(.chosen-container):not(.chosen-drop):not(.chosen-results):not(.select2-container):not(.select2-dropdown) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ds-border) transparent;
+}
+
+/* Ensure Chosen and Select2 dropdowns always render above modal content */
+.modal .chosen-drop {
+    z-index: 9999 !important;
+}
+.modal .select2-dropdown {
+    z-index: 9999 !important;
+}
+.modal .chosen-container {
+    z-index: auto;
+}
+
+/* Footer */
+.ds-modal .modal-footer {
+    padding: 12px 20px;
+    background: var(--ds-bg-subtle);
+    border-top: 1px solid var(--ds-border);
+    border-radius: 0 0 12px 12px; /* clips footer to rounded bottom corners */
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.ds-modal .modal-footer:empty {
+    display: none;
+}
+/* When there is no footer, round the bottom of the modal body */
+.ds-modal .modal-body:last-child {
+    border-radius: 0 0 12px 12px;
+}
+
+/* ---- Modal body content polish ---- */
+
+/* DataTables inside modals — force full-width, fix scrollY wrapper */
+.ds-modal .dataTables_wrapper {
+    width: 100% !important;
+    font-size: 13px;
+}
+.ds-modal .dataTables_scroll {
+    width: 100% !important;
+}
+.ds-modal .dataTables_scrollHead,
+.ds-modal .dataTables_scrollBody {
+    width: 100% !important;
+    overflow-x: hidden !important;
+}
+/* KEY FIX: DataTable JS sets inline px width on scrollHeadInner — must override */
+.ds-modal .dataTables_scrollHeadInner,
+.ds-modal .dataTables_scrollHeadInner table,
+.ds-modal .dataTables_scrollHead table,
+.ds-modal .dataTables_scrollBody table {
+    width: 100% !important;
+}
+.ds-modal table.dataTable,
+.ds-modal .dataTables_wrapper table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+}
+.ds-modal table.dataTable thead th,
+.ds-modal table.dataTable thead td {
+    background: var(--ds-bg) !important;
+    color: var(--ds-text);
+    font-weight: 600;
+    font-size: 12.5px;
+    padding: 10px 14px !important;
+    border-bottom: 2px solid var(--ds-border) !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    white-space: nowrap;
+}
+.ds-modal table.dataTable tbody td {
+    padding: 10px 14px !important;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf2ee !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    font-size: 13px;
+}
+.ds-modal table.dataTable tbody tr:hover td {
+    background: var(--ds-bg-subtle) !important;
+}
+
+/* DataTable scrollY — thin scrollbar */
+.ds-modal .dataTables_scrollBody::-webkit-scrollbar { width: 4px; height: 4px; }
+.ds-modal .dataTables_scrollBody::-webkit-scrollbar-track { background: transparent; }
+.ds-modal .dataTables_scrollBody::-webkit-scrollbar-thumb {
+    background: var(--ds-border);
+    border-radius: 10px;
+}
+.ds-modal .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
+    background: var(--ds-primary-md);
+}
+
+/* DataTables search input */
+.ds-modal .dataTables_filter {
+    margin-bottom: 10px;
+}
+.ds-modal .dataTables_filter input {
+    border: 1.5px solid var(--ds-border) !important;
+    border-radius: var(--ds-radius-sm) !important;
+    padding: 6px 12px !important;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    min-width: 220px;
+}
+.ds-modal .dataTables_filter input:focus {
+    border-color: var(--ds-primary-md) !important;
+    box-shadow: 0 0 0 3px rgba(82,183,136,.15);
+}
+
+/* DataTables info & pagination */
+.ds-modal .dataTables_info {
+    font-size: 12px;
+    color: var(--ds-muted);
+    padding-top: 10px;
+}
+.ds-modal .dataTables_paginate .paginate_button {
+    padding: 4px 10px !important;
+    margin: 0 2px;
+    border-radius: 6px !important;
+    font-size: 12px;
+    border: 1px solid var(--ds-border) !important;
+    background: #fff !important;
+    color: var(--ds-text) !important;
+    transition: all .15s;
+}
+.ds-modal .dataTables_paginate .paginate_button.current,
+.ds-modal .dataTables_paginate .paginate_button:hover {
+    background: var(--ds-primary) !important;
+    color: #fff !important;
+    border-color: var(--ds-primary) !important;
+}
+.ds-modal .dataTables_paginate .paginate_button.disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+/* Buttons inside modal footer */
+.ds-modal .modal-footer .btn {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 22px;
+    border-radius: var(--ds-radius-sm);
+    transition: all .15s;
+}
+
+/* Form elements inside modals */
+.ds-modal .form-control {
+    font-size: 13px;
+    padding: 7px 12px;
+    border-radius: var(--ds-radius-sm);
+}
+.ds-modal .form-control:focus {
+    border-color: var(--ds-primary-md);
+    box-shadow: 0 0 0 3px rgba(82,183,136,.15);
+}
+
+/* Tables inside modal body (non-DataTable) */
+.ds-modal table.table {
+    width: 100% !important;
+    border-collapse: collapse;
+}
+.ds-modal table.table th {
+    background: var(--ds-bg);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--ds-border);
+}
+.ds-modal table.table td {
+    padding: 10px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid #edf2ee;
+    vertical-align: middle;
+}
+
+/* Checkbox rows inside modals */
+.ds-modal table input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--ds-primary);
+    cursor: pointer;
+}
+
+/* ==========================================================
+   13. FORM ELEMENTS  (design-system styled)
+   ========================================================== */
+.ds-form-group {
+    margin-bottom: 12px;
+}
+.ds-form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ds-text);
+    margin-bottom: 4px;
+}
+.ds-form-group .form-control:focus {
+    border-color: var(--ds-primary);
+    box-shadow: 0 0 0 .2rem rgba(45,106,79,.12);
+}
+
+/* ==========================================================
+   13b. PEMERIKSAAN PAGE — compact mode
+   ========================================================== */
+.pem-compact .form-control {
+    font-size: 12px;
+    padding: 5px 10px;
+    height: auto;
+}
+.pem-compact select.form-control {
+    padding: 4px 10px;
+}
+.pem-compact .ds-form-group {
+    margin-bottom: 8px;
+}
+.pem-compact .ds-form-group label {
+    font-size: 10.5px;
+    margin-bottom: 2px;
+    font-weight: 600;
+}
+.pem-compact .ds-card-bd {
+    padding: 12px 14px;
+}
+.pem-compact .ds-card-hd {
+    padding: 8px 14px;
+}
+.pem-compact .ds-card-hd span {
+    font-size: 12px;
+}
+.pem-compact .ds-table thead tr th {
+    font-size: 10.5px;
+    padding: 6px 8px;
+}
+.pem-compact .ds-table tbody tr td {
+    font-size: 12px;
+    padding: 5px 8px;
+}
+.pem-compact .ds-btn-action {
+    font-size: 11px;
+    padding: 5px 12px;
+}
+.pem-compact .ds-act-btn {
+    font-size: 11px;
+    padding: 3px 6px;
+}
+.pem-compact .ds-act-btn i {
+    font-size: 11px;
+}
+.pem-compact textarea.form-control {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+.pem-compact strong {
+    font-size: 12px;
+}
+.pem-compact .text-muted,
+.pem-compact .ds-detail-label {
+    font-size: 11px;
+}
+.pem-compact .ds-detail-value {
+    font-size: 12px;
+}
+/* Prevent overflow:hidden on ds-card children from clipping Chosen dropdowns */
+.pem-compact .ds-card > *:last-child { overflow: visible !important; }
+.pem-compact .chosen-container { z-index: 1000 !important; }
+.pem-compact .chosen-drop { z-index: 1000 !important; }
+
+.pem-compact .chosen-container .chosen-single {
+    font-size: 12px;
+    padding: 3px 10px;
+    height: auto;
+    line-height: 1.6;
+}
+/* Anamnesa summary inside pem-compact */
+.pem-compact .ds-card-bd > div[style*="background:#f0f7ff"] {
+    font-size: 11px !important;
+    padding: 8px 10px !important;
+}
+.pem-compact .ds-card-bd > div[style*="background:#f0f7ff"] div[style*="font-size:11px"] {
+    font-size: 10px !important;
+}
+.pem-compact .ds-card-bd > div[style*="background:#f0f7ff"] div[style*="font-size:12px"] {
+    font-size: 11px !important;
+}
+/* Override inline styles on the profile table */
+.pem-compact table[style*="border-collapse"] td {
+    font-size: 11px !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+}
+.pem-compact table[style*="border-collapse"] td[style*="font-weight:600"] {
+    font-size: 12px !important;
+}
+.pem-compact table[style*="border-collapse"] td[style*="width:110px"] {
+    width: 90px !important;
+    font-size: 10.5px !important;
+}
+
+/* ==========================================================
+   14. POPUP MENU  (context / right-click style)
+   ========================================================== */
+.ds-popup-menu {
+    position: absolute;
+    z-index: 9999;
+    min-width: 200px;
+    max-width: 260px;
+    height: auto;
+    color: #333;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    padding: 6px 0;
+    display: none;
+}
+.ds-popup-menu:before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 24px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-left: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    transform: rotate(45deg);
+}
+.ds-popup-menu .btn {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    text-align: left;
+    padding: 10px 14px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #374151;
+}
+.ds-popup-menu .btn + .btn {
+    border-top: 1px solid #f1f5f9;
+}
+.ds-popup-menu .btn i {
+    font-size: 14px;
+    color: #9ca3af;
+}
+.ds-popup-menu .btn:hover {
+    background-color: #f3f4f6;
+    color: var(--ds-primary);
+}
+.ds-popup-menu .btn:hover i {
+    color: var(--ds-primary);
+}
+
+/* ==========================================================
+   BACKWARD COMPATIBILITY ALIASES
+   Maps old pem-* class names to new ds-* styles so existing
+   pages continue to work without immediate HTML changes.
+   ========================================================== */
+/* .pem-wrap        { background: transparent; padding: 0 0 20px; overflow-x: hidden; max-width: 100%; } */
+.pem-wrap        { background: var(--ds-bg); padding: 12px 0 24px; overflow-x: hidden; max-width: 100%; }
+.pem-wrap > .row { margin-left: 0; margin-right: 0; }
+
+.pem-breadcrumb                                  { background: #fff; border: 1px solid var(--ds-border); border-radius: var(--ds-radius); box-shadow: var(--ds-card-sh); padding: 11px 18px; margin: 0 15px 16px; }
+.pem-breadcrumb .breadcrumb                      { margin: 0; padding: 0; background: transparent !important; background-color: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; font-size: 13.5px; align-items: center; }
+.pem-breadcrumb .breadcrumb-item + .breadcrumb-item::before { content: "/"; color: var(--ds-muted); padding: 0 8px; font-weight: 400; }
+.pem-breadcrumb .breadcrumb-item a               { color: var(--ds-primary); text-decoration: none; font-weight: 500; }
+.pem-breadcrumb .breadcrumb-item a:hover          { text-decoration: underline; }
+.pem-breadcrumb .breadcrumb-item.active           { color: var(--ds-text); font-weight: 600; }
+
+.pem-card              { background: #fff; border: 1px solid var(--ds-border); border-radius: var(--ds-radius); box-shadow: var(--ds-card-sh); margin-bottom: 16px; position: relative; }
+.pem-card > *:first-child { border-radius: var(--ds-radius) var(--ds-radius) 0 0; overflow: hidden; }
+.pem-card > *:last-child  { border-radius: 0 0 var(--ds-radius) var(--ds-radius); overflow: hidden; }
+.pem-card > *:only-child  { border-radius: var(--ds-radius); overflow: hidden; }
+/* Tab content should not clip Chosen/Select2 dropdowns */
+.pem-card > .tab-content,
+.pem-card > .nav + .tab-content { overflow: visible !important; }
+.pem-card .tab-content { overflow: visible !important; }
+.pem-card .tab-pane { overflow: visible !important; }
+.pem-card-hd           { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--ds-grad-primary); border-bottom: 1px solid var(--ds-border); }
+.pem-card-hd .hd-icon  { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+.pem-card-hd span      { font-weight: 700; font-size: 13px; color: #fff; }
+.pem-card-bd           { padding: 14px 16px; overflow: visible !important; word-break: break-word; overflow-wrap: break-word; }
+.pem-card-ft           { padding: 10px 16px; background: var(--ds-bg-subtle); border-top: 1px solid var(--ds-border); text-align: center; }
+
+.ptn-table             { width: 100%; font-size: 13px; }
+.ptn-table tr td       { padding: 5px 4px; vertical-align: top; color: var(--ds-text); }
+.ptn-table tr td:first-child  { color: var(--ds-muted); white-space: nowrap; width: 110px; }
+.ptn-table tr td:nth-child(2) { width: 8px; color: var(--ds-muted); }
+.ptn-table tr td:last-child   { font-weight: 500; }
+.ptn-table tr:not(:last-child) td { border-bottom: 1px solid #f0f2f5; }
+
+.vitals-grid           { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.vital-item            { background: var(--ds-bg-subtle); border: 1px solid var(--ds-border); border-radius: var(--ds-radius-sm); padding: 7px 10px; font-size: 12px; }
+.vital-item .v-label   { color: var(--ds-muted); font-size: 11px; margin-bottom: 2px; }
+.vital-item .v-value   { font-weight: 700; color: var(--ds-text); font-size: 13px; }
+.vital-item .v-unit    { font-size: 10px; color: var(--ds-muted); }
+.vital-note            { background: var(--ds-warn-bg); border: 1px solid var(--ds-warn-border); border-radius: var(--ds-radius-sm); padding: 8px 10px; font-size: 12.5px; color: var(--ds-warn-text); margin-top: 4px; }
+.vital-note .v-note-label { font-weight: 700; margin-bottom: 2px; color: var(--ds-warn-label); }
+
+.pem-tabs.nav-tabs     { border-bottom: 2px solid var(--ds-border); flex-wrap: wrap; gap: 2px; padding-bottom: 0; }
+.pem-tabs.nav-tabs .nav-item .nav-link        { border: 1px solid transparent; border-bottom: none; border-radius: var(--ds-radius-sm) var(--ds-radius-sm) 0 0; font-size: 12.5px; font-weight: 600; color: var(--ds-muted); padding: 7px 13px; transition: all .18s; white-space: nowrap; }
+.pem-tabs.nav-tabs .nav-item .nav-link:hover   { color: var(--ds-primary); background: var(--ds-primary-lt); }
+.pem-tabs.nav-tabs .nav-item .nav-link.active  { color: var(--ds-primary); background: #fff; border-color: var(--ds-border); border-bottom-color: #fff; margin-bottom: -2px; }
+.pem-tabs.nav-tabs .nav-item .nav-link i       { margin-right: 4px; font-size: 11px; }
+.pem-tab-content       { padding: 16px 4px 4px; }
+
+.pem-table                          { width: 100%; font-size: 13px; border-collapse: collapse; margin-top: 8px; }
+.pem-table thead tr th              { background: var(--ds-grad-header); color: var(--ds-primary-dk); font-weight: 700; font-size: 12px; padding: 9px 10px; border: 1px solid var(--ds-border); white-space: nowrap; }
+.pem-table tbody tr td              { padding: 8px 10px; border: 1px solid #dceee4; font-size: 13px; vertical-align: middle; color: var(--ds-text); }
+.pem-table tbody tr:nth-child(even) td { background: var(--ds-bg-subtle); }
+.pem-table tbody tr:hover td        { background: var(--ds-bg-hover); }
+
+.wide-table-wrap       { overflow-x: auto; margin-top: 12px; }
+.wide-table-wrap table { font-size: 12.5px; border-collapse: collapse; }
+.wide-table-wrap th    { background: var(--ds-grad-header); color: var(--ds-primary-dk); font-weight: 700; padding: 9px 10px; border: 1px solid var(--ds-border); text-align: center; white-space: nowrap; }
+.wide-table-wrap td    { padding: 7px 10px; border: 1px solid #dceee4; }
+
+.tab-info-bar          { display: flex; align-items: center; gap: 8px; background: var(--ds-warn-bg); border: 1px solid var(--ds-warn-border); border-left: 4px solid var(--ds-warn-accent); border-radius: var(--ds-radius-sm); padding: 8px 14px; font-size: 12.5px; color: var(--ds-warn-text); margin-top: 12px; margin-bottom: 12px; }
+.tab-info-bar i        { color: var(--ds-warn-icon); }
+.tab-info-bar label    { margin: 0; color: var(--ds-red); font-weight: 700; }
+
+.pem-footer            { padding: 12px 20px; background: var(--ds-grad-primary); border-top: 1px solid var(--ds-primary-dk); display: flex; justify-content: flex-end; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pem-footer .btn       { font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: var(--ds-radius-sm); display: inline-flex; align-items: center; gap: 6px; transition: all .18s; border: none; }
+.pem-footer .btn-print { background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.4); color: #fff; }
+.pem-footer .btn-print:hover  { background: rgba(255,255,255,.28); color: #fff; }
+.pem-footer .btn-selesai       { background: #fff; color: var(--ds-primary); }
+.pem-footer .btn-selesai:hover { background: var(--ds-primary-lt); }
+.pem-footer .btn-batal         { background: var(--ds-red); color: #fff; }
+.pem-footer .btn-batal:hover   { background: #c0392b; }
+.pem-footer.fixed-bottom       { border-radius: 0 !important; }
+
+.btn-card-action       { font-size: 12.5px; font-weight: 600; padding: 6px 14px; border-radius: 6px; display: inline-flex; align-items: center; gap: 5px; border: none; cursor: pointer; transition: all .18s; }
+.btn-ca-green          { background: var(--ds-primary); color: #fff; }
+.btn-ca-green:hover    { background: var(--ds-primary-dk); color: #fff; }
+.btn-ca-blue           { background: var(--ds-primary); color: #fff; }
+.btn-ca-blue:hover     { background: var(--ds-primary-dk); color: #fff; }
+.btn-ca-red            { background: var(--ds-red); color: #fff; }
+.btn-ca-red:hover      { background: #c0392b; color: #fff; }
+.btn-ca-light          { background: #f8f9fa; color: var(--ds-text); border: 1px solid #dee2e6; }
+.btn-ca-light:hover    { background: #e2e6ea; color: var(--ds-text); }
+.btn-ca-yellow         { background: #f0ad4e; color: #fff; }
+.btn-ca-yellow:hover   { background: #d9953a; color: #fff; }
+
+/* ══════════════════════════════════════════════════════════
+   Filter Bar  (.rmd-filter-bar)
+   Status Tabs (.rmd-tabs)
+   Table Wrap  (.rmd-table-wrap)
+   ═════════════════════════════════════════════════════════ */
+.rmd-filter-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: flex-start;
+	padding: 16px 18px;
+	background: linear-gradient(135deg, #f4faf6, #edf7f1);
+	border-bottom: 1px solid #dceee4;
+}
+.rmd-filter-item {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 0;
+}
+.rmd-filter-item label {
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .5px;
+	color: #6b8f71;
+	margin: 0;
+}
+.rmd-filter-item .form-control,
+.rmd-filter-item select {
+	font-size: 13px;
+	border: 1px solid #b7d5c4;
+	border-radius: 6px;
+	padding: 6px 10px;
+	height: 34px;
+	color: #1c2e22;
+	background: #fff;
+	transition: border-color .2s, box-shadow .2s;
+}
+.rmd-filter-item .form-control:focus,
+.rmd-filter-item select:focus {
+	border-color: #52b788;
+	box-shadow: 0 0 0 3px rgba(82,183,136,.15);
+	outline: none;
+}
+.rmd-filter-item.grow   { flex: 1 1 160px; }
+.rmd-filter-item.narrow { flex: 0 0 130px; }
+.rmd-filter-item.action { justify-content: flex-end; align-self: flex-end; }
+
+.rmd-btn-cari {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: linear-gradient(135deg, #2d6a4f, #1b4332);
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 0 18px;
+	height: 34px;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: opacity .2s;
+	white-space: nowrap;
+}
+.rmd-btn-cari:hover { opacity: .88; color: #fff; }
+
+/* Ensure Chosen dropdowns in filter bar render above content below */
+.rmd-filter-bar .chosen-container {
+	z-index: auto;
+	position: relative;
+}
+.rmd-filter-bar .chosen-drop {
+	z-index: 1070;
+	position: absolute;
+}
+.rmd-filter-bar.chosen-with-drop .chosen-drop {
+	z-index: 1070;
+}
+
+.rmd-tabs {
+	display: flex;
+	gap: 4px;
+	padding: 14px 18px 0;
+	border-bottom: 2px solid #dceee4;
+	background: #fff;
+}
+.rmd-tabs .nav-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 18px;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: #6b8f71;
+	border: 1px solid transparent;
+	border-bottom: none;
+	border-radius: 6px 6px 0 0;
+	background: #f4faf6;
+	transition: background .15s, color .15s;
+	cursor: pointer;
+	position: relative;
+	bottom: -2px;
+}
+.rmd-tabs .nav-link:hover  { background: #dceee4; color: #1b4332; }
+.rmd-tabs .nav-link.active {
+	background: #fff;
+	color: #1b4332;
+	border-color: #dceee4 #dceee4 #fff;
+	border-bottom-color: #fff;
+}
+.rmd-tabs .tab-badge         { background: #52b788; color: #fff; font-size: 10px; font-weight: 700; border-radius: 10px; padding: 1px 6px; }
+.rmd-tabs .tab-badge.pending { background: #f0ad4e; }
+.rmd-tabs .tab-badge.cancel  { background: #e74c3c; }
+
+.rmd-table-wrap { padding: 16px 18px; }
+
+/* =====================================================
+   MRD Status Table (.mrd-status-wrap)
+   ===================================================== */
+.mrd-status-title {
+	font-size: 14px;
+	font-weight: 700;
+	color: #1b4332;
+	padding: 14px 18px 10px;
+	border-bottom: 1px solid #e8f0ec;
+	margin-bottom: 0;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+.mrd-status-title i {
+	width: 26px; height: 26px;
+	background: linear-gradient(135deg, #d8f3dc, #b7d5c4);
+	color: #1b4332;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 11px;
+	flex-shrink: 0;
+}
+.mrd-status-wrap {
+	border: 1px solid #dceee4;
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 12px;
+}
+.mrd-status-wrap .mrd-tbl {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+}
+.mrd-tbl thead tr th {
+	background: #f0f7f3;
+	color: #2d6a4f;
+	font-size: 11px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .4px;
+	padding: 10px 14px;
+	border-bottom: 1px solid #dceee4;
+	border-right: 1px solid #e8f0ec;
+	white-space: nowrap;
+}
+.mrd-tbl thead tr th:last-child { border-right: none; }
+.mrd-tbl tbody tr td {
+	padding: 12px 14px;
+	border-bottom: 1px solid #f0f7f3;
+	border-right: 1px solid #f0f7f3;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 12px;
+	color: #495057;
+}
+.mrd-tbl tbody tr td:last-child { border-right: none; }
+.mrd-tbl tbody tr:last-child td { border-bottom: none; }
+.mrd-tbl tbody tr:hover td { background: #f9fdfb; }
+/* Badge overrides inside mrd-tbl */
+.mrd-tbl .badge-pill {
+	font-size: 11px;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-weight: 600;
+	letter-spacing: .2px;
+}
+.mrd-tbl .badge-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+.mrd-tbl .badge-primary { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+.mrd-tbl .badge-warning { background: #fff8e1; color: #e65100; border: 1px solid #ffe082; }
+.mrd-tbl .badge-danger  { background: #fce4ec; color: #c62828; border: 1px solid #f8bbd0; }
+
+/* ==========================================================
+   15. DASHBOARD — Modern Professional Layout
+   ========================================================== */
+
+/* Wrapper — memberi padding kiri/kanan agar tidak rapat ke sisi */
+.ds-dashboard {
+    padding: 20px 24px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Page Header --- */
+.ds-dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+.ds-dash-header-left {}
+.ds-dash-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--ds-text);
+    margin: 0 0 4px;
+    line-height: 1.2;
+}
+.ds-dash-subtitle {
+    font-size: 13px;
+    color: var(--ds-muted);
+    margin: 0;
+}
+.ds-dash-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ds-bg);
+    border: 1px solid var(--ds-border);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ds-primary);
+    white-space: nowrap;
+}
+
+/* --- Stat Card Grid --- */
+.ds-dash-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.ds-dash-card {
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    box-shadow: var(--ds-card-sh);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: box-shadow .2s, transform .2s;
+}
+.ds-dash-card:hover {
+    box-shadow: 0 6px 20px rgba(45,106,79,.13);
+    transform: translateY(-3px);
+}
+
+.ds-dash-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+.ds-icon-green  { background: #e8f5e9; color: #2e7d32; }
+.ds-icon-blue   { background: #e3f2fd; color: #1565c0; }
+.ds-icon-orange { background: #fff3e0; color: #e65100; }
+.ds-icon-red    { background: #fce4ec; color: #c62828; }
+
+.ds-dash-card-body {
+    min-width: 0;
+}
+.ds-dash-card-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ds-text);
+    line-height: 1.1;
+}
+.ds-dash-card-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ds-text);
+    margin-top: 2px;
+}
+.ds-dash-card-desc {
+    font-size: 11.5px;
+    color: var(--ds-muted);
+    margin-top: 1px;
+}
+
+/* --- Section Title --- */
+.ds-dash-section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ds-text);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ds-border);
+}
+
+/* --- Quick Link Grid --- */
+.ds-dash-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 0;
+}
+.ds-dash-link-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    box-shadow: var(--ds-card-sh);
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--ds-text);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all .2s;
+}
+.ds-dash-link-card:hover {
+    border-color: var(--ds-primary-md);
+    box-shadow: 0 4px 14px rgba(45,106,79,.1);
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: var(--ds-primary);
+}
+.ds-dash-link-card i {
+    font-size: 22px;
+    color: var(--ds-primary);
+    width: 36px;
+    text-align: center;
+}
+
+/* --- Responsive --- */
+@media (max-width: 991px) {
+    .ds-dash-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .ds-dash-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .ds-dashboard {
+        padding: 16px 16px 24px;
+    }
+}
+@media (max-width: 576px) {
+    .ds-dash-grid {
+        grid-template-columns: 1fr;
+    }
+    .ds-dash-grid-3 {
+        grid-template-columns: 1fr;
+    }
+    .ds-dash-title {
+        font-size: 20px;
+    }
+    .ds-dash-card {
+        padding: 16px;
+    }
+    .ds-dash-card-value {
+        font-size: 22px;
+    }
+    .ds-dash-card-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+    .ds-dash-header {
+        flex-direction: column;
+    }
+    .ds-dashboard {
+        padding: 12px 12px 20px;
+    }
+}
+
+/* ==========================================================
+   16. MOBILE RESPONSIVE OVERRIDES
+       Ensures all ds-* / pem-* components are stable
+       on small screens (mobile-first adjustments)
+   ========================================================== */
+
+@media (max-width: 767px) {
+
+    /* ---- Page wrap ---- */
+    .ds-page-wrap,
+    .pem-wrap {
+        padding: 8px 12px 16px;
+    }
+
+    /* ---- Page header ---- */
+    .ds-page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 12px 14px;
+    }
+    .ds-page-header-end {
+        align-self: stretch;
+    }
+    .ds-btn-header {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ---- Breadcrumb ---- */
+    .ds-breadcrumb,
+    .pem-breadcrumb {
+        margin: 0 8px 12px;
+        padding: 9px 12px;
+    }
+
+    /* ---- Card ---- */
+    .pem-card-bd {
+        padding: 12px 12px;
+    }
+    .pem-card-hd {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+    }
+
+    /* ---- Header panel (gradient) ---- */
+    .pem-card-bd.d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+    .pem-card-bd.d-flex .btn,
+    .pem-card-bd.d-flex .ds-btn-action {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ---- Info table (ptn-table) ---- */
+    .ptn-table tr td:first-child {
+        width: 80px;
+        font-size: 12px;
+    }
+    .ptn-table tr td:last-child {
+        font-size: 12px;
+    }
+
+    /* ---- Vitals grid ---- */
+    .ds-vitals-grid,
+    .vitals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ---- Tabs ---- */
+    .ds-tabs.nav-tabs,
+    .pem-tabs.nav-tabs {
+        gap: 0;
+    }
+    .ds-tabs.nav-tabs .nav-item .nav-link,
+    .pem-tabs.nav-tabs .nav-item .nav-link {
+        padding: 6px 10px;
+        font-size: 11.5px;
+    }
+
+    /* ---- Filter bar ---- */
+    .rmd-filter-bar {
+        padding: 12px 12px;
+        gap: 8px;
+    }
+    .rmd-filter-item.grow {
+        flex: 1 1 100%;
+    }
+    .rmd-filter-item.narrow {
+        flex: 1 1 45%;
+    }
+    .rmd-filter-item.action {
+        flex: 1 1 100%;
+    }
+    .rmd-btn-cari {
+        width: 100%;
+        justify-content: center;
+        padding: 0 12px;
+        height: 38px;
+    }
+
+    /* ---- Tabs (rmd) ---- */
+    .rmd-tabs {
+        padding: 10px 12px 0;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    .rmd-tabs .nav-link {
+        padding: 6px 12px;
+        font-size: 11.5px;
+        white-space: nowrap;
+    }
+
+    /* ---- Table wrap ---- */
+    .rmd-table-wrap {
+        padding: 10px 12px;
+    }
+    .ds-wide-table-wrap,
+    .wide-table-wrap {
+        margin-top: 8px;
+    }
+
+    /* ---- Action buttons in tables ---- */
+    .ds-btn-group {
+        gap: 4px;
+    }
+    .ds-btn-action {
+        padding: 5px 10px !important;
+        font-size: 11.5px !important;
+    }
+
+    /* ---- Form rows inside modals on mobile ---- */
+    .ds-modal .modal-body {
+        padding: 16px 14px;
+    }
+    .ds-modal .modal-body .row {
+        flex-direction: column;
+    }
+    .ds-modal .modal-body .row > [class*="col-"] {
+        padding: 0 !important;
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    /* ---- Modal footer ---- */
+    .ds-modal .modal-footer {
+        flex-direction: column-reverse;
+        gap: 6px;
+    }
+    .ds-modal .modal-footer .btn,
+    .ds-modal .modal-footer .ds-btn-action {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ---- MRD status tables ---- */
+    .mrd-status-wrap {
+        overflow-x: auto;
+    }
+    .mrd-tbl {
+        font-size: 11px;
+    }
+    .mrd-tbl thead tr th,
+    .mrd-tbl tbody tr td {
+        padding: 8px 10px;
+        white-space: nowrap;
+    }
+
+    /* ---- Pemeriksaan Page Tabs ---- */
+    .pem-tabs {
+        border-bottom: 1px solid var(--ds-border) !important;
+        padding: 0 10px;
+        background: #fff;
+    }
+    .pem-tabs .nav-item {
+        margin-bottom: -1px;
+    }
+    .pem-tabs .nav-link {
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 12px 18px;
+        font-weight: 600;
+        font-size: 13px;
+        color: #6c757d;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    .pem-tabs .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: transparent;
+        transition: all 0.2s ease;
+    }
+    .pem-tabs .nav-link.active {
+        color: var(--ds-primary) !important;
+        background: transparent !important;
+    }
+    .pem-tabs .nav-link.active::after {
+        background: var(--ds-primary);
+    }
+    .pem-tabs .nav-link:hover {
+        border-color: transparent;
+        background: rgba(0,0,0,0.02);
+    }
+
+    /* ---- DataTable responsive tweaks ---- */
+    table.dataTable {
+        font-size: 12px !important;
+    }
+    table.dataTable thead th,
+    table.dataTable tbody td {
+        padding: 6px 8px !important;
+    }
+    div.dataTables_wrapper div.dataTables_filter input {
+        min-width: 140px;
+        width: 100%;
+    }
+}
+
+/* Very small screens (<400px) */
+@media (max-width: 400px) {
+    .ds-modal .modal-body {
+        padding: 12px 10px;
+    }
+    .pem-card-bd {
+        padding: 8px 8px;
+    }
+    .ptn-table {
+        font-size: 12px;
+    }
+    .ptn-table tr td {
+        padding: 4px 2px;
+    }
+    .ds-form-group label {
+        font-size: 11px;
+    }
+    .ds-form-group .form-control {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+/* ==========================================================
+   17. ICON-ONLY TABLE ACTION BUTTONS  (.ds-act-group)
+       Compact, icon-only, no text, 4 buttons in a row
+   ========================================================== */
+.ds-act-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f4faf6;
+    border: 1px solid #dceee4;
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.ds-act-btn {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    position: relative;
+    text-decoration: none;
+}
+.ds-act-btn i {
+    font-size: 13px;
+    line-height: 1;
+}
+.ds-act-btn:hover {
+    transform: translateY(-1px);
+}
+.ds-act-btn:active {
+    transform: translateY(0);
+}
+
+/* View — green */
+.ds-act-view {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+.ds-act-view:hover {
+    background: #2e7d32;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(46,125,50,0.3);
+}
+
+/* Edit — amber */
+.ds-act-edit {
+    background: #fff8e1;
+    color: #e65100;
+}
+.ds-act-edit:hover {
+    background: #e65100;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(230,81,0,0.3);
+}
+
+/* Print — blue */
+.ds-act-print {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+.ds-act-print:hover {
+    background: #1565c0;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(21,101,192,0.3);
+}
+
+/* Delete — red */
+.ds-act-delete {
+    background: #ffebee;
+    color: #c62828;
+}
+.ds-act-delete:hover {
+    background: #c62828;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(198,40,40,0.3);
+}
+
+/* Red action button (Batal) */
+.ds-btn-red {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #dc3545;
+    color: #fff;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.ds-btn-red:hover {
+    background: #c82333;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(220,53,69,0.3);
+}
+
+/* Daftar button — teal */
+.ds-btn-daftar {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #e0f2f1;
+    color: #00695c;
+    white-space: nowrap;
+}
+.ds-btn-daftar:hover {
+    background: #00695c;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,105,92,0.3);
+}
+.ds-btn-daftar i {
+    font-size: 13px;
+}
+
+/* Anamnesa button — add (green) */
+.ds-btn-anm {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.ds-btn-anm-add {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+.ds-btn-anm-add:hover {
+    background: #2e7d32;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(46,125,50,0.3);
+}
+.ds-btn-anm-edit {
+    background: #fff3e0;
+    color: #e65100;
+}
+.ds-btn-anm-edit:hover {
+    background: #e65100;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(230,81,0,0.3);
+}
+.ds-btn-anm i {
+    font-size: 13px;
+}
+.ds-btn-anm-cancel {
+    background: #ffebee;
+    color: #c62828;
+}
+.ds-btn-anm-cancel:hover {
+    background: #c62828;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(198,40,40,0.3);
+}
+
+/* ==========================================================
+   18. BADGE SYSTEM  (.ds-badge)
+       Untuk label status / gender di detail modal
+   ========================================================== */
+.ds-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+.ds-badge-blue {
+    background: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+}
+.ds-badge-pink {
+    background: #fce4ec;
+    color: #c62828;
+    border: 1px solid #f8bbd0;
+}
+.ds-badge-green {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+.ds-badge-amber {
+    background: #fff8e1;
+    color: #e65100;
+    border: 1px solid #ffe082;
+}
+
+/* ==========================================================
+   19. DETAIL MODAL  (.ds-detail-*)
+       Professional, modern, multi-card layout for detail info
+   ========================================================== */
+.ds-detail-wrap {
+    padding: 0;
+}
+
+/* Two-column row */
+.ds-detail-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Detail card */
+.ds-detail-card {
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    overflow: hidden;
+}
+.ds-detail-card-hd {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #f0f7f3, #e4f0e9);
+    border-bottom: 1px solid var(--ds-border);
+}
+.ds-detail-card-hd .ds-detail-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--ds-grad-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+.ds-detail-card-hd span {
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--ds-primary-dk);
+}
+.ds-detail-card-bd {
+    padding: 14px 14px;
+}
+
+/* 2-column grid for fields inside detail card */
+.ds-detail-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+}
+
+/* Individual field */
+.ds-detail-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.ds-detail-field-full {
+    grid-column: 1 / -1;
+}
+.ds-detail-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ds-muted);
+}
+.ds-detail-value {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ds-text);
+    line-height: 1.5;
+}
+.ds-detail-code {
+    font-family: "Courier New", monospace;
+    font-size: 13px;
+    background: #f5f7fa;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.ds-detail-sep {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--ds-muted);
+    text-transform: lowercase;
+    margin: 0 4px;
+}
+.ds-detail-diagnosa {
+    background: var(--ds-bg-subtle);
+    padding: 8px 10px;
+    border-radius: var(--ds-radius-sm);
+    border-left: 3px solid var(--ds-primary-md);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Address items (inline) */
+.ds-addr-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f5f7fa;
+    border: 1px solid #e8ecf0;
+    border-radius: 5px;
+    padding: 3px 8px;
+    margin: 2px 3px 2px 0;
+    font-size: 12px;
+}
+.ds-addr-label {
+    font-weight: 700;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--ds-muted);
+    margin-right: 2px;
+}
+
+/* Audit trail — condensed timeline style */
+.ds-detail-audit {
+    background: var(--ds-bg-subtle);
+    border: 1px solid var(--ds-border);
+    border-radius: var(--ds-radius);
+    overflow: hidden;
+}
+.ds-detail-audit-hd {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ds-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid var(--ds-border);
+    background: #fff;
+}
+.ds-detail-audit-hd i {
+    font-size: 12px;
+}
+.ds-detail-audit-bd {
+    padding: 10px 14px;
+}
+.ds-detail-audit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 12.5px;
+    color: var(--ds-text);
+}
+.ds-detail-audit-item + .ds-detail-audit-item {
+    margin-top: 4px;
+    padding-top: 8px;
+    border-top: 1px dashed #dceee4;
+}
+.ds-audit-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--ds-primary-lt);
+    color: var(--ds-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+.ds-audit-upd {
+    background: #fff8e1;
+    color: #e65100;
+}
+.ds-audit-text {
+    flex: 1;
+}
+.ds-audit-text strong {
+    color: var(--ds-primary-dk);
+    font-weight: 700;
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 767px) {
+    .ds-detail-row {
+        grid-template-columns: 1fr;
+    }
+    .ds-detail-grid-2col {
+        grid-template-columns: 1fr;
+    }
+    .ds-act-group {
+        padding: 2px;
+        gap: 2px;
+    }
+    .ds-act-btn {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Table card body: remove extra wrapper margin when inside card */
+.ds-card-bd .ds-wide-table-wrap {
+    margin: 0;
+}
