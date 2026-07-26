@@ -11,15 +11,15 @@
             <div class="ds-detail-card-bd">
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">Nama Pengantar</span>
+                        <span class="ds-detail-label">Nama Diantar</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name) ?></span>
                     </div>
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">NIK</span>
+                        <span class="ds-detail-label">NIK Diantar</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->nik) ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">Perusahaan</span>
+                        <span class="ds-detail-label">Perusahaan Diantar</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->company_name) ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
@@ -63,25 +63,25 @@
         </div>
     </div>
 
-    <!-- Row 2: Pasien Diantar -->
+    <!-- Row 2: Pengantar -->
     <div class="ds-detail-card" style="margin-top: 12px;">
         <div class="ds-detail-card-hd">
             <span class="ds-detail-icon"><i class="fa fa-user-md"></i></span>
-            <span>Data Pasien Yang Diantar</span>
+            <span>Data Pengantar</span>
         </div>
         <div class="ds-detail-card-bd">
             <div class="ds-detail-grid-2col">
                 <div class="ds-detail-field">
-                    <span class="ds-detail-label">Nama Pasien</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->patient_diantar) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-label">Pengantar</span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->pengantar) ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
-                    <span class="ds-detail-label">Umur</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->age_diantar) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-label">NIK Pengantar</span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->nik_pengantar) ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
-                <div class="ds-detail-field ds-detail-field-full">
-                    <span class="ds-detail-label">Alamat</span>
-                    <span class="ds-detail-value"><?= nl2br(htmlspecialchars($row->alamat_diantar)) ?: '<span class="text-muted">-</span>' ?></span>
+                <div class="ds-detail-field">
+                    <span class="ds-detail-label">Perusahaan Pengantar</span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->company_pengantar) ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
                     <span class="ds-detail-label">Dokter Pemeriksa</span>

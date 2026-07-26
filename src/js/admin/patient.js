@@ -157,15 +157,11 @@ $(document).ready(function () {
             patient_gender:      $('#patient_gender').val(),
             patient_nik:         $('#patient_nik').val(),
             patient_company:     $('#patient_company').val(),
-            patient_department:  $('#patient_department').val(),
+            patient_job:  $('#patient_job').val(),
             patient_ktp:         $('#patient_ktp').val(),
             patient_bod:         $('#patient_bod').val(),
             patient_phone:       $('#patient_phone').val(),
             patient_address:     $('#patient_address').val(),
-            patient_city_name:   $("#select_kecamatan option:selected").text(),
-            patient_district_name: $("#select_kelurahan option:selected").text(),
-            id_kecamatan:        $("#select_kecamatan").val(),
-            id_kelurahan:        $("#select_kelurahan").val(),
         };
         if($('#patient_name').val()==''){
 			notifNo("Silahkan isi nama pasien");
@@ -181,14 +177,6 @@ $(document).ready(function () {
 		}
         if($('#patient_phone').val()==''){
 			notifNo("Silahkan isi nomor telepon");
-            return false;
-		}
-        if($('#select_kecamatan').val()==''){
-			notifNo("Silahkan pilih kecamatan");
-            return false;
-		}
-        if($('#select_kelurahan').val()==''){
-			notifNo("Silahkan pilih kelurahan");
             return false;
 		}
         if($('#patient_address').val()==''){
@@ -245,15 +233,11 @@ $(document).ready(function () {
             patient_gender:      $('#edit_patient_gender').val(),
             patient_nik:         $('#edit_patient_nik').val(),
             patient_company:     $('#edit_patient_company').val(),
-            patient_department:  $('#edit_patient_department').val(),
+            patient_job:  $('#edit_patient_job').val(),
             patient_ktp:         $('#edit_patient_ktp').val(),
             patient_bod:         $('#edit_patient_bod').val(),
             patient_phone:       $('#edit_patient_phone').val(),
             patient_address:     $('#edit_patient_address').val(),
-            patient_city_name:   $("#edit_kecamatan option:selected").text(),
-            patient_district_name: $("#edit_kelurahan option:selected").text(),
-            id_kecamatan:        $("#edit_kecamatan").val(),
-            id_kelurahan:        $("#edit_kelurahan").val(),
         };
         if($('#edit_patient_name').val()==''){
 			notifNo("Silahkan isi nama pasien");
@@ -269,14 +253,6 @@ $(document).ready(function () {
 		}
         if($('#edit_patient_phone').val()==''){
 			notifNo("Silahkan isi nomor telepon");
-            return false;
-		}
-        if($('#edit_kecamatan').val()==''){
-			notifNo("Silahkan pilih kecamatan");
-            return false;
-		}
-        if($('#edit_kelurahan').val()==''){
-			notifNo("Silahkan pilih kelurahan");
             return false;
 		}
         if($('#edit_patient_address').val()==''){
@@ -356,50 +332,6 @@ $(document).ready(function () {
                 }
             }, 'json');
         });
-    });
-
-    $(document).on('change','#select_kecamatan',function(e){
-      e.preventDefault();
-      var kecamatan_id = $("#select_kecamatan").val();
-      loadingShow();
-      $.ajax({
-        method: "GET",
-        cache: false,
-        url: url_ctrl+'get_kelurahan_not_default',
-        data: { kecamatan_id: kecamatan_id },
-      })
-      .done(function(result) {
-        loadingHide();
-        var obj = jQuery.parseJSON(result);
-        $('#select_kelurahan').html(obj.html).trigger('chosen:updated');
-      })
-      .fail(function(res){
-        loadingHide();
-        alert('Error Response !');
-        console.log("responseText", res.responseText);
-      });
-    });
-
-    $(document).on('change','#edit_kecamatan',function(e){
-      e.preventDefault();
-      var kecamatan_id = $("#edit_kecamatan").val();
-      loadingShow();
-      $.ajax({
-        method: "GET",
-        cache: false,
-        url: url_ctrl+'get_kelurahan_not_default',
-        data: { kecamatan_id: kecamatan_id },
-      })
-      .done(function(result) {
-        loadingHide();
-        var obj = jQuery.parseJSON(result);
-        $('#edit_kelurahan').html(obj.html).trigger('chosen:updated');
-      })
-      .fail(function(res){
-        loadingHide();
-        alert('Error Response !');
-        console.log("responseText", res.responseText);
-      });
     });
 
 });

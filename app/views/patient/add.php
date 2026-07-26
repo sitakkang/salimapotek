@@ -31,9 +31,9 @@
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Bagian / Departemen</label>
-            <input type="text" id="patient_department" name="patient_department" class="form-control"
-                   placeholder="Bagian atau departemen" maxlength="100" autocomplete="off">
+            <label>Pekerjaan</label>
+            <input type="text" id="patient_job" name="patient_job" class="form-control"
+                   value="KARYAWAN" placeholder="Pekerjaan pasien" maxlength="100" autocomplete="off">
         </div>
     </div>
 </div>
@@ -65,48 +65,8 @@
     </div>
 </div>
 
-<hr style="border-color: var(--ds-border); margin: 10px 0 14px;">
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Provinsi <span class="text-danger">*</span></label>
-            <input type="text" id="provinsi" name="provinsi" class="form-control"
-                   value="SULAWESI TENGAH" readonly>
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kabupaten <span class="text-danger">*</span></label>
-            <input type="text" id="kabupaten" name="kabupaten" class="form-control"
-                   value="MOROWALI" readonly>
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kecamatan <span class="text-danger">*</span></label>
-            <select id="select_kecamatan" class="form-control autocomplete">
-                <option value="">-- Pilih --</option>
-                <?php echo $kecamatan; ?>
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-6" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kelurahan <span class="text-danger">*</span></label>
-            <select id="select_kelurahan" class="form-control autocomplete">
-                <?php echo $kelurahan; ?>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-6" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Alamat <span class="text-danger">*</span></label>
-            <textarea id="patient_address" name="patient_address" class="form-control" rows="2"
-                      placeholder="Alamat lengkap" maxlength="100"></textarea>
-        </div>
-    </div>
+<div class="ds-form-group">
+    <label>Alamat <span class="text-danger">*</span></label>
+    <textarea id="patient_address" name="patient_address" class="form-control" rows="2"
+              placeholder="Alamat lengkap pasien" maxlength="200"></textarea>
 </div>

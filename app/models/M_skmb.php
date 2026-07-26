@@ -13,8 +13,8 @@ class M_skmb extends CI_Model {
      */
     public function get_all() {
         return $this->db->query(
-            'SELECT id, patient_name, nik, bagian, company_name, patient_diantar, age_diantar,
-                    alamat_diantar, hubungan, tgl_datang, jam,
+            'SELECT id, patient_name, nik, bagian, company_name, pengantar, nik_pengantar,
+                    company_pengantar, hubungan, tgl_datang, jam,
                     docdate, doct_by_name, docnumb, insertby, insertdt
              FROM skmb
              ORDER BY insertdt DESC'

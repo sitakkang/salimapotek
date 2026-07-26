@@ -72,70 +72,10 @@
               placeholder="Nama Terapi dan Dosis"><?= htmlspecialchars($row->terapi) ?></textarea>
 </div>
 
-<hr style="border-color: var(--ds-border); margin: 6px 0 14px;">
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Provinsi <span class="text-danger">*</span></label>
-            <input type="text" id="edit_provinsi" name="provinsi" class="form-control"
-                   value="<?= htmlspecialchars($row->provinsi) ?>" autocomplete="off">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kabupaten <span class="text-danger">*</span></label>
-            <input type="text" id="edit_kabupaten" name="kabupaten" class="form-control"
-                   value="<?= htmlspecialchars($row->kabupaten) ?>">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kecamatan <span class="text-danger">*</span></label>
-            <select id="edit_kecamatan" class="form-control autocomplete">
-                <option value="">-- Pilih --</option>
-                <?php 
-                    $kecamatan = $this->M_sks->get_kecamatan();
-                    foreach ($kecamatan as $k): ?>
-                    <?php
-                    if($row->kecamatan_id == $k->id_city) {
-                        echo '<option value="'.$k->id_city.'" selected>'.htmlspecialchars($k->city_name).'</option>';
-                    } else {
-                        echo '<option value="'.$k->id_city.'">'.htmlspecialchars($k->city_name).'</option>';
-                    }
-                    ?>
-                <?php endforeach; ?>
-            </select>
-        </div>
-    </div>
-</div>
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-6" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kelurahan <span class="text-danger">*</span></label>
-
-            <select id="edit_kelurahan" class="form-control autocomplete">
-                <?php 
-                    $kelurahan = $this->M_sks->get_kelurahan();
-                    foreach ($kelurahan as $kl): ?>
-                    <?php
-                    if($row->kelurahan_id == $kl->id_district) {
-                        echo '<option value="'.$kl->id_district.'" selected>'.htmlspecialchars($kl->district_name).'</option>';
-                    } else {
-                        echo '<option value="'.$kl->id_district.'">'.htmlspecialchars($kl->district_name).'</option>';
-                    }
-                    ?>
-                <?php endforeach; ?>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-6" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Desa</label>
-            <input type="text" id="edit_desa" name="desa" class="form-control"
-                   value="<?= htmlspecialchars($row->desa) ?>" autocomplete="off">
-        </div>
-    </div>
+<div class="ds-form-group">
+    <label>Alamat <span class="text-danger">*</span></label>
+    <textarea id="edit_alamat" name="alamat" class="form-control" rows="2"
+              placeholder="Alamat lengkap pasien"><?= htmlspecialchars($row->alamat) ?></textarea>
 </div>
 
 

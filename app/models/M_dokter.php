@@ -138,13 +138,17 @@ class M_dokter extends CI_Model {
     }
 
     /**
-     * Get obat by medical_record_id
+     * Get obat by medical_record_id — include pulv status
      */
     public function get_obat_by_medical_record($mrd_id) {
-        return $this->db->get_where('trans_obat', array(
-            'medical_record_id' => intval($mrd_id),
-            'trans_obat_status' => 1
-        ))->result();
+        return $this->db->query(
+            'SELECT A.*, A.trans_obat_pulv_id
+             FROM trans_obat A
+             WHERE A.medical_record_id = ?
+               AND A.trans_obat_status = 1
+             ORDER BY A.id_trans_obat ASC',
+            array(intval($mrd_id))
+        )->result();
     }
 
     /**
@@ -162,6 +166,107 @@ class M_dokter extends CI_Model {
         $this->db->where('id_trans_obat', intval($id));
         $this->db->delete('trans_obat');
         return $this->db->affected_rows();
+    }
+
+    // ----------------------------------------------------------------
+    // Racikan (trans_obat_racikan)
+    // ----------------------------------------------------------------
+
+    /**
+     * Get all racikan by medical_record_id
+     */
+    public function get_pulv_by_medical_record($mrd_id) {
+        return $this->db->get_where('trans_obat_racikan', array(
+            'medical_record_id' => intval($mrd_id)
+        ))->result();
+    }
+
+    /**
+     * Get single racikan by id
+     */
+    public function get_pulv_by_id($id) {
+        return $this->db->get_where('trans_obat_racikan', array(
+            'id_pulv' => intval($id)
+        ))->row();
+    }
+
+    /**
+     * Get obat by pulv_id (detail obat penyusun racikan)
+     */
+    public function get_obat_by_pulv($pulv_id) {
+        return $this->db->query(
+            'SELECT A.* FROM trans_obat A
+             WHERE A.trans_obat_pulv_id = ?
+               AND A.trans_obat_status = 1
+             ORDER BY A.id_trans_obat ASC',
+            array(intval($pulv_id))
+        )->result();
+    }
+
+    /**
+     * Insert header racikan
+     */
+    public function insert_pulv($data) {
+        $this->db->insert('trans_obat_racikan', $data);
+        return $this->db->insert_id();
+    }
+
+    /**
+     * Update header racikan
+     */
+    public function update_pulv($id, $data) {
+        $this->db->where('id_pulv', intval($id));
+        $this->db->update('trans_obat_racikan', $data);
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Delete header racikan
+     */
+    public function delete_pulv($id) {
+        $this->db->where('id_pulv', intval($id));
+        $this->db->delete('trans_obat_racikan');
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Update selected obat to link with pulv
+     */
+    public function update_obat_pulv($obat_ids, $pulv_id) {
+        if (empty($obat_ids)) return 0;
+        $this->db->where_in('id_trans_obat', $obat_ids);
+        $this->db->update('trans_obat', array('trans_obat_pulv_id' => intval($pulv_id)));
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Remove pulv link from obat (kembalikan ke obat biasa)
+     */
+    public function unlink_obat_from_pulv($pulv_id) {
+        $this->db->where('trans_obat_pulv_id', intval($pulv_id));
+        $this->db->update('trans_obat', array('trans_obat_pulv_id' => null));
+        return $this->db->affected_rows();
+    }
+
+    /**
+     * Get all obat grouped by pulv_id for the view
+     * Returns array: [ pulv_id => [obat1, obat2, ...], ... ]
+     */
+    public function get_pulv_items_grouped($mrd_id) {
+        $items = $this->db->query(
+            'SELECT A.* FROM trans_obat A
+             WHERE A.medical_record_id = ?
+               AND A.trans_obat_pulv_id IS NOT NULL
+               AND A.trans_obat_status = 1
+             ORDER BY A.trans_obat_pulv_id, A.id_trans_obat ASC',
+            array(intval($mrd_id))
+        )->result();
+
+        $grouped = array();
+        foreach ($items as $item) {
+            $grouped[$item->trans_obat_pulv_id][] = $item;
+        }
+        return $grouped;
     }
 
     // ----------------------------------------------------------------

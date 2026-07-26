@@ -95,10 +95,7 @@ class Patient extends CI_Controller {
      * Load form tambah Patient (via AJAX ke modal)
      */
     public function add() {
-        $data['kecamatan'] = $this->get_kecamatan(); 
-        $data['kelurahan'] = $this->get_kelurahan_default(); 
-        
-        $this->load->view($this->dir_v.'add', $data);
+        $this->load->view($this->dir_v.'add');
     }
 
     /**
@@ -106,8 +103,6 @@ class Patient extends CI_Controller {
      */
     public function edit() {
         $id = intval($this->input->get('id'));
-        $data['kecamatan'] = $this->get_kecamatan(); 
-        $data['kelurahan'] = $this->get_kelurahan_default(); 
         $data['row'] = $this->M_patient->get_by_id($id);
         if (!$data['row']) {
             show_404();
@@ -157,14 +152,10 @@ class Patient extends CI_Controller {
             'patient_name'        => strtoupper(trim($this->input->post('patient_name'))),
             'patient_nik'         => $nik,
             'patient_company'     => strtoupper(trim($this->input->post('patient_company'))),
-            'patient_department'  => strtoupper(trim($this->input->post('patient_department'))),
+            'patient_job'         => strtoupper(trim($this->input->post('patient_job'))),
             'patient_ktp'         => $ktp,
             'patient_gender'      => $this->input->post('patient_gender'),
             'patient_bod'         => $this->format_date_db($this->input->post('patient_bod')),
-            'patient_city_id'     => $this->input->post('id_kecamatan'),
-            'patient_city_name'   => strtoupper(trim($this->input->post('patient_city_name'))),
-            'patient_district_id' => $this->input->post('id_kelurahan'),
-            'patient_district_name' => strtoupper(trim($this->input->post('patient_district_name'))),
             'patient_address'     => strtoupper(trim($this->input->post('patient_address'))),
             'patient_phone'       => trim($this->input->post('patient_phone')),
             'patient_status'      => 1,
@@ -192,14 +183,10 @@ class Patient extends CI_Controller {
             'patient_name'        => strtoupper(trim($this->input->post('patient_name'))),
             'patient_nik'         => trim($this->input->post('patient_nik')),
             'patient_company'     => strtoupper(trim($this->input->post('patient_company'))),
-            'patient_department'  => strtoupper(trim($this->input->post('patient_department'))),
+            'patient_job'         => strtoupper(trim($this->input->post('patient_job'))),
             'patient_ktp'         => trim($this->input->post('patient_ktp')),
             'patient_gender'      => $this->input->post('patient_gender'),
             'patient_bod'         => $this->format_date_db($this->input->post('patient_bod')),
-            'patient_city_id'     => $this->input->post('id_kecamatan'),
-            'patient_city_name'   => strtoupper(trim($this->input->post('patient_city_name'))),
-            'patient_district_id' => $this->input->post('id_kelurahan'),
-            'patient_district_name' => strtoupper(trim($this->input->post('patient_district_name'))),
             'patient_address'     => strtoupper(trim($this->input->post('patient_address'))),
             'patient_phone'       => trim($this->input->post('patient_phone')),
             'updateby'            => $this->session->userdata('sess_id'),
@@ -318,42 +305,4 @@ class Patient extends CI_Controller {
         return date('Y-m-d', $timestamp);
     }
 
-    function get_kecamatan()
-    {
-       $data = $this->M_patient->get_kecamatan();
-       $option = "";
-       foreach ($data as $d) {
-            $selected = '';
-            if($d->id_city == 3){
-                $selected = 'selected';
-            }
-            $option .= "<option value='".$d->id_city."'".$selected.">".$d->city_name."</option>";
-       }
-       return $option;
-    }  
-
-    function get_kelurahan_default()
-    {
-        $kecamatan_id = 3;
-        $data = $this->M_patient->get_kelurahan_not_default($kecamatan_id);
-        $option = "";
-        $option .= "<option value=''>Pilih</option>";
-        foreach ($data as $d) {
-            $option .= "<option value='".$d->id_district."'>".$d->district_name."</option>";
-        }
-        return $option;
-    }  
-
-    function get_kelurahan_not_default()
-    {
-        $kecamatan_id = $this->input->get('kecamatan_id'); 
-        $data = $this->M_patient->get_kelurahan_not_default($kecamatan_id);
-        $option = '';
-        $option .= '<option value="">Pilih</option>';
-        foreach ($data as $d) {
-            $option .= '<option value="'.$d->id_district.'">'.$d->district_name.'</option>';
-        }
-        $notif['html'] = $option;
-        echo json_encode($notif);
-    }  
 }

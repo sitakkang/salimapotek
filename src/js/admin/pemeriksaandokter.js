@@ -14,7 +14,17 @@ function reloadDiagnosaTable() {
 function reloadObatTable() {
     var vid = getVisitIdPemeriksaan();
     if (!vid) return;
-    $('#obat-table-wrap').load(site_url + 'dokter/reload_obat?visit_id=' + vid);
+    $('#obat-table-wrap').load(site_url + 'dokter/reload_obat?visit_id=' + vid, function () {
+        reloadPulvList();
+    });
+}
+
+function reloadPulvList() {
+    var vid = getVisitIdPemeriksaan();
+    if (!vid) return;
+    $.get(site_url + 'dokter/reload_pulv?visit_id=' + vid, function (html) {
+        $('#pulv-list-wrap').html(html);
+    });
 }
 
 function reloadSksSection() {
@@ -295,22 +305,19 @@ $(document).ready(function () {
             patient_name:     $('#skmb_patient_name').val(),
             nik:              $('#skmb_nik').val(),
             company_name:     $('#skmb_company_name').val(),
-            bagian:           $('#skmb_bagian').val(),
-            patient_diantar:  $('#skmb_patient_diantar').val(),
-            age_diantar:      $('#skmb_age_diantar').val(),
-            alamat_diantar:   $('#skmb_alamat_diantar').val(),
+            pengantar:        $('#skmb_pengantar').val(),
+            nik_pengantar:    $('#skmb_nik_pengantar').val(),
+            company_pengantar: $('#skmb_company_pengantar').val(),
             hubungan:         $('#skmb_hubungan').val(),
             tgl_datang:       $('#skmb_tgl_datang').val(),
             jam:              $('#skmb_jam').val(),
         };
 
-        if (!payload.patient_name) { notifNo('Silakan isi nama pengantar'); return false; }
-        if (!payload.nik) { notifNo('Silakan isi NIK'); return false; }
-        if (!payload.company_name) { notifNo('Silakan isi nama perusahaan'); return false; }
+        if (!payload.patient_name) { notifNo('Silakan isi nama yang diantar'); return false; }
         if (!payload.tgl_datang) { notifNo('Silakan isi tanggal datang'); return false; }
         if (!payload.jam) { notifNo('Silakan isi jam'); return false; }
         if (!payload.hubungan) { notifNo('Silakan pilih hubungan'); return false; }
-        if (!payload.patient_diantar) { notifNo('Silakan isi nama pasien yang diantar'); return false; }
+        if (!payload.pengantar) { notifNo('Silakan isi nama pengantar'); return false; }
 
         $.post(site_url + 'dokter/act_simpan_skmb', payload, function (res) {
             if (res.status == 1) {
@@ -337,6 +344,145 @@ $(document).ready(function () {
             $.post(site_url + 'dokter/act_del_skmb', { id: id }, function (res) {
                 if (res.status == 1) notifNo(res.notif);
                 else { notifYesAuto(res.notif); reloadSkmbSection(); }
+            }, 'json');
+        });
+    });
+
+    // ================================================================
+    // PEMERIKSAAN PAGE — Racikan
+    // ================================================================
+
+    // Tombol "Buat Racikan"
+    $(document).on('click', '#btn-add-pulv', function () {
+        var checked = [];
+        $('.check-terapi:checked').each(function () {
+            checked.push($(this).data('id'));
+        });
+        if (checked.length === 0) {
+            notifNo('Centang obat terlebih dahulu!');
+            return false;
+        }
+
+        var mrd_id = $('#mrd_id_diagnosa').val();
+        $.get(site_url + 'dokter/get_pulv_popup', { mrd_id: mrd_id }, function (html) {
+            $('#MyModalTitle').html('<i class="fa fa-mortar-pestle"></i> Buat Racikan');
+            $('#MyModalContent').html(html);
+            $('#MyModalFooter').html(
+                '<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>' +
+                '<button type="button" class="ds-btn-action ds-btn-green" id="btn_save_pulv" style="padding:8px 22px">Simpan Racikan</button>'
+            );
+            $('.modal-dialog').addClass('ds-modal').addClass('modal-md');
+            $('#MyModal').modal('show');
+            // Simpan data checkbox ke modal
+            $('#btn_save_pulv').data('obat-ids', checked);
+        });
+    });
+
+    // Pilih racikan existing / baru
+    $(document).on('change', '#option_pulv', function () {
+        if ($(this).val() === 'new') {
+            $('#pulv_add_area').slideDown(200);
+        } else {
+            $('#pulv_add_area').slideUp(200);
+        }
+    });
+
+    // Simpan racikan
+    $(document).on('click', '#btn_save_pulv', function () {
+        var option_pulv = $('#option_pulv').val();
+        if (!option_pulv) {
+            notifNo('Pilih racikan tujuan atau buat baru');
+            return false;
+        }
+
+        var obat_ids = $(this).data('obat-ids');
+        var payload = {
+            medical_record_id: $('#pulv_medical_record_id').val(),
+            option_pulv:       option_pulv,
+            obat_ids:          obat_ids,
+        };
+
+        if (option_pulv === 'new') {
+            var pulv_name = $('#pulv_name').val();
+            var pulv_dosis = $('#pulv_dosis').val();
+            var pulv_qty = $('#pulv_qty').val();
+            if (!pulv_name) { notifNo('Silahkan isi nama racikan'); return false; }
+            if (!pulv_dosis) { notifNo('Silahkan isi dosis racikan'); return false; }
+            if (!pulv_qty || pulv_qty < 1) { notifNo('Silahkan isi jumlah racikan'); return false; }
+            payload.pulv_name = pulv_name;
+            payload.pulv_dosis = pulv_dosis;
+            payload.pulv_qty = pulv_qty;
+            payload.pulv_notes = $('#pulv_notes').val();
+        }
+
+        $.post(site_url + 'dokter/act_save_pulv', payload, function (res) {
+            if (res.status == 1) {
+                notifNo(res.notif);
+            } else {
+                $('#MyModal').modal('hide');
+                notifYesAuto(res.notif);
+                reloadObatTable();
+            }
+        }, 'json');
+    });
+
+    // Edit racikan
+    $(document).on('click', '.btn-edit-pulv', function () {
+        var id = $(this).data('id');
+        $.get(site_url + 'dokter/edit_pulv_popup', { id: id }, function (html) {
+            $('#MyModalTitle').html('<i class="fa fa-pen"></i> Edit Racikan');
+            $('#MyModalContent').html(html);
+            $('#MyModalFooter').html(
+                '<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>' +
+                '<button type="button" class="ds-btn-action ds-btn-green" id="btn_update_pulv" style="padding:8px 22px">Simpan Perubahan</button>'
+            );
+            $('.modal-dialog').addClass('ds-modal').addClass('modal-md');
+            $('#MyModal').modal('show');
+        });
+    });
+
+    $(document).on('click', '#btn_update_pulv', function () {
+        var id = $('#edit_pulv_id').val();
+        var pulv_name = $('#edit_pulv_name').val();
+        var pulv_dosis = $('#edit_pulv_dosis').val();
+        var pulv_qty = $('#edit_pulv_qty').val();
+        if (!pulv_name) { notifNo('Silahkan isi nama racikan'); return false; }
+        if (!pulv_dosis) { notifNo('Silahkan isi dosis racikan'); return false; }
+        if (!pulv_qty || pulv_qty < 1) { notifNo('Silahkan isi jumlah racikan'); return false; }
+
+        $.post(site_url + 'dokter/act_update_pulv', {
+            id: id,
+            pulv_name: pulv_name,
+            pulv_dosis: pulv_dosis,
+            pulv_qty: pulv_qty,
+            pulv_notes: $('#edit_pulv_notes').val(),
+        }, function (res) {
+            if (res.status == 1) {
+                notifNo(res.notif);
+            } else {
+                $('#MyModal').modal('hide');
+                notifYesAuto(res.notif);
+                reloadPulvList();
+            }
+        }, 'json');
+    });
+
+    // Hapus racikan
+    $(document).on('click', '.btn-delete-pulv', function () {
+        var id = $(this).data('id');
+        swal({
+            title: 'Hapus Racikan?',
+            text: 'Obat penyusun akan dikembalikan ke daftar obat biasa.',
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Hapus',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+        }).then(function (result) {
+            if (!result.value) return;
+            $.post(site_url + 'dokter/act_delete_pulv', { id: id }, function (res) {
+                if (res.status == 1) notifNo(res.notif);
+                else { notifYesAuto(res.notif); reloadObatTable(); }
             }, 'json');
         });
     });

@@ -97,12 +97,12 @@
         <div class="ds-detail-audit-bd">
             <div class="ds-detail-audit-item">
                 <span class="ds-audit-icon"><i class="fa fa-plus-circle"></i></span>
-                <span class="ds-audit-text">Didaftarkan oleh <strong><?= htmlspecialchars($row->trans_insert_by) ?: '-' ?></strong> pada <strong><?= !empty($row->trans_insert_dt) ? date('d/m/Y H:i', strtotime($row->trans_insert_dt)) : '-' ?></strong></span>
+                <span class="ds-audit-text">Didaftarkan oleh <strong><?= htmlspecialchars($row->insert_fullname) ?: htmlspecialchars($row->trans_insert_by) ?: '-' ?></strong> pada <strong><?= !empty($row->trans_insert_dt) ? date('d/m/Y H:i', strtotime($row->trans_insert_dt)) : '-' ?></strong></span>
             </div>
             <?php if (!empty($row->mrd_insert_by)): ?>
             <div class="ds-detail-audit-item">
                 <span class="ds-audit-icon ds-audit-upd"><i class="fa fa-pencil-square-o"></i></span>
-                <span class="ds-audit-text">Rekam medis oleh <strong><?= htmlspecialchars($row->mrd_insert_by) ?></strong> pada <strong><?= !empty($row->mrd_insert_dt) ? date('d/m/Y H:i', strtotime($row->mrd_insert_dt)) : '-' ?></strong></span>
+                <span class="ds-audit-text">Rekam medis oleh <strong><?= htmlspecialchars($row->mrd_insert_fullname) ?: htmlspecialchars($row->mrd_insert_by) ?></strong> pada <strong><?= !empty($row->mrd_insert_dt) ? date('d/m/Y H:i', strtotime($row->mrd_insert_dt)) : '-' ?></strong></span>
             </div>
             <?php endif; ?>
         </div>

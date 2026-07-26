@@ -26,6 +26,10 @@
                         <span class="ds-detail-label">Perusahaan</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->company_name) ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
+                    <div class="ds-detail-field">
+                        <span class="ds-detail-label">Pekerjaan</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job) ?: '<span class="text-muted">-</span>' ?></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,15 +82,7 @@
                 <div class="ds-detail-field ds-detail-field-full">
                     <span class="ds-detail-label">Alamat</span>
                     <span class="ds-detail-value">
-                        <?php
-                        $alamat = array();
-                        if (!empty($row->desa))      $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Desa</span>' . htmlspecialchars($row->desa) . '</span>';
-                        if (!empty($row->kelurahan)) $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Kel</span>' . htmlspecialchars($row->kelurahan) . '</span>';
-                        if (!empty($row->kecamatan)) $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Kec</span>' . htmlspecialchars($row->kecamatan) . '</span>';
-                        if (!empty($row->kabupaten)) $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Kab</span>' . htmlspecialchars($row->kabupaten) . '</span>';
-                        if (!empty($row->provinsi))  $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Prov</span>' . htmlspecialchars($row->provinsi) . '</span>';
-                        echo !empty($alamat) ? implode('', $alamat) : '<span class="text-muted">-</span>';
-                        ?>
+                        <?= !empty($row->alamat) ? nl2br(htmlspecialchars($row->alamat)) : '<span class="text-muted">-</span>' ?>
                     </span>
                 </div>
             </div>

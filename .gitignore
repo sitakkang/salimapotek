@@ -1,2 +1,3 @@
 app/logs/**
 app/config/database.php
+img/temp-qrcode/**

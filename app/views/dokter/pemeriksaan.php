@@ -234,6 +234,18 @@ if (!empty($row->patient_bod)) {
                             <div class="ds-wide-table-wrap" style="margin:0;" id="obat-table-wrap">
                                 <?php $this->load->view('dokter/_obat_table', array('obat_terpilih' => $obat_terpilih)); ?>
                             </div>
+
+                            <hr style="border-color:var(--ds-border);margin:14px 0;">
+
+                            <h6 style="font-weight:700;margin-bottom:10px;">
+                                <i class="fa fa-mortar-pestle"></i> Racikan
+                            </h6>
+                            <div id="pulv-list-wrap">
+                                <?php $this->load->view('dokter/racikan/v_list', array(
+                                    'pulv_list' => $pulv_list,
+                                    'pulv_items' => $pulv_items,
+                                )); ?>
+                            </div>
                         </div>
 
                         <!-- ============================================ -->

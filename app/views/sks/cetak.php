@@ -57,6 +57,7 @@
             <tr><td>Umur</td><td>:</td><td><?= htmlspecialchars($row->age) ?: '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>
             <tr><td>Perusahaan</td><td>:</td><td><?= htmlspecialchars($row->company_name) ?: '-' ?></td></tr>
+            <tr><td>Pekerjaan</td><td>:</td><td><?= htmlspecialchars($row->patient_job) ?: '-' ?></td></tr>
         </table>
     </div>
 
@@ -65,17 +66,7 @@
         <table>
             <tr>
                 <td>Alamat</td><td>:</td>
-                <td>
-                    <?php
-                    $alamat = array();
-                    if (!empty($row->desa))      $alamat[] = 'Desa ' . htmlspecialchars($row->desa);
-                    if (!empty($row->kelurahan)) $alamat[] = 'Kelurahan ' . htmlspecialchars($row->kelurahan);
-                    if (!empty($row->kecamatan)) $alamat[] = 'Kecamatan ' . htmlspecialchars($row->kecamatan);
-                    if (!empty($row->kabupaten)) $alamat[] = 'Kabupaten ' . htmlspecialchars($row->kabupaten);
-                    if (!empty($row->provinsi))  $alamat[] = 'Provinsi ' . htmlspecialchars($row->provinsi);
-                    echo !empty($alamat) ? implode(', ', $alamat) : '-';
-                    ?>
-                </td>
+                <td><?= !empty($row->alamat) ? nl2br(htmlspecialchars($row->alamat)) : '-' ?></td>
             </tr>
         </table>
     </div>
@@ -142,8 +133,8 @@
         }
         ?>
         <p style="font-size: 12px; line-height: 1.5; text-align: justify; margin: 4px 0;">
-            Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <?= $lama ?> (hari),
-            terhitung tanggal <?= $datefrom ?> s/d <?= $dateto ?>.
+            Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <b><?= $lama ?> (hari)</b>,
+            terhitung tanggal <b><?= $datefrom ?> s/d <?= $dateto ?></b>.
         </p>
         <p style="font-size: 12px; line-height: 1.5; text-align: justify; margin: 2px 0;">
             Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana perlunya.
@@ -168,6 +159,9 @@
     </div>
 
     <div class="footer">
+        <p style="font-size:9px;color:#999;margin:0;">
+            <em>Dokumen ini diterbitkan secara elektronik. Untuk memverifikasi keaslian surat ini, silakan pindai <strong>QR Code</strong> di atas menggunakan perangkat mobile Anda.</em>
+        </p>
     </div>
 
     <script>

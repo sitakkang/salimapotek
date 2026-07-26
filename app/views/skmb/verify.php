@@ -175,7 +175,7 @@
 
             <!-- Info -->
             <div class="v-grid">
-                <div class="v-section-title">Data Pengantar</div>
+                <div class="v-section-title">Data Diantar</div>
                 <div class="v-row">
                     <div class="v-label">Nama</div>
                     <div class="v-value"><?= htmlspecialchars($row->patient_name) ?></div>
@@ -193,18 +193,18 @@
                     <div class="v-value"><?= htmlspecialchars($row->hubungan) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
 
-                <div class="v-section-title">Pasien Yang Diantar</div>
+                <div class="v-section-title">Data Pengantar</div>
                 <div class="v-row">
-                    <div class="v-label">Nama</div>
-                    <div class="v-value"><?= htmlspecialchars($row->patient_diantar) ?></div>
+                    <div class="v-label">Pengantar</div>
+                    <div class="v-value"><?= htmlspecialchars($row->pengantar) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
-                    <div class="v-label">Umur</div>
-                    <div class="v-value"><?= htmlspecialchars($row->age_diantar) ?: '<span style="color:#b7d5c4">—</span>' ?> Tahun</div>
+                    <div class="v-label">NIK Pengantar</div>
+                    <div class="v-value"><?= htmlspecialchars($row->nik_pengantar) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
-                    <div class="v-label">Alamat</div>
-                    <div class="v-value"><?= nl2br(htmlspecialchars($row->alamat_diantar)) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-label">Perush. Pengantar</div>
+                    <div class="v-value"><?= htmlspecialchars($row->company_pengantar) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
             </div>
 

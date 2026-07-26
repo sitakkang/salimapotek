@@ -99,6 +99,8 @@ class Dokter extends CI_Controller {
         $data['dokter_list']    = $this->M_dokter->get_all_doctor();
         $data['diagnosa_terpilih'] = $this->M_dokter->get_diagnosa_by_medical_record($mrd_id);
         $data['obat_terpilih']  = $this->M_dokter->get_obat_by_medical_record($mrd_id);
+        $data['pulv_list']      = $this->M_dokter->get_pulv_by_medical_record($mrd_id);
+        $data['pulv_items']     = $this->M_dokter->get_pulv_items_grouped($mrd_id);
 
         // Generate default diagnosa text for SKS
         $sks_diagnosa_default = '';
@@ -270,6 +272,156 @@ class Dokter extends CI_Controller {
     }
 
     // ----------------------------------------------------------------
+    // Racikan AJAX
+    // ----------------------------------------------------------------
+
+    /**
+     * Reload pulv list HTML
+     */
+    public function reload_pulv() {
+        $visit_id = intval($this->input->get('visit_id'));
+        $row = $this->M_dokter->get_by_visit_id($visit_id);
+        if (!$row) return;
+        $pulv_list = $this->M_dokter->get_pulv_by_medical_record($row->id_medical_record);
+        $pulv_items = $this->M_dokter->get_pulv_items_grouped($row->id_medical_record);
+        $this->load->view($this->dir_v.'racikan/v_list', array(
+            'pulv_list' => $pulv_list,
+            'pulv_items' => $pulv_items,
+        ));
+    }
+
+    /**
+     * Get popup form racikan (via AJAX)
+     */
+    public function get_pulv_popup() {
+        $medical_record_id = intval($this->input->get('mrd_id'));
+        if (!$medical_record_id) {
+            echo 'Data tidak lengkap';
+            return;
+        }
+        $pulv_list = $this->M_dokter->get_pulv_by_medical_record($medical_record_id);
+        $this->load->view($this->dir_v.'racikan/v_form', array(
+            'medical_record_id' => $medical_record_id,
+            'pulv_list' => $pulv_list,
+        ));
+    }
+
+    /**
+     * Simpan racikan baru
+     */
+    public function act_save_pulv() {
+        $medical_record_id = intval($this->input->post('medical_record_id'));
+        $option_pulv = $this->input->post('option_pulv');
+        $obat_ids = $this->input->post('obat_ids');
+
+        if (empty($obat_ids) || !$medical_record_id) {
+            echo json_encode(array('status' => 1, 'notif' => 'Pilih obat terlebih dahulu!'));
+            return;
+        }
+
+        $obat_ids = array_map('intval', $obat_ids);
+        $insert_by = $this->session->userdata('sess_id');
+
+        if ($option_pulv === 'new') {
+            $pulv_name = trim($this->input->post('pulv_name'));
+            $pulv_qty  = intval($this->input->post('pulv_qty'));
+            $pulv_dosis = trim($this->input->post('pulv_dosis'));
+
+            if (empty($pulv_name) || empty($pulv_dosis) || $pulv_qty < 1) {
+                echo json_encode(array('status' => 1, 'notif' => 'Nama, dosis, dan jumlah racikan wajib diisi!'));
+                return;
+            }
+
+            $pulv = array(
+                'medical_record_id' => $medical_record_id,
+                'pulv_name'         => strtoupper($pulv_name),
+                'pulv_notes'        => trim($this->input->post('pulv_notes')),
+                'pulv_dosis'        => $pulv_dosis,
+                'pulv_qty'          => $pulv_qty,
+                'pulv_insert_by'    => $insert_by,
+                'pulv_insert_dt'    => date('Y-m-d H:i:s'),
+            );
+
+            $this->db->trans_begin();
+            $id_pulv = $this->M_dokter->insert_pulv($pulv);
+            if ($id_pulv) {
+                $this->M_dokter->update_obat_pulv($obat_ids, $id_pulv);
+            }
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                echo json_encode(array('status' => 1, 'notif' => 'Gagal menyimpan racikan!'));
+                return;
+            }
+            $this->db->trans_commit();
+            $msg = 'Racikan berhasil disimpan!';
+        } else {
+            $id_pulv = intval($option_pulv);
+            if (!$id_pulv) {
+                echo json_encode(array('status' => 1, 'notif' => 'Racikan tujuan tidak valid!'));
+                return;
+            }
+            $this->M_dokter->update_obat_pulv($obat_ids, $id_pulv);
+            $msg = 'Obat berhasil ditambahkan ke racikan!';
+        }
+
+        echo json_encode(array('status' => 2, 'notif' => $msg));
+    }
+
+    /**
+     * Get popup edit racikan (via AJAX)
+     */
+    public function edit_pulv_popup() {
+        $id = intval($this->input->get('id'));
+        $pulv = $this->M_dokter->get_pulv_by_id($id);
+        if (!$pulv) {
+            echo 'Racikan tidak ditemukan';
+            return;
+        }
+        $this->load->view($this->dir_v.'racikan/v_form_edit', array('pulv' => $pulv));
+    }
+
+    /**
+     * Update racikan
+     */
+    public function act_update_pulv() {
+        $id = intval($this->input->post('id'));
+        $pulv_name = trim($this->input->post('pulv_name'));
+        $pulv_qty  = intval($this->input->post('pulv_qty'));
+        $pulv_dosis = trim($this->input->post('pulv_dosis'));
+
+        if (empty($pulv_name) || empty($pulv_dosis) || $pulv_qty < 1) {
+            echo json_encode(array('status' => 1, 'notif' => 'Nama, dosis, dan jumlah racikan wajib diisi!'));
+            return;
+        }
+
+        $data = array(
+            'pulv_name'  => strtoupper($pulv_name),
+            'pulv_notes' => trim($this->input->post('pulv_notes')),
+            'pulv_dosis' => $pulv_dosis,
+            'pulv_qty'   => $pulv_qty,
+        );
+        $this->M_dokter->update_pulv($id, $data);
+        echo json_encode(array('status' => 2, 'notif' => 'Racikan berhasil diperbarui!'));
+    }
+
+    /**
+     * Hapus racikan
+     */
+    public function act_delete_pulv() {
+        $id = intval($this->input->post('id'));
+        $this->db->trans_begin();
+        $this->M_dokter->unlink_obat_from_pulv($id);
+        $this->M_dokter->delete_pulv($id);
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            echo json_encode(array('status' => 1, 'notif' => 'Gagal menghapus racikan!'));
+            return;
+        }
+        $this->db->trans_commit();
+        echo json_encode(array('status' => 2, 'notif' => 'Racikan berhasil dihapus!'));
+    }
+
+    // ----------------------------------------------------------------
     // SKS AJAX
     // ----------------------------------------------------------------
 
@@ -301,6 +453,7 @@ class Dokter extends CI_Controller {
             'visit_id'     => $visit_id,
             'patient_name' => strtoupper(trim($row->patient_name)),
             'company_name' => strtoupper(trim($row->trans_patient_company)),
+            'patient_job'  => strtoupper(trim($row->patient_job)),
             'age'          => $age,
             'gender'       => $gender,
             'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
@@ -309,13 +462,8 @@ class Dokter extends CI_Controller {
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),
             'doctby'       => $doct_by,
-            'desa'         => strtoupper(trim($row->patient_address)),
-            'kecamatan_id' => $row->patient_city_id,
-            'kecamatan'    => strtoupper(trim($row->trans_patient_city_name)),
-            'kelurahan_id' => $row->patient_district_id,
-            'kelurahan'    => strtoupper(trim($row->trans_patient_district_name)),
-            'kabupaten'    => 'MOROWALI',
-            'provinsi'     => 'SULAWESI TENGAH',
+            'alamat'         => strtoupper(trim($row->patient_address)),
+            
         );
 
         if ($existing) {
@@ -622,10 +770,9 @@ class Dokter extends CI_Controller {
             'patient_name'      => strtoupper(trim($this->input->post('patient_name'))),
             'nik'               => trim($this->input->post('nik')),
             'company_name'      => strtoupper(trim($this->input->post('company_name'))),
-            'bagian'            => strtoupper(trim($this->input->post('bagian'))),
-            'patient_diantar'   => strtoupper(trim($this->input->post('patient_diantar'))),
-            'age_diantar'       => trim($this->input->post('age_diantar')),
-            'alamat_diantar'    => strtoupper(trim($this->input->post('alamat_diantar'))),
+            'pengantar'         => strtoupper(trim($this->input->post('pengantar'))),
+            'nik_pengantar'     => trim($this->input->post('nik_pengantar')),
+            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar'))),
             'hubungan'          => $this->input->post('hubungan'),
             'tgl_datang'        => $this->format_date_db($this->input->post('tgl_datang')),
             'jam'               => trim($this->input->post('jam')),

@@ -62,10 +62,14 @@ class M_anamnesa extends CI_Model {
                     C.patient_nik,
                     C.patient_ktp,
                     C.patient_bod,
-                    C.patient_address
+                    C.patient_address,
+                    D.fullname AS insert_fullname,
+                    E.fullname AS mrd_insert_fullname
                 FROM trans_visit A
                 LEFT JOIN trans_medical_record B ON A.id_visit = B.visit_id
                 LEFT JOIN ms_patient C ON A.patient_id = C.id_patient
+                LEFT JOIN conf_users D ON A.trans_insert_by = D.id_user
+                LEFT JOIN conf_users E ON B.mrd_insert_by = E.id_user
                 WHERE A.id_visit = ?
                 LIMIT 1";
 

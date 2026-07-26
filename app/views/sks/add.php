@@ -64,49 +64,10 @@
               placeholder="Nama Terapi dan Dosis"></textarea>
 </div>
 
-<hr style="border-color: var(--ds-border); margin: 6px 0 14px;">
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Provinsi <span class="text-danger">*</span></label>
-            <input type="text" id="provinsi" name="provinsi" class="form-control"
-                   value="SULAWESI TENGAH" readonly>
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kabupaten <span class="text-danger">*</span></label>
-            <input type="text" id="kabupaten" name="kabupaten" class="form-control"
-                   value="MOROWALI" readonly>
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kecamatan <span class="text-danger">*</span></label>
-            <select id="select_kecamatan" class="form-control autocomplete">
-                <option value="">-- Pilih --</option>
-                <?php echo $kecamatan; ?>
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-6" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Kelurahan <span class="text-danger">*</span></label>
-            <select id="select_kelurahan" class="form-control autocomplete">
-                <?php echo $kelurahan; ?>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-6" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Desa <span class="text-danger">*</span></label>
-            <input type="text" id="desa" name="desa" class="form-control" placeholder="Desa" autocomplete="off">
-        </div>
-    </div>
+<div class="ds-form-group">
+    <label>Alamat <span class="text-danger">*</span></label>
+    <textarea id="alamat" name="alamat" class="form-control" rows="2"
+              placeholder="Alamat lengkap pasien"></textarea>
 </div>
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 14px;">

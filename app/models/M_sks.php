@@ -13,8 +13,7 @@ class M_sks extends CI_Model {
      */
     public function get_all() {
         return $this->db->query(
-            'SELECT id, patient_name, company_name, age, gender, desa, kecamatan, kelurahan,
-                    kabupaten, provinsi, diagnosa, datefrom, dateto,
+            'SELECT id, patient_name, company_name, patient_job, age, gender, alamat, diagnosa, datefrom, dateto,
                     docdate, doctby, docnumb, insertby, insertdt
              FROM sks
              ORDER BY insertdt DESC'
@@ -48,6 +47,20 @@ class M_sks extends CI_Model {
         $this->db->join('conf_users AS updater', 'sks.updateby = updater.id_user', 'left');
         $this->db->where('sks.id', $id);
         return $this->db->get()->row();
+    }
+
+    /**
+     * Get patient_job from ms_patient by patient name (match terbaru)
+     */
+    public function get_patient_job_by_name($name) {
+        if (empty($name)) return '';
+        $row = $this->db->query(
+            'SELECT patient_job FROM ms_patient
+             WHERE patient_name = ?
+             ORDER BY id_patient DESC LIMIT 1',
+            array(strtoupper(trim($name)))
+        )->row();
+        return $row ? $row->patient_job : '';
     }
 
     /**
@@ -125,41 +138,4 @@ class M_sks extends CI_Model {
         return isset($map[$n]) ? $map[$n] : '';
     }
 
-    function get_kecamatan()
-    {
-        $this->db->select();
-        $this->db->from('ms_city');
-        return $this->db->get()->result();
-    }
-
-    function get_kelurahan_not_default($city_id)
-    {
-        $this->db->select();
-        $this->db->from('ms_district');
-        $this->db->where('city_id', $city_id);
-        return $this->db->get()->result();
-    }
-
-     function get_kelurahan()
-    {
-        $this->db->select();
-        $this->db->from('ms_district');
-        return $this->db->get()->result();
-    }
-
-    function get_kecamatan_by_id($id_city)
-    {
-        $this->db->select();
-        $this->db->from('ms_city');
-        $this->db->where('id_city', $id_city);
-        return $this->db->get()->row();
-    }
-
-    function get_kelurahan_by_id($id_district)
-    {
-        $this->db->select();
-        $this->db->from('ms_district');
-        $this->db->where('id_district', $id_district);
-        return $this->db->get()->row();
-    }
 }

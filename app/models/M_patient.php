@@ -13,7 +13,7 @@ class M_patient extends CI_Model {
      */
     public function search($rm = '', $ktp = '', $nama = '') {
         $sql = "SELECT id_patient, patient_code, patient_name, patient_nik, patient_company,
-                       patient_department, patient_ktp, patient_bod, patient_gender, patient_city_id,
+                       patient_job, patient_ktp, patient_bod, patient_gender, patient_city_id,
                        patient_city_name, patient_district_id, patient_district_name,
                        patient_address, patient_phone, patient_status,
                        insert_by, insert_dt
@@ -46,7 +46,7 @@ class M_patient extends CI_Model {
     public function get_all() {
         return $this->db->query(
             'SELECT id_patient, patient_code, patient_name, patient_nik, patient_company,
-                    patient_department, patient_ktp, patient_bod, patient_gender, patient_city_id,
+                    patient_job, patient_ktp, patient_bod, patient_gender, patient_city_id,
                     patient_city_name, patient_district_id, patient_district_name,
                     patient_address, patient_phone, patient_status,
                     insert_by, insert_dt
@@ -123,53 +123,7 @@ class M_patient extends CI_Model {
         return $this->db->affected_rows();
     }
 
-    /**
-     * Get city list
-     */
-    public function get_kecamatan() {
-        $this->db->select();
-        $this->db->from('ms_city');
-        return $this->db->get()->result();
-    }
 
-    /**
-     * Get district list by city_id
-     */
-    public function get_kelurahan_not_default($city_id) {
-        $this->db->select();
-        $this->db->from('ms_district');
-        $this->db->where('city_id', $city_id);
-        return $this->db->get()->result();
-    }
-
-    /**
-     * Get all districts
-     */
-    public function get_kelurahan() {
-        $this->db->select();
-        $this->db->from('ms_district');
-        return $this->db->get()->result();
-    }
-
-    /**
-     * Get single city by ID
-     */
-    public function get_kecamatan_by_id($id_city) {
-        $this->db->select();
-        $this->db->from('ms_city');
-        $this->db->where('id_city', $id_city);
-        return $this->db->get()->row();
-    }
-
-    /**
-     * Get single district by ID
-     */
-    public function get_kelurahan_by_id($id_district) {
-        $this->db->select();
-        $this->db->from('ms_district');
-        $this->db->where('id_district', $id_district);
-        return $this->db->get()->row();
-    }
 
     /**
      * Generate patient code (NO.RM) automatically

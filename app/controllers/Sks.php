@@ -82,8 +82,6 @@ class Sks extends CI_Controller {
     public function add() {
         $dokter = $this->M_sks->get_all_doctor();
         $data['dokter'] = $dokter->result();
-        $data['kecamatan'] = $this->get_kecamatan(); 
-        $data['kelurahan'] = $this->get_kelurahan_default(); 
         
         $this->load->view($this->dir_v.'add', $data);
     }
@@ -95,8 +93,6 @@ class Sks extends CI_Controller {
         $id = intval($this->input->get('id'));
         $dokter = $this->M_sks->get_all_doctor();
         $data['dokter'] = $dokter->result();
-        $data['kecamatan'] = $this->get_kecamatan(); 
-        $data['kelurahan'] = $this->get_kelurahan_default(); 
         $data['row'] = $this->M_sks->get_by_id($id);
         if (!$data['row']) {
             show_404();
@@ -121,19 +117,21 @@ class Sks extends CI_Controller {
      */
     public function act_add() {
         
+        if (empty(trim($this->input->post('alamat')))) {
+            echo json_encode(array('status' => 1, 'notif' => 'Alamat pasien wajib diisi!'));
+            return;
+        }
+
+        // Ambil patient_job dari ms_patient berdasarkan nama pasien
+        $patient_job = $this->M_sks->get_patient_job_by_name($this->input->post('patient_name'));
 
         $data = array(
             'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
             'company_name' => strtoupper(trim($this->input->post('company_name'))),
+            'patient_job'  => $patient_job ?: 'KARYAWAN',
             'age'          => trim($this->input->post('age')),
             'gender'       => $this->input->post('gender'),
-            'desa'         => strtoupper(trim($this->input->post('desa'))),
-            'kecamatan_id' => $this->input->post('id_kecamatan'),
-            'kecamatan'    => strtoupper(trim($this->input->post('kecamatan'))),
-            'kelurahan_id' => $this->input->post('id_kelurahan'),
-            'kelurahan'    => strtoupper(trim($this->input->post('kelurahan'))),
-            'kabupaten'    => strtoupper(trim($this->input->post('kabupaten'))),
-            'provinsi'     => strtoupper(trim($this->input->post('provinsi'))),
+            'alamat'       => trim($this->input->post('alamat')),
             'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
             'terapi'       => trim($this->input->post('terapi')),
             'docnumb'      => $this->M_sks->generate_docnumb(),
@@ -159,6 +157,14 @@ class Sks extends CI_Controller {
     public function act_edit() {
         $id = intval($this->input->post('id'));
 
+        if (empty(trim($this->input->post('alamat')))) {
+            echo json_encode(array('status' => 1, 'notif' => 'Alamat pasien wajib diisi!'));
+            return;
+        }
+
+        // Ambil patient_job dari ms_patient berdasarkan nama pasien
+        $patient_job = $this->M_sks->get_patient_job_by_name($this->input->post('patient_name'));
+
         if ($this->form_validation->run() == FALSE) {
             echo json_encode(array('status' => 1, 'notif' => validation_errors()));
             return;
@@ -167,15 +173,10 @@ class Sks extends CI_Controller {
         $data = array(
             'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
             'company_name' => strtoupper(trim($this->input->post('company_name'))),
+            'patient_job'  => $patient_job ?: 'KARYAWAN',
             'age'          => trim($this->input->post('age')),
             'gender'       => $this->input->post('gender'),
-            'desa'         => strtoupper(trim($this->input->post('desa'))),
-            'kecamatan'    => strtoupper(trim($this->input->post('kecamatan'))),
-            'kecamatan_id' => $this->input->post('id_kecamatan'),
-            'kelurahan'    => strtoupper(trim($this->input->post('kelurahan'))),
-            'kelurahan_id' => $this->input->post('id_kelurahan'),
-            'kabupaten'    => strtoupper(trim($this->input->post('kabupaten'))),
-            'provinsi'     => strtoupper(trim($this->input->post('provinsi'))),
+            'alamat'       => trim($this->input->post('alamat')),
             'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
             'terapi'       => trim($this->input->post('terapi')),
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
@@ -244,46 +245,6 @@ class Sks extends CI_Controller {
             echo "...";
         } 
     }
-
-    function get_kecamatan()
-    {
-       $data                            = $this->M_sks->get_kecamatan();
-       $option                          = "";
-       foreach ($data as $d) {
-            $selected                   = '';
-            if($d->id_city == 3){
-                $selected               = 'selected';
-            }
-            $option                     .= "<option value='".$d->id_city."'".$selected.">".$d->city_name."</option>";
-       }
-       return $option;
-    }  
-
-    function get_kelurahan_default()
-    {
-        $kecamatan_id                   = 3;
-        $data                           = $this->M_sks->get_kelurahan_not_default($kecamatan_id);
-        $option                         = "";
-        $option                         .= "<option value=''>Pilih</option>";
-        foreach ($data as $d) {
-            $option                     .= "<option value='".$d->id_district."'>".$d->district_name."</option>";
-        }
-        return $option;
-    }  
-
-
-    function get_kelurahan_not_default()
-    {
-        $kecamatan_id                   = $this->input->get('kecamatan_id'); 
-        $data                           = $this->M_sks->get_kelurahan_not_default($kecamatan_id);
-        $option                         = '';
-        $option                         .= '<option value="">Pilih</option>';
-        foreach ($data as $d) {
-            $option                     .= '<option value="'.$d->id_district.'">'.$d->district_name.'</option>';
-        }
-        $notif['html']                  = $option;
-        echo json_encode($notif);
-    }  
 
     function generate_qrcode($sks_number)
     {

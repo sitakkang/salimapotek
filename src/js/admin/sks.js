@@ -123,13 +123,7 @@ $(document).ready(function () {
             company_name: $('#company_name').val(),
             age:          $('#age').val(),
             gender:       $('#gender').val(),
-            desa:         $('#desa').val(),
-            kecamatan: 	  $("#select_kecamatan option:selected").text(),
-            kelurahan:    $("#select_kelurahan option:selected").text(),
-            id_kecamatan: $("#select_kecamatan").val(),
-            id_kelurahan: $("#select_kelurahan").val(),
-            kabupaten:    $('#kabupaten').val(),
-            provinsi:     $('#provinsi').val(),
+            alamat:       $('#alamat').val(),
             diagnosa:     $('#diagnosa').val(),
             terapi:       $('#terapi').val(),
             datefrom:     $('#datefrom').val(),
@@ -157,16 +151,8 @@ $(document).ready(function () {
 			notifNo("Silahkan isi diagnosa");
             return false;
 		}
-        if($('#select_kecamatan').val()==''){
-			notifNo("Silahkan pilih kecamatan");
-            return false;
-		}
-        if($('#select_kelurahan').val()==''){
-			notifNo("Silahkan pilih kelurahan");
-            return false;
-		}
-        if($('#desa').val()==''){
-			notifNo("Silahkan isi nama desa");
+        if($('#alamat').val()==''){
+			notifNo("Silahkan isi alamat pasien");
             return false;
 		}
         if($('#datefrom').val()==''){
@@ -222,58 +208,43 @@ $(document).ready(function () {
             company_name: $('#edit_company_name').val(),
             age:          $('#edit_age').val(),
             gender:       $('#edit_gender').val(),
-            desa:         $('#edit_desa').val(),
-            kecamatan: 	  $("#edit_kecamatan option:selected").text(),
-            kelurahan:    $("#edit_kelurahan option:selected").text(),
-            id_kecamatan: $("#edit_kecamatan").val(),
-            id_kelurahan: $("#edit_kelurahan").val(),
-            kabupaten:    $('#edit_kabupaten').val(),
-            provinsi:     $('#edit_provinsi').val(),
+            alamat:       $('#edit_alamat').val(),
             diagnosa:     $('#edit_diagnosa').val(),
             terapi:       $('#edit_terapi').val(),
             datefrom:     $('#edit_datefrom').val(),
             dateto:       $('#edit_dateto').val(),
             docdate:      $('#edit_docdate').val(),
             doctby:       $('#edit_doctby').val(),
-            
         };
-        if($('#patient_name').val()==''){
+        if($('#edit_patient_name').val()==''){
 			notifNo("Silahkan isi nama pasien");
             return false;
 		}
-        if($('#age').val()==''){
+        if($('#edit_age').val()==''){
 			notifNo("Silahkan isi umur pasien");
             return false;
 		}
-        if($('#gender').val()==''){
+        if($('#edit_gender').val()==''){
 			notifNo("Silahkan pilih jenis kelamin pasien");
             return false;
 		}
-        if($('#doctby').val()==''){
+        if($('#edit_doctby').val()==''){
 			notifNo("Silahkan pilih dokter");
             return false;
 		}
-        if($('#diagnosa').val()==''){
+        if($('#edit_diagnosa').val()==''){
 			notifNo("Silahkan isi diagnosa");
             return false;
 		}
-        if($('#select_kecamatan').val()==''){
-			notifNo("Silahkan pilih kecamatan");
+        if($('#edit_alamat').val()==''){
+			notifNo("Silahkan isi alamat pasien");
             return false;
 		}
-        if($('#select_kelurahan').val()==''){
-			notifNo("Silahkan pilih kelurahan");
-            return false;
-		}
-        if($('#desa').val()==''){
-			notifNo("Silahkan isi nama desa");
-            return false;
-		}
-        if($('#datefrom').val()==''){
+        if($('#edit_datefrom').val()==''){
 			notifNo("Silahkan isi tanggal mulai");
             return false;
 		}
-        if($('#dateto').val()==''){
+        if($('#edit_dateto').val()==''){
 			notifNo("Silahkan isi tanggal selesai");
             return false;
 		}
@@ -319,54 +290,6 @@ $(document).ready(function () {
         window.open(url, '_blank');
     });
 
-    $(document).on('change','#select_kecamatan',function(e){
-      e.preventDefault();
-      var kecamatan_id                  = $("#select_kecamatan").val();
-      loadingShow();
-      $.ajax({
-        method                          : "GET",
-        cache                           : false,
-        url                             : url_ctrl+'get_kelurahan_not_default',
-        data                            : {
-          kecamatan_id                  : kecamatan_id
-        },
-        
-      })
-      .done(function(result) {
-        loadingHide();
-        var obj                         = jQuery.parseJSON(result);
-        $('#select_kelurahan').html(obj.html).trigger('chosen:updated');
-      })
-      .fail(function(res){
-        loadingHide();
-        alert('Error Response !');
-        console.log("responseText", res.responseText);
-      });
-    });
 
-    $(document).on('change','#edit_kecamatan',function(e){
-      e.preventDefault();
-      var kecamatan_id                  = $("#edit_kecamatan").val();
-      loadingShow();
-      $.ajax({
-        method                          : "GET",
-        cache                           : false,
-        url                             : url_ctrl+'get_kelurahan_not_default',
-        data                            : {
-          kecamatan_id                  : kecamatan_id
-        },
-        
-      })
-      .done(function(result) {
-        loadingHide();
-        var obj                         = jQuery.parseJSON(result);
-        $('#edit_kelurahan').html(obj.html).trigger('chosen:updated');
-      })
-      .fail(function(res){
-        loadingHide();
-        alert('Error Response !');
-        console.log("responseText", res.responseText);
-      });
-    });
 
 });

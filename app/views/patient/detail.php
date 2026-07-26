@@ -55,8 +55,8 @@
                         <span class="ds-detail-value"><?= htmlspecialchars($row->patient_company) ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">Bagian / Dept</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_department) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-label">Pekerjaan</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job) ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Status</span>
@@ -78,13 +78,7 @@
                 <div class="ds-detail-field ds-detail-field-full">
                     <span class="ds-detail-label">Alamat Lengkap</span>
                     <span class="ds-detail-value">
-                        <?php
-                        $alamat = array();
-                        if (!empty($row->patient_address)) $alamat[] = htmlspecialchars($row->patient_address);
-                        if (!empty($row->patient_district_name)) $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Kel</span>' . htmlspecialchars($row->patient_district_name) . '</span>';
-                        if (!empty($row->patient_city_name)) $alamat[] = '<span class="ds-addr-item"><span class="ds-addr-label">Kec</span>' . htmlspecialchars($row->patient_city_name) . '</span>';
-                        echo !empty($alamat) ? implode('', $alamat) : '<span class="text-muted">-</span>';
-                        ?>
+                        <?= !empty($row->patient_address) ? nl2br(htmlspecialchars($row->patient_address)) : '<span class="text-muted">-</span>' ?>
                     </span>
                 </div>
             </div>

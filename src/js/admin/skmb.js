@@ -44,12 +44,11 @@ $(document).ready(function () {
             { data: '1'},
             { data: '2'},
             { data: '3', className: 'text-center' },
-            { data: '4', className: 'text-center' },
-            { data: '5'},
+            { data: '4'},
+            { data: '5', className: 'text-center' },
             { data: '6', className: 'text-center' },
             { data: '7', className: 'text-center' },
             { data: '8', className: 'text-center' },
-            { data: '9', className: 'text-center' },
             {
                 data: null,
                 width: '120px',
@@ -136,10 +135,9 @@ $(document).ready(function () {
             patient_name:    $('#patient_name').val(),
             nik:             $('#nik').val(),
             company_name:    $('#company_name').val(),
-            bagian:          $('#bagian').val(),
-            patient_diantar: $('#patient_diantar').val(),
-            age_diantar:     $('#age_diantar').val(),
-            alamat_diantar:  $('#alamat_diantar').val(),
+            pengantar:       $('#pengantar').val(),
+            nik_pengantar:   $('#nik_pengantar').val(),
+            company_pengantar: $('#company_pengantar').val(),
             hubungan:        $('#hubungan').val(),
             tgl_datang:      $('#tgl_datang').val(),
             jam:             $('#jam').val(),
@@ -147,15 +145,7 @@ $(document).ready(function () {
             doctby:          $('#doctby').val(),
         };
         if($('#patient_name').val()==''){
-			notifNo("Silahkan isi nama pengantar");
-            return false;
-		}
-        if($('#nik').val()==''){
-			notifNo("Silahkan isi NIK pengantar");
-            return false;
-		}
-        if($('#company_name').val()==''){
-			notifNo("Silahkan isi nama perusahaan");
+			notifNo("Silahkan isi nama yang diantar");
             return false;
 		}
         if($('#tgl_datang').val()==''){
@@ -170,8 +160,8 @@ $(document).ready(function () {
 			notifNo("Silahkan pilih hubungan");
             return false;
 		}
-        if($('#patient_diantar').val()==''){
-			notifNo("Silahkan isi nama pasien yang diantar");
+        if($('#pengantar').val()==''){
+			notifNo("Silahkan isi nama pengantar");
             return false;
 		}
         if($('#doctby').val()==''){
@@ -222,10 +212,9 @@ $(document).ready(function () {
             patient_name:     $('#edit_patient_name').val(),
             nik:              $('#edit_nik').val(),
             company_name:     $('#edit_company_name').val(),
-            bagian:           $('#edit_bagian').val(),
-            patient_diantar:  $('#edit_patient_diantar').val(),
-            age_diantar:      $('#edit_age_diantar').val(),
-            alamat_diantar:   $('#edit_alamat_diantar').val(),
+            pengantar:        $('#edit_pengantar').val(),
+            nik_pengantar:    $('#edit_nik_pengantar').val(),
+            company_pengantar: $('#edit_company_pengantar').val(),
             hubungan:         $('#edit_hubungan').val(),
             tgl_datang:       $('#edit_tgl_datang').val(),
             jam:              $('#edit_jam').val(),
@@ -233,15 +222,7 @@ $(document).ready(function () {
             doctby:           $('#edit_doctby').val(),
         };
         if($('#edit_patient_name').val()==''){
-			notifNo("Silahkan isi nama pengantar");
-            return false;
-		}
-        if($('#edit_nik').val()==''){
-			notifNo("Silahkan isi NIK pengantar");
-            return false;
-		}
-        if($('#edit_company_name').val()==''){
-			notifNo("Silahkan isi nama perusahaan");
+			notifNo("Silahkan isi nama yang diantar");
             return false;
 		}
         if($('#edit_tgl_datang').val()==''){
@@ -256,8 +237,8 @@ $(document).ready(function () {
 			notifNo("Silahkan pilih hubungan");
             return false;
 		}
-        if($('#edit_patient_diantar').val()==''){
-			notifNo("Silahkan isi nama pasien yang diantar");
+        if($('#edit_pengantar').val()==''){
+			notifNo("Silahkan isi nama pengantar");
             return false;
 		}
         if($('#edit_doctby').val()==''){

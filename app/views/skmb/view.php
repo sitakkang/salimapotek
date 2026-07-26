@@ -26,11 +26,10 @@
                     <thead>
                         <tr>
                             <th width="40">No</th>
-                            <th>Nama Pengantar</th>
+                            <th>Nama Diantar</th>
                             <th width="100">NIK</th>
                             <th width="180">Perusahaan</th>
-                            <th width="150">Bagian</th>
-                            <th>Pasien Diantar</th>
+                            <th>Pengantar</th>
                             <th width="90">Tgl. Datang</th>
                             <th width="70">Jam</th>
                             <th width="100">No. Dokumen</th>

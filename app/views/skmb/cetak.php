@@ -57,11 +57,11 @@
         <p class="ket-text">
             Yang bertanda tangan di bawah ini menerangkan bahwa:
         </p>
+        
         <table>
-            <tr><td>Nama</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
-            <tr><td>NIK</td><td>:</td><td><?= htmlspecialchars($row->nik) ?: '-' ?></td></tr>
-            <tr><td>Perusahaan</td><td>:</td><td><?= htmlspecialchars($row->company_name) ?: '-' ?></td></tr>
-            <tr><td>Bagian</td><td>:</td><td><?= htmlspecialchars($row->bagian) ?: '-' ?></td></tr>
+            <tr><td>Nama Pengantar</td><td>:</td><td><?= htmlspecialchars($row->pengantar) ?: '-' ?></td></tr>
+            <tr><td>NIK Pengantar</td><td>:</td><td><?= htmlspecialchars($row->nik_pengantar) ?: '-' ?></td></tr>
+            <tr><td>Perusahaan</td><td>:</td><td><?= htmlspecialchars($row->company_pengantar) ?: '-' ?></td></tr>
         </table>
     </div>
 
@@ -84,11 +84,15 @@
             ?>
             <strong><?= $hubungan_label ?: '-' ?></strong>
         </p>
+        
         <table>
-            <tr><td>Nama</td><td>:</td><td><?= htmlspecialchars($row->patient_diantar) ?></td></tr>
-            <tr><td>Umur</td><td>:</td><td><?= htmlspecialchars($row->age_diantar) ?: '-' ?> Thn</td></tr>
-            <tr><td>Alamat</td><td>:</td><td><?= nl2br(htmlspecialchars($row->alamat_diantar)) ?: '-' ?></td></tr>
+            <tr><td>Nama Diantar</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
+            <tr><td>NIK Diantar</td><td>:</td><td><?= htmlspecialchars($row->nik) ?: '-' ?></td></tr>
+            <tr><td>Perusahaan</td><td>:</td><td><?= htmlspecialchars($row->company_name) ?: '-' ?></td></tr>
         </table>
+
+
+
     </div>
 
     <div class="section">
@@ -129,7 +133,7 @@
             <p class="ttd-place">Fatufia, <?= $tgl_doc ?></p>
             <p class="ttd-role">Dokter Pemeriksa</p>
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
-            <p class="ttd-name">( <?= htmlspecialchars($row->fullname) ?: $fullname ?> )</p>
+            <p class="ttd-name">( <?= htmlspecialchars($row->doct_name) ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
             <p class="ttd-nip">NIP. <?= htmlspecialchars($row->nip) ?></p>
             <?php endif; ?>
