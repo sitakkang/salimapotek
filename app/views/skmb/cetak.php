@@ -133,7 +133,7 @@
             <p class="ttd-place">Fatufia, <?= $tgl_doc ?></p>
             <p class="ttd-role">Dokter Pemeriksa</p>
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
-            <p class="ttd-name">( <?= htmlspecialchars($row->doct_name) ?: $fullname ?> )</p>
+            <p class="ttd-name">( <?= htmlspecialchars($row->doct_name ?? $row->fullname ?? '') ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
             <p class="ttd-nip">NIP. <?= htmlspecialchars($row->nip) ?></p>
             <?php endif; ?>
