@@ -18,7 +18,7 @@ $(document).ready(function () {
     // --- DataTable ---
     tabel_skkb = $('#tabel_skkb').DataTable({
         processing: true,
-        serverSide: false,
+        serverSide: true,
         scrollY: "500px",
         deferRender: true,
         scrollX: true,
@@ -32,7 +32,7 @@ $(document).ready(function () {
             type: 'GET',
         },
         columns: [
-            { data: '0', width: '40px' },
+            { data: '0', width: '40px', orderable: false, searchable: false },
             { data: '1'},
             { data: '2'},
             { data: '3', className: 'text-center' },
@@ -73,7 +73,7 @@ $(document).ready(function () {
             emptyTable: 'Belum ada data SKKB',
             paginate: { previous: '&laquo;', next: '&raquo;' },
         },
-        order: [[0, 'asc']],
+        order: [[7, 'desc']],
         responsive: true,
         autoWidth: false,
     });

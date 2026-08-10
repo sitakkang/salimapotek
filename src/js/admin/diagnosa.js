@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     tabel_diagnosa = $('#tabel_diagnosa').DataTable({
         processing: true,
-        serverSide: false,
+        serverSide: true,
         scrollY: "500px",
         deferRender: true,
         scrollX: true,
@@ -12,7 +12,7 @@ $(document).ready(function () {
         fixedColumns: { leftColumns: 1, rightColumns: 1 },
         ajax: { url: site_url + 'diagnosa/table', type: 'GET' },
         columns: [
-            { data: '0', width: '40px' },
+            { data: '0', width: '40px', orderable: false, searchable: false },
             { data: '1', className: 'text-center' },
             { data: '2' },
             { data: '3', className: 'text-center' },
@@ -41,7 +41,7 @@ $(document).ready(function () {
             emptyTable: 'Belum ada data diagnosa',
             paginate: { previous: '&laquo;', next: '&raquo;' },
         },
-        order: [[0, 'asc']],
+        order: [],
         responsive: true,
         autoWidth: false,
     });

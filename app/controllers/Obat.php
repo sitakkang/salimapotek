@@ -30,11 +30,37 @@ class Obat extends CI_Controller {
     }
 
     public function table() {
-        $rows = $this->M_obat->get_all();
+        $draw   = intval($this->input->get('draw'));
+        $start  = intval($this->input->get('start'));
+        $length = intval($this->input->get('length'));
+        if ($length <= 0) $length = 10;
 
-        $draw = intval($this->input->get('draw'));
+        $search = $this->input->get('search');
+        $search = !empty($search['value']) ? trim($search['value']) : '';
+
+        // Mapping kolom DataTables -> kolom database. Indeks 0 ("No") tidak dipetakan.
+        $col_map = array(
+            1 => 'obat_name',
+            2 => 'obat_satuan',
+            3 => 'obat_price',
+            4 => 'obat_status',
+        );
+
+        $order_col = '';
+        $order_dir = 'ASC';
+        $order = $this->input->get('order');
+        if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
+            $order_col = $col_map[$order[0]['column']];
+            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+        }
+
+        $records_total    = $this->M_obat->count_all();
+        $records_filtered = $this->M_obat->count_filtered($search);
+
+        $rows = $this->M_obat->get_datatables($search, $order_col, $order_dir, $start, $length);
+
         $data = array();
-        $i    = 1;
+        $i    = $start + 1;
 
         foreach ($rows->result() as $row) {
             $status = $row->obat_status == 1
@@ -53,8 +79,8 @@ class Obat extends CI_Controller {
 
         echo json_encode(array(
             'draw'            => $draw,
-            'recordsTotal'    => $rows->num_rows(),
-            'recordsFiltered' => $rows->num_rows(),
+            'recordsTotal'    => $records_total,
+            'recordsFiltered' => $records_filtered,
             'data'            => $data,
         ));
         exit();
