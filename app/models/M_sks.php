@@ -21,6 +21,61 @@ class M_sks extends CI_Model {
     }
 
     /**
+     * Hitung total SKS — untuk recordsTotal DataTables
+     */
+    public function count_all() {
+        return $this->db->count_all($this->table);
+    }
+
+    /**
+     * Hitung total SKS setelah filter pencarian — untuk recordsFiltered
+     */
+    public function count_filtered($search) {
+        $this->db->from($this->table);
+        $this->apply_search($search);
+        return $this->db->count_all_results();
+    }
+
+    /**
+     * Ambil data SKS ter-pagination + filter untuk DataTables server-side
+     */
+    public function get_datatables($search, $order_col = '', $order_dir = 'ASC', $start = 0, $length = 10) {
+        $this->db->select('id, patient_name, company_name, patient_job, age, gender, alamat, diagnosa, datefrom, dateto,
+                           docdate, doctby, docnumb, insertby, insertdt');
+        $this->db->from($this->table);
+        $this->apply_search($search);
+
+        if (!empty($order_col)) {
+            $this->db->order_by($order_col, $order_dir);
+        } else {
+            $this->db->order_by('insertdt', 'DESC');
+        }
+
+        if (intval($length) > 0) {
+            $this->db->limit(intval($length), intval($start));
+        }
+
+        return $this->db->get();
+    }
+
+    /**
+     * Terapkan pencarian global DataTables ke query (pakai GROUP untuk OR antar kolom)
+     */
+    private function apply_search($search) {
+        if (empty($search)) return;
+        $search = trim($search);
+
+        $this->db->group_start();
+        $this->db->like('patient_name', $search);
+        $this->db->or_like('company_name', $search);
+        $this->db->or_like('gender', $search);
+        $this->db->or_like('diagnosa', $search);
+        $this->db->or_like('docnumb', $search);
+        $this->db->or_like('doctby', $search);
+        $this->db->group_end();
+    }
+
+    /**
      * Get all SKS records for DataTable
      */
     public function get_all_doctor() {

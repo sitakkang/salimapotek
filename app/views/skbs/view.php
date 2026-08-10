@@ -11,6 +11,11 @@
                 <p class="ds-page-header-desc">Data Surat Keterangan Berbadan Sehat (SKBS)</p>
             </div>
         </div>
+        <div class="ds-page-header-end">
+            <button class="ds-btn-header" id="add_btn">
+                <i class="fa fa-plus-circle"></i> Tambah SKBS
+            </button>
+        </div>
     </div>
 
     <!-- Table Card -->
@@ -28,7 +33,7 @@
                             <th width="100">Hasil</th>
                             <th width="130">Dokter</th>
                             <th width="100">Tgl. Dokumen</th>
-                            <th width="100" class="text-center">Aksi</th>
+                            <th width="160" class="text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

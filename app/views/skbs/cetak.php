@@ -51,9 +51,9 @@
     <div class="header">
         <hr style="border:1px solid #2d6a4f;margin:0 0 4px;">
         <div style="font-size:14px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
-        <div style="font-size:11px;color:#555;font-weight:600;">dr. Steve Kojongian</div>
+        <div style="font-size:11px;color:#555;font-weight:600;"><?= htmlspecialchars($row->skbs_doct_name)?></div>
         <div style="font-size:9px;color:#888;margin-top:1px;">
-            Jl. Trans Sulawesi, Ds. Bahodopi, Kec Bahodopi, Morowali &nbsp;|&nbsp; Telp. 081342161194
+            Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN BERBADAN SEHAT</h2>
@@ -66,7 +66,6 @@
             <tr><td>Nama</td><td class="lbl">:</td><td><strong><?= htmlspecialchars($row->skbs_patient_name) ?></strong></td></tr>
             <tr><td>Umur</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun</td></tr>
             <tr><td>NIK</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_nik ?: '-') ?></td></tr>
-            <tr><td>Perusahaan</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_company ?: '-') ?></td></tr>
         </table>
     </div>
 

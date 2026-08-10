@@ -36,14 +36,45 @@ class Skmb extends CI_Controller {
     }
 
     /**
-     * DataTables JSON source
+     * DataTables JSON source — server-side processing
      */
     public function table() {
-        $rows = $this->M_skmb->get_all();
+        $draw   = intval($this->input->get('draw'));
+        $start  = intval($this->input->get('start'));
+        $length = intval($this->input->get('length'));
+        if ($length <= 0) $length = 10;
 
-        $draw = intval($this->input->get('draw'));
+        $search = $this->input->get('search');
+        $search = !empty($search['value']) ? trim($search['value']) : '';
+
+        // Mapping kolom DataTables -> kolom database.
+        // Indeks 0 ("No") tidak dipetakan => tidak bisa di-sort dari DB.
+        $col_map = array(
+            1 => 'patient_name',
+            2 => 'nik',
+            3 => 'company_name',
+            4 => 'pengantar',
+            5 => 'tgl_datang',
+            6 => 'jam',
+            7 => 'docnumb',
+            8 => 'docdate',
+        );
+
+        $order_col = '';
+        $order_dir = 'ASC';
+        $order = $this->input->get('order');
+        if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
+            $order_col = $col_map[$order[0]['column']];
+            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+        }
+
+        $records_total    = $this->M_skmb->count_all();
+        $records_filtered = $this->M_skmb->count_filtered($search);
+
+        $rows = $this->M_skmb->get_datatables($search, $order_col, $order_dir, $start, $length);
+
         $data = array();
-        $i    = 1;
+        $i    = $start + 1;
 
         foreach ($rows->result() as $row) {
             $data[] = array(
@@ -62,8 +93,8 @@ class Skmb extends CI_Controller {
 
         echo json_encode(array(
             'draw'            => $draw,
-            'recordsTotal'    => $rows->num_rows(),
-            'recordsFiltered' => $rows->num_rows(),
+            'recordsTotal'    => $records_total,
+            'recordsFiltered' => $records_filtered,
             'data'            => $data,
         ));
         exit();

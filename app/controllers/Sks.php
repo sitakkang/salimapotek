@@ -34,14 +34,45 @@ class Sks extends CI_Controller {
     }
 
     /**
-     * DataTables JSON source
+     * DataTables JSON source — server-side processing
      */
     public function table() {
-        $rows = $this->M_sks->get_all();
+        $draw   = intval($this->input->get('draw'));
+        $start  = intval($this->input->get('start'));
+        $length = intval($this->input->get('length'));
+        if ($length <= 0) $length = 10;
 
-        $draw = intval($this->input->get('draw'));
+        $search = $this->input->get('search');
+        $search = !empty($search['value']) ? trim($search['value']) : '';
+
+        // Mapping kolom DataTables -> kolom database.
+        // Indeks 0 ("No") tidak dipetakan => tidak bisa di-sort dari DB.
+        $col_map = array(
+            1 => 'patient_name',
+            2 => 'gender',
+            3 => 'company_name',
+            4 => 'diagnosa',
+            5 => 'docnumb',
+            6 => 'docdate',
+            7 => 'datefrom',
+            8 => 'dateto',
+        );
+
+        $order_col = '';
+        $order_dir = 'ASC';
+        $order = $this->input->get('order');
+        if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
+            $order_col = $col_map[$order[0]['column']];
+            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+        }
+
+        $records_total    = $this->M_sks->count_all();
+        $records_filtered = $this->M_sks->count_filtered($search);
+
+        $rows = $this->M_sks->get_datatables($search, $order_col, $order_dir, $start, $length);
+
         $data = array();
-        $i    = 1;
+        $i    = $start + 1;
 
         $gender_label = array(
             'L' => '<span class="badge badge-info">Laki-laki</span>',
@@ -69,8 +100,8 @@ class Sks extends CI_Controller {
 
         echo json_encode(array(
             'draw'            => $draw,
-            'recordsTotal'    => $rows->num_rows(),
-            'recordsFiltered' => $rows->num_rows(),
+            'recordsTotal'    => $records_total,
+            'recordsFiltered' => $records_filtered,
             'data'            => $data,
         ));
         exit();
@@ -82,6 +113,7 @@ class Sks extends CI_Controller {
     public function add() {
         $dokter = $this->M_sks->get_all_doctor();
         $data['dokter'] = $dokter->result();
+        $data['docnumb'] = $this->M_sks->generate_docnumb();
         
         $this->load->view($this->dir_v.'add', $data);
     }
@@ -125,6 +157,15 @@ class Sks extends CI_Controller {
         // Ambil patient_job dari ms_patient berdasarkan nama pasien
         $patient_job = $this->M_sks->get_patient_job_by_name($this->input->post('patient_name'));
 
+        // Nomor dokumen: boleh diisi manual, jika kosong di-generate otomatis
+        $docnumb = strtoupper(trim($this->input->post('docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_sks->generate_docnumb();
+        } elseif (!$this->M_sks->is_docnumb_unique($docnumb)) {
+            echo json_encode(array('status' => 1, 'notif' => 'Nomor dokumen "' . $docnumb . '" sudah digunakan!'));
+            return;
+        }
+
         $data = array(
             'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
             'company_name' => strtoupper(trim($this->input->post('company_name'))),
@@ -134,7 +175,7 @@ class Sks extends CI_Controller {
             'alamat'       => trim($this->input->post('alamat')),
             'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
             'terapi'       => trim($this->input->post('terapi')),
-            'docnumb'      => $this->M_sks->generate_docnumb(),
+            'docnumb'      => $docnumb,
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),
@@ -165,8 +206,14 @@ class Sks extends CI_Controller {
         // Ambil patient_job dari ms_patient berdasarkan nama pasien
         $patient_job = $this->M_sks->get_patient_job_by_name($this->input->post('patient_name'));
 
-        if ($this->form_validation->run() == FALSE) {
-            echo json_encode(array('status' => 1, 'notif' => validation_errors()));
+        // Nomor dokumen wajib diisi & harus unik (kecuali record ini sendiri)
+        $docnumb = strtoupper(trim($this->input->post('docnumb')));
+        if (empty($docnumb)) {
+            echo json_encode(array('status' => 1, 'notif' => 'Nomor dokumen wajib diisi!'));
+            return;
+        }
+        if (!$this->M_sks->is_docnumb_unique($docnumb, $id)) {
+            echo json_encode(array('status' => 1, 'notif' => 'Nomor dokumen "' . $docnumb . '" sudah digunakan!'));
             return;
         }
 
@@ -179,6 +226,7 @@ class Sks extends CI_Controller {
             'alamat'       => trim($this->input->post('alamat')),
             'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
             'terapi'       => trim($this->input->post('terapi')),
+            'docnumb'      => $docnumb,
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),

@@ -1,4 +1,11 @@
 <div class="ds-form-group">
+    <label>No. Dokumen <span class="text-danger">*</span></label>
+    <input type="text" id="docnumb" name="docnumb" class="form-control"
+           value="<?= isset($docnumb) ? htmlspecialchars($docnumb) : '' ?>"
+           maxlength="100" autocomplete="off">
+</div>
+
+<div class="ds-form-group">
     <label>Nama Pasien <span class="text-danger">*</span></label>
     <input type="text" id="patient_name" name="patient_name" class="form-control"
            placeholder="Nama lengkap pasien" maxlength="200" autocomplete="off">

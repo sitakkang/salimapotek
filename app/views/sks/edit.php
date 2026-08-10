@@ -1,6 +1,12 @@
 <input type="hidden" id="edit_id" name="id" value="<?= $row->id ?>">
 
 <div class="ds-form-group">
+    <label>No. Dokumen <span class="text-danger">*</span></label>
+    <input type="text" id="edit_docnumb" name="docnumb" class="form-control"
+           value="<?= htmlspecialchars($row->docnumb) ?>" maxlength="100" autocomplete="off">
+</div>
+
+<div class="ds-form-group">
     <label>Nama Pasien <span class="text-danger">*</span></label>
     <input type="text" id="edit_patient_name" name="patient_name" class="form-control"
            value="<?= htmlspecialchars($row->patient_name) ?>" maxlength="200" autocomplete="off">
@@ -77,8 +83,6 @@
     <textarea id="edit_alamat" name="alamat" class="form-control" rows="2"
               placeholder="Alamat lengkap pasien"><?= htmlspecialchars($row->alamat) ?></textarea>
 </div>
-
-
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 14px;">
 

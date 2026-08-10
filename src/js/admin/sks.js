@@ -20,7 +20,7 @@ $(document).ready(function () {
     // --- DataTable ---
     tabel_sks = $('#tabel_sks').DataTable({
         processing: true,
-        serverSide: false,
+        serverSide: true,
         scrollY: "500px",
         deferRender: true,
         scrollX: true,
@@ -34,7 +34,7 @@ $(document).ready(function () {
             type: 'GET',
         },
         columns: [
-            { data: '0', width: '40px' },
+            { data: '0', width: '40px', orderable: false, searchable: false },
             { data: '1'},
             { data: '2', className: 'text-center' },
             { data: '3', className: 'text-center' },
@@ -76,7 +76,7 @@ $(document).ready(function () {
             emptyTable: 'Belum ada data SKS',
             paginate: { previous: '&laquo;', next: '&raquo;' },
         },
-        order: [[0, 'asc']],
+        order: [[6, 'desc']],
         responsive: true,
         autoWidth: false,
     });
@@ -130,6 +130,7 @@ $(document).ready(function () {
             dateto:       $('#dateto').val(),
             docdate:      $('#docdate').val(),
             doctby:       $('#doctby').val(),
+            docnumb:      $('#docnumb').val(),
         };
         if($('#patient_name').val()==''){
 			notifNo("Silahkan isi nama pasien");
@@ -215,6 +216,7 @@ $(document).ready(function () {
             dateto:       $('#edit_dateto').val(),
             docdate:      $('#edit_docdate').val(),
             doctby:       $('#edit_doctby').val(),
+            docnumb:      $('#edit_docnumb').val(),
         };
         if($('#edit_patient_name').val()==''){
 			notifNo("Silahkan isi nama pasien");
