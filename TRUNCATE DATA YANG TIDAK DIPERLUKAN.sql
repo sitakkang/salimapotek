@@ -1,0 +1,10 @@
+TRUNCATE TABLE trans_visit;
+TRUNCATE TABLE trans_skbs;
+TRUNCATE TABLE trans_anamnesa;
+TRUNCATE TABLE trans_medical_record;
+TRUNCATE TABLE trans_obat;
+TRUNCATE TABLE trans_obat_racikan;
+TRUNCATE TABLE ms_patient;
+TRUNCATE TABLE sks;
+TRUNCATE TABLE skmb;
+TRUNCATE TABLE skkb;

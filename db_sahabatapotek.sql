@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2026 at 12:20 PM
+-- Generation Time: Aug 10, 2026 at 10:43 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_kliniksehat`
+-- Database: `db_sahabatapotek`
 --
 
 -- --------------------------------------------------------
@@ -124,8 +124,8 @@ CREATE TABLE `conf_users` (
 --
 
 INSERT INTO `conf_users` (`id_user`, `fullname`, `nip`, `avatar`, `username`, `password`, `salt`, `level`, `last_login`, `ip_address`, `status`) VALUES
-(1, 'Superadmin', NULL, 'img/avatar/6U6lk2At.jpg', 'admin', 'fdbc3a37c635fe6b2a378ebb04c44a1c1d68fb8b', 'lxN/LwbZ', 1, '2026-07-26 21:03:00', '::1', 1),
-(4, 'dr. Steve Kojongian', '440/188/DPM-PTSP/SIPTM/XII/2023', '', 'Steve', '732684aab216c0616b6fdca34618b9ae413994e1', 'u&qU0XDt', 3, '2026-07-23 12:54:58', '::1', 1),
+(1, 'Superadmin', NULL, 'img/avatar/6U6lk2At.jpg', 'admin', 'fdbc3a37c635fe6b2a378ebb04c44a1c1d68fb8b', 'lxN/LwbZ', 1, '2026-08-10 17:30:29', '::1', 1),
+(4, 'dr. Mutmainnah Hasanuddin', 'MR72062607007791', '', 'mutmainnah', '6e80b7b3eb309155476ebe61a279e810ac96dec1', 'VhBBMZE4', 3, '2026-07-23 12:54:58', '::1', 1),
 (6, 'Admin Apotek', '', '', 'adminapotek', 'eadb874ccb9b5eb0468871d2c3ad20cee6f39af4', 't2Dn6yiX', 2, '0000-00-00 00:00:00', '', 2);
 
 -- --------------------------------------------------------
@@ -33837,60 +33837,6 @@ CREATE TABLE `ms_patient` (
   `updatedt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `ms_patient`
---
-
-INSERT INTO `ms_patient` (`id_patient`, `patient_code`, `patient_name`, `patient_nik`, `patient_company`, `patient_department`, `patient_job`, `patient_ktp`, `patient_bod`, `patient_gender`, `patient_city_id`, `patient_city_name`, `patient_district_id`, `patient_district_name`, `patient_address`, `patient_phone`, `patient_status`, `insert_by`, `insert_dt`, `updateby`, `updatedt`) VALUES
-(3, '2607220001', 'FITRI GURNING', '', '', '', NULL, '', '1993-07-01', 'P', 3, 'BAHODOPI', 58, 'BAHODOPI', 'BAHOMAKMUR', '081211903174', 1, 1, '2026-07-22 13:27:26', NULL, NULL),
-(4, '2607220002', 'FALDI YUDIANTO', '', 'PT ITSS', 'IT', NULL, '1208160909890001', '1988-02-22', 'L', 3, 'BAHODOPI', 54, 'LABOTA', 'LABOTA', '081211903173', 1, 1, '2026-07-22 13:31:20', NULL, NULL),
-(5, '2607220003', 'PATAR S', '88102624', 'PT IMIP', 'IT', NULL, '1208160507900001', '1990-07-05', 'L', 3, 'BAHODOPI', 55, 'FATUFIA', 'FATUFIA', '081211903174', 1, 1, '2026-07-22 13:39:25', NULL, NULL),
-(6, '2607220004', 'ELKO DEDDY', '88102635', 'PT IMIP', 'APP DEV', NULL, '1208160507900004', '2000-07-13', 'L', 3, 'BAHODOPI', 54, 'LABOTA', '-', '081211903167', 1, 1, '2026-07-22 13:40:41', NULL, NULL),
-(7, '2607220005', 'SATRIO', '88102626', 'PT YIP', '', NULL, '1208160507900002', '2000-07-05', 'L', 3, 'BAHODOPI', 54, 'LABOTA', '-', '081211903174', 1, 4, '2026-07-22 23:50:31', NULL, NULL),
-(8, '2607220006', 'DEDDY SETIAWAN', '88102489', 'PT HYNC', '', NULL, '1208169007560001', '2026-07-22', 'L', 3, 'BAHODOPI', 55, 'FATUFIA', '-', '081211903174', 1, 4, '2026-07-22 23:53:03', NULL, NULL),
-(9, '2607220007', 'SAMUEL SILITONGA', '', '', '', NULL, '', '2003-07-16', 'L', 3, 'BAHODOPI', 55, 'FATUFIA', '-', '081211903174', 1, 4, '2026-07-22 23:56:18', NULL, NULL),
-(10, '2607260001', 'SANRIO KWOK', '88102609', 'PT IMIP', NULL, 'KARYAWAN', '1208160507900008', '2002-07-26', 'L', NULL, NULL, NULL, NULL, 'BAHODOPI', '081211903165', 1, 1, '2026-07-26 22:27:06', 1, '2026-07-26 22:38:37');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pos_transactions`
---
-
-CREATE TABLE `pos_transactions` (
-  `id_transaction` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL COMMENT 'Link ke orders jika dari order',
-  `split_number` int(11) DEFAULT NULL COMMENT 'Nomor split jika split bill',
-  `split_total` int(11) DEFAULT NULL COMMENT 'Total split dari order ini',
-  `no_invoice` varchar(50) NOT NULL,
-  `tanggal` datetime NOT NULL,
-  `total_item` int(11) DEFAULT 0,
-  `subtotal` decimal(15,2) DEFAULT 0.00,
-  `diskon` decimal(15,2) DEFAULT 0.00,
-  `pajak` decimal(15,2) DEFAULT 0.00,
-  `total_bayar` decimal(15,2) DEFAULT 0.00,
-  `jumlah_bayar` decimal(15,2) DEFAULT 0.00,
-  `kembalian` decimal(15,2) DEFAULT 0.00,
-  `jenis_pembayaran` enum('CASH','QRIS','TRANSFER') NOT NULL DEFAULT 'CASH',
-  `tipe_order` enum('DINE_IN','TAKEAWAY') NOT NULL DEFAULT 'DINE_IN',
-  `kasir_id` int(11) DEFAULT NULL,
-  `kasir_name` varchar(60) DEFAULT NULL,
-  `status` enum('PENDING','COMPLETED','CANCELLED') DEFAULT 'PENDING',
-  `catatan` text DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pos_transactions`
---
-
-INSERT INTO `pos_transactions` (`id_transaction`, `order_id`, `split_number`, `split_total`, `no_invoice`, `tanggal`, `total_item`, `subtotal`, `diskon`, `pajak`, `total_bayar`, `jumlah_bayar`, `kembalian`, `jenis_pembayaran`, `tipe_order`, `kasir_id`, `kasir_name`, `status`, `catatan`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, 'INV-20260302-0001', '2026-03-02 07:38:41', 3, '105000.00', '0.00', '0.00', '105000.00', '200000.00', '95000.00', 'CASH', 'DINE_IN', 3, 'Admin Utama', 'COMPLETED', '', '2026-03-02 07:38:41', NULL),
-(3, 4, NULL, NULL, 'INV-20260303-0001', '2026-03-03 07:15:29', 6, '74000.00', '0.00', '0.00', '74000.00', '100000.00', '26000.00', 'CASH', 'DINE_IN', 3, 'Admin Utama', 'COMPLETED', '', '2026-03-03 07:15:29', NULL),
-(4, NULL, NULL, NULL, 'INV-20260303-0002', '2026-03-03 07:59:53', 5, '115000.00', '0.00', '0.00', '115000.00', '115000.00', '0.00', 'CASH', 'DINE_IN', 3, 'Admin Utama', 'COMPLETED', '', '2026-03-03 07:59:53', NULL),
-(5, NULL, NULL, NULL, 'INV-20260303-0003', '2026-03-03 08:54:42', 3, '45000.00', '0.00', '0.00', '45000.00', '45000.00', '0.00', 'CASH', 'DINE_IN', 3, 'Admin Utama', 'COMPLETED', '', '2026-03-03 08:54:42', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -33968,17 +33914,6 @@ CREATE TABLE `skmb` (
   `docnumb` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
---
--- Dumping data for table `skmb`
---
-
-INSERT INTO `skmb` (`id`, `visit_id`, `insertby`, `insertdt`, `updateby`, `updatedt`, `patient_name`, `nik`, `bagian`, `company_name`, `patient_diantar`, `age_diantar`, `alamat_diantar`, `hubungan`, `tgl_datang`, `jam`, `docdate`, `doct_by_name`, `doct_by_id`, `pengantar`, `nik_pengantar`, `company_pengantar`, `docnumb`) VALUES
-(2, NULL, '1', '2026-07-22 14:18:51', NULL, NULL, 'PATAR M', '88102624', '', 'PT IMIP', 'NOVEL SINAGA', '36', 'MEDAN', 'SAUDARA', '2026-07-22', '00:03', '2026-07-22', 'dr. Steve Kojongian', 4, NULL, NULL, NULL, '00001/SKMB/VII/2026'),
-(4, 7, '4', '2026-07-22 15:29:12', NULL, NULL, 'PATAR S', '88102624', 'IT', 'PT IMIP', 'MAGDALENA', '24', 'FATUFIA', 'SAUDARA', '2026-07-22', '23:28', '2026-07-22', 'dr. Steve Kojongian', 4, NULL, NULL, NULL, '00002/SKMB/VII/2026'),
-(5, 8, '4', '2026-07-24 19:50:26', NULL, NULL, 'PATAR S', '88102624', 'IT', 'PT IMIP', 'FITRI', '26', 'FATUFIA', 'ISTRI', '2026-07-24', '19:50', '2026-07-24', 'dr. Steve Kojongian', 4, NULL, NULL, NULL, '00003/SKMB/VII/2026'),
-(7, 9, '4', '2026-07-26 23:08:48', NULL, NULL, 'SANRIO KWOK', '88102609', '', 'PT IMIP', NULL, '', '', 'SAUDARA', '2026-07-26', '23:08', '2026-07-26', 'dr. Steve Kojongian', 4, 'SAMUEL', '88109090', 'PT IMIP', '00004/SKMB/VII/2026'),
-(8, NULL, '1', '2026-07-26 23:26:07', '1', '2026-07-26 23:30:32', 'FITRI', '88102727', NULL, 'PT HYNC', NULL, NULL, NULL, 'ISTRI', '2026-07-26', '00:00', '2026-07-26', 'dr. Steve Kojongian', 4, 'PATAR', '88102624', 'PT IMIP', '00005/SKMB/VII/2026');
-
 -- --------------------------------------------------------
 
 --
@@ -34013,17 +33948,6 @@ CREATE TABLE `sks` (
   `docnumb` varchar(100) DEFAULT NULL,
   `visit_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
---
--- Dumping data for table `sks`
---
-
-INSERT INTO `sks` (`id`, `insertby`, `insertdt`, `updateby`, `updatedt`, `patient_name`, `company_name`, `patient_job`, `gender`, `age`, `desa`, `kecamatan_id`, `kecamatan`, `kelurahan_id`, `kelurahan`, `kabupaten`, `provinsi`, `alamat`, `diagnosa`, `terapi`, `datefrom`, `dateto`, `docdate`, `doctby`, `docnumb`, `visit_id`) VALUES
-(25, '1', '2026-07-22 13:45:13', NULL, NULL, 'PATAR S', 'PT IMIP', NULL, 'L', '36', 'FATUFIA', 3, 'BAHODOPI', 55, 'FATUFIA', 'MOROWALI', 'SULAWESI TENGAH', NULL, '1. SLOW VIRUS INFECTION OF CENTRAL NERVOUS SYSTEM, UNSPECIFIED\n2. AMOEBIC INFECTION OF OTHER SITES', '1. AMBROXOL 15 MG/5 ML SYRUP\n2. AMBEVEN (ANTI-HEMORRHOID) 1 x 1', '2026-07-22', '2026-07-22', '2026-07-22', '4', '00001/SKS/VII/2026', 7),
-(27, '1', '2026-07-24 19:46:07', NULL, NULL, 'PATAR S', 'PT IMIP', NULL, 'L', '36', 'FATUFIA', 3, 'BAHODOPI', 55, 'FATUFIA', 'MOROWALI', 'SULAWESI TENGAH', NULL, '1. AMOEBIC INFECTION OF OTHER SITES', '1. AMBROXOL 15 MG/5 ML SYRUP 1 x 1\n2. EMTURNAS (PARACETAMOL 500 MG)\n3. AMBEVEN (ANTI-HEMORRHOID)', '2026-07-24', '2026-07-24', '2026-07-24', '4', '00002/SKS/VII/2026', 8),
-(28, '1', '2026-07-26 22:21:57', NULL, NULL, 'MARTINUS', 'PT IMIP', 'KARYAWAN', 'L', '25', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Bahomakmur', 'DIAGNOSA PASIEN', 'Paracetamol', '2026-07-26', '2026-07-26', '2026-07-26', '4', '00003/SKS/VII/2026', NULL),
-(34, '1', '2026-07-27 00:52:29', NULL, NULL, 'SANRIO KWOK', 'PT IMIP', 'KARYAWAN', 'L', '24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'BAHODOPI', '1. AMOEBIC INFECTION OF OTHER SITES', '1. EMTURNAS (PARACETAMOL 500 MG)\n2. AMBROXOL 15 MG/5 ML SYRUP', '2026-07-27', '2026-07-27', '2026-07-27', '4', '00004/SKS/VII/2026', 9),
-(35, '1', '2026-07-27 00:56:46', NULL, NULL, 'YOGA', 'PT IMIP', 'KARYAWAN', 'L', '24', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'BAHODOPI', 'DIAGNOSA', 'PARACETAMOL', '2026-07-27', '2026-07-27', '2026-07-27', '4', '00005/SKS/VII/2026', NULL);
 
 -- --------------------------------------------------------
 
@@ -34137,7 +34061,13 @@ INSERT INTO `temp_login` (`id_temp`, `id_user`, `tanggal`, `ip_address`, `nama_u
 (91, 1, '2026-07-24 21:03:04', '::1', 'Superadmin'),
 (92, 1, '2026-07-25 20:01:30', '::1', 'Superadmin'),
 (93, 1, '2026-07-26 18:41:01', '::1', 'Superadmin'),
-(94, 1, '2026-07-26 21:03:00', '::1', 'Superadmin');
+(94, 1, '2026-07-26 21:03:00', '::1', 'Superadmin'),
+(95, 1, '2026-08-07 19:53:07', '::1', 'Superadmin'),
+(96, 1, '2026-08-07 20:05:39', '::1', 'Superadmin'),
+(97, 1, '2026-08-10 10:56:59', '::1', 'Superadmin'),
+(98, 1, '2026-08-10 10:57:35', '::1', 'Superadmin'),
+(99, 1, '2026-08-10 14:49:41', '::1', 'Superadmin'),
+(100, 1, '2026-08-10 17:30:29', '::1', 'Superadmin');
 
 -- --------------------------------------------------------
 
@@ -34160,16 +34090,6 @@ CREATE TABLE `trans_anamnesa` (
   `anm_insert_by` int(11) DEFAULT NULL,
   `anm_status` tinyint(4) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `trans_anamnesa`
---
-
-INSERT INTO `trans_anamnesa` (`id_trans_anm`, `medical_record_id`, `anm_weight`, `anm_temp`, `anm_pulse`, `anm_respirasi`, `anm_blood_press`, `anm_height`, `anm_note`, `anm_stomatch_wide`, `anm_insert_dt`, `anm_insert_by`, `anm_status`) VALUES
-(5, 6, '65', '36.5', '80', '20', '120/80', '165', '', '90', '2026-07-22 13:29:21', 1, 1),
-(6, 7, '63', '36.5', '80', '20', '120/90', '168', '', '90', '2026-07-22 13:42:01', 1, 1),
-(7, 8, '68', '36.5', '80', '20', '120/90', '170', '', '90', '2026-07-23 00:08:26', 4, 1),
-(8, 9, '65', '36.5', '80', '20', '120/80', '165', 'Catatan Anamnesa', '90', '2026-07-26 22:29:43', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -34196,7 +34116,8 @@ INSERT INTO `trans_diagnosa` (`id_trans_dgn`, `trans_dgn_name`, `trans_dgn_cat`,
 (5, 'SLOW VIRUS INFECTION OF CENTRAL NERVOUS SYSTEM, UNSPECIFIED', 'A81.9', 1, 7, '2026-07-22 13:44:28', 1, ''),
 (6, 'AMOEBIC INFECTION OF OTHER SITES', 'A06.8', 1, 7, '2026-07-22 13:44:34', 1, ''),
 (7, 'AMOEBIC INFECTION OF OTHER SITES', 'A06.8', 1, 8, '2026-07-23 00:09:14', 4, ''),
-(9, 'AMOEBIC INFECTION OF OTHER SITES', 'A06.8', 1, 9, '2026-07-26 22:30:30', 1, '');
+(9, 'AMOEBIC INFECTION OF OTHER SITES', 'A06.8', 1, 9, '2026-07-26 22:30:30', 1, ''),
+(10, 'AMOEBIC INFECTION OF OTHER SITES', 'A06.8', 1, 10, '2026-08-10 12:01:56', 1, '');
 
 -- --------------------------------------------------------
 
@@ -34215,16 +34136,6 @@ CREATE TABLE `trans_medical_record` (
   `mrd_cancel_dt` datetime DEFAULT NULL,
   `mrd_cancel_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `trans_medical_record`
---
-
-INSERT INTO `trans_medical_record` (`id_medical_record`, `visit_id`, `mrd_status`, `mrd_vst_type`, `mrd_doct_by`, `mrd_insert_dt`, `mrd_insert_by`, `mrd_cancel_dt`, `mrd_cancel_by`) VALUES
-(6, 6, 0, 1, NULL, '2026-07-22 13:28:16', 1, '2026-07-22 13:29:38', 1),
-(7, 7, 1, 1, 4, '2026-07-22 13:41:26', 1, NULL, NULL),
-(8, 8, 1, 1, 4, '2026-07-23 00:05:33', 4, NULL, NULL),
-(9, 9, 1, 1, 4, '2026-07-26 22:27:14', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -34248,19 +34159,6 @@ CREATE TABLE `trans_obat` (
   `trans_obat_insert_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `trans_obat`
---
-
-INSERT INTO `trans_obat` (`id_trans_obat`, `obat_id`, `medical_record_id`, `trans_obat_pulv_id`, `trans_obat_name`, `trans_obat_satuan`, `trans_obat_dosis`, `trans_obat_price`, `trans_obat_qty`, `trans_obat_total_price`, `trans_obat_status`, `trans_obat_insert_dt`, `trans_obat_insert_by`) VALUES
-(9, 2, 7, NULL, 'AMBROXOL 15 MG/5 ML SYRUP', 'BT', '', '30000.00', 1, '30000', 1, '2026-07-22 13:44:41', 1),
-(10, 3, 7, NULL, 'AMBEVEN (ANTI-HEMORRHOID)', 'KAP', '1 x 1', '3600.00', 1, '3600', 1, '2026-07-22 13:44:56', 1),
-(11, 2, 8, NULL, 'AMBROXOL 15 MG/5 ML SYRUP', 'BT', '1 x 1', '30000.00', 1, '30000', 1, '2026-07-23 00:09:20', 4),
-(12, 1, 8, NULL, 'EMTURNAS (PARACETAMOL 500 MG)', 'KPT', '', '1200.00', 1, '1200', 1, '2026-07-24 19:36:06', 1),
-(15, 2, 8, NULL, 'AMBROXOL 15 MG/5 ML SYRUP', 'BT', '', '30000.00', 1, '30000', 1, '2026-07-24 19:48:36', 1),
-(16, 1, 9, 2, 'EMTURNAS (PARACETAMOL 500 MG)', 'KPT', '', '1200.00', 1, '1200', 1, '2026-07-26 22:30:36', 1),
-(17, 2, 9, 2, 'AMBROXOL 15 MG/5 ML SYRUP', 'BT', '', '30000.00', 1, '30000', 1, '2026-07-27 00:11:51', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -34278,13 +34176,6 @@ CREATE TABLE `trans_obat_racikan` (
   `pulv_insert_by` int(11) DEFAULT NULL,
   `pulv_insert_dt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `trans_obat_racikan`
---
-
-INSERT INTO `trans_obat_racikan` (`id_pulv`, `medical_record_id`, `pulv_name`, `pulv_notes`, `pulv_notes_apotek`, `pulv_dosis`, `pulv_qty`, `pulv_insert_by`, `pulv_insert_dt`) VALUES
-(2, 9, 'RACIK BATUK', '', NULL, '3x1', 1, 1, '2026-07-27 00:51:54');
 
 -- --------------------------------------------------------
 
@@ -34323,14 +34214,6 @@ CREATE TABLE `trans_skbs` (
   `update_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `trans_skbs`
---
-
-INSERT INTO `trans_skbs` (`id_skbs`, `visit_id`, `skbs_patient_name`, `skbs_patient_nik`, `skbs_patient_department`, `skbs_patient_company`, `skbs_patient_ktp`, `skbs_patient_age`, `skbs_result_id`, `skbs_result_name`, `skbs_desc`, `skbs_note`, `skbs_td`, `skbs_bw`, `skbs_tb`, `skbs_bb`, `skbs_r`, `skbs_l`, `skbs_koreksi_r`, `skbs_koreksi_l`, `skbs_doc_date`, `skbs_doct_id`, `skbs_doct_name`, `skbs_status`, `insert_dt`, `insert_by`, `update_dt`, `update_by`) VALUES
-(7, 7, 'PATAR S', '88102624', 'IT', 'PT IMIP', '1208160507900001', '36', NULL, 'FIT', '', '', '120/80', 'Normal', '165', '65', '6/6', '6/6', '6/6', '6/6', '2026-07-22', 4, 'dr. Steve Kojongian', 1, '2026-07-22 14:02:03', 4, NULL, NULL),
-(8, 8, 'PATAR S', '88102624', 'IT', 'PT IMIP', '1208160507900001', '36', NULL, 'FIT', '', '', '120/80', 'Normal', '165', '65', '6/6', '6/6', '6/6', '6/6', '2026-07-24', 4, 'dr. Steve Kojongian', 1, '2026-07-24 19:49:57', 4, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -34357,16 +34240,6 @@ CREATE TABLE `trans_visit` (
   `trans_doc` date DEFAULT NULL,
   `trans_doct_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `trans_visit`
---
-
-INSERT INTO `trans_visit` (`id_visit`, `patient_id`, `trans_patient_code`, `trans_patient_company`, `trans_patient_department`, `trans_patient_city_id`, `trans_patient_city_name`, `trans_patient_district_id`, `trans_patient_district_name`, `trans_patient_phone`, `trans_vst_type`, `trans_insert_dt`, `trans_insert_by`, `trans_cancel_dt`, `trans_cancel_by`, `trans_status`, `trans_doc`, `trans_doct_by`) VALUES
-(6, 3, '2607220001', '', '', 3, 'BAHODOPI', 58, 'BAHODOPI', '081211903174', 1, '2026-07-22 13:28:16', 1, '2026-07-22 13:29:38', 1, 0, '2026-07-22', NULL),
-(7, 5, '2607220003', 'PT IMIP', 'IT', 3, 'BAHODOPI', 55, 'FATUFIA', '081211903174', 1, '2026-07-22 13:41:26', 1, NULL, NULL, 1, '2026-07-22', 4),
-(8, 5, '2607220003', 'PT IMIP', 'IT', 3, 'BAHODOPI', 55, 'FATUFIA', '081211903174', 1, '2026-07-23 00:05:33', 4, NULL, NULL, 1, '2026-07-23', 4),
-(9, 10, '2607260001', 'PT IMIP', NULL, NULL, NULL, NULL, NULL, '081211903165', 1, '2026-07-26 22:27:14', 1, NULL, NULL, 1, '2026-07-26', 4);
 
 --
 -- Indexes for dumped tables
@@ -34457,16 +34330,6 @@ ALTER TABLE `ms_patient`
   ADD PRIMARY KEY (`id_patient`);
 
 --
--- Indexes for table `pos_transactions`
---
-ALTER TABLE `pos_transactions`
-  ADD PRIMARY KEY (`id_transaction`),
-  ADD UNIQUE KEY `no_invoice` (`no_invoice`),
-  ADD KEY `idx_tanggal` (`tanggal`),
-  ADD KEY `idx_kasir` (`kasir_id`),
-  ADD KEY `idx_order` (`order_id`);
-
---
 -- Indexes for table `request_items`
 --
 ALTER TABLE `request_items`
@@ -34525,8 +34388,7 @@ ALTER TABLE `trans_obat`
 -- Indexes for table `trans_obat_racikan`
 --
 ALTER TABLE `trans_obat_racikan`
-  ADD PRIMARY KEY (`id_pulv`),
-  ADD KEY `medical_record_id` (`medical_record_id`);
+  ADD PRIMARY KEY (`id_pulv`);
 
 --
 -- Indexes for table `trans_skbs`
@@ -34602,79 +34464,73 @@ ALTER TABLE `ms_obat`
 -- AUTO_INCREMENT for table `ms_patient`
 --
 ALTER TABLE `ms_patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `pos_transactions`
---
-ALTER TABLE `pos_transactions`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `skkb`
 --
 ALTER TABLE `skkb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `skmb`
 --
 ALTER TABLE `skmb`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sks`
 --
 ALTER TABLE `sks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `temp_login`
 --
 ALTER TABLE `temp_login`
-  MODIFY `id_temp` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id_temp` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `trans_anamnesa`
 --
 ALTER TABLE `trans_anamnesa`
-  MODIFY `id_trans_anm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_trans_anm` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trans_diagnosa`
 --
 ALTER TABLE `trans_diagnosa`
-  MODIFY `id_trans_dgn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_trans_dgn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `trans_medical_record`
 --
 ALTER TABLE `trans_medical_record`
-  MODIFY `id_medical_record` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_medical_record` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trans_obat`
 --
 ALTER TABLE `trans_obat`
-  MODIFY `id_trans_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_trans_obat` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trans_obat_racikan`
 --
 ALTER TABLE `trans_obat_racikan`
-  MODIFY `id_pulv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pulv` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trans_skbs`
 --
 ALTER TABLE `trans_skbs`
-  MODIFY `id_skbs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_skbs` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trans_visit`
 --
 ALTER TABLE `trans_visit`
-  MODIFY `id_visit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_visit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -34685,12 +34541,6 @@ ALTER TABLE `trans_visit`
 --
 ALTER TABLE `request_items`
   ADD CONSTRAINT `request_items_ibfk_1` FOREIGN KEY (`user`) REFERENCES `conf_users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `trans_obat_racikan`
---
-ALTER TABLE `trans_obat_racikan`
-  ADD CONSTRAINT `fk_pulv_medical_record` FOREIGN KEY (`medical_record_id`) REFERENCES `trans_medical_record` (`id_medical_record`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
