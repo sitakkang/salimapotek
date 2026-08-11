@@ -299,7 +299,7 @@
 
         <!-- Footer -->
         <div class="v-footer">
-            <span>Diterbitkan oleh Sahabat Apotek Care</span>
+            <span>Diterbitkan oleh Apotek Arbani Salim</span>
             <span class="v-footer-seal">
                 <span>&#9679;</span>
                 <?= !empty($row->insertdt) ? date('d-m-Y H:i', strtotime($row->insertdt)) : '-' ?>

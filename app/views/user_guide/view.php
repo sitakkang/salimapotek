@@ -94,7 +94,7 @@
             </div>
             <div>
                 <h5 class="ds-page-header-title">User Guide</h5>
-                <p class="ds-page-header-desc">Panduan penggunaan aplikasi Sahabat Apotek Care</p>
+                <p class="ds-page-header-desc">Panduan penggunaan aplikasi Apotek Arbani Salim</p>
             </div>
         </div>
     </div>

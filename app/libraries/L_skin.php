@@ -12,17 +12,17 @@ class L_skin {
 	function apps_config($key)
     {
 		$data = array(
-			'title' 		=> 'Sahabat Apotek Care',
+			'title' 		=> 'Apotek Arbani Salim',
 			'logo' 			=> 'img/apotek-sidebar-logo.jpeg',
 			'login' 		=> 'img/dashboard.jpeg',
 			'favicon' 		=> 'img/apotek_logo_text.png',
 			'noimage' 		=> 'img/noimage.png',
 			'loading' 		=> 'img/loading.gif',
 			'email' 		=> 'info@imip.co.id',
-			'footer' 		=> 'Sahabat Apotek Care',
-			'meta_desc' 	=> 'Aplikasi Sahabat Apotek Care',
+			'footer' 		=> 'Apotek Arbani Salim',
+			'meta_desc' 	=> 'Aplikasi Apotek Arbani Salim',
 			'meta_key' 		=> 'PT Indonesia Morowali Industrial Park',
-			'head_title' 	=> 'Sahabat Apotek Care',
+			'head_title' 	=> 'Apotek Arbani Salim',
 			'head_subtitle' => 'A Human Resources Information System (HRIS) is a software or online solution that is used for data entry, data tracking and the data information requirements of an organizations human resources (HR) management, payroll and bookkeeping operations'
 		);
     	return $data[$key];
