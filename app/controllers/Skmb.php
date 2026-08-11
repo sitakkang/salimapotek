@@ -55,9 +55,8 @@ class Skmb extends CI_Controller {
             3 => 'company_name',
             4 => 'pengantar',
             5 => 'tgl_datang',
-            6 => 'jam',
-            7 => 'docnumb',
-            8 => 'docdate',
+            6 => 'docnumb',
+            7 => 'docdate',
         );
 
         $order_col = '';
@@ -85,9 +84,8 @@ class Skmb extends CI_Controller {
                 '3'         => htmlspecialchars($row->company_name ?? ''),
                 '4'         => htmlspecialchars($row->pengantar ?? ''),
                 '5'         => !empty($row->tgl_datang) ? date('d/m/Y', strtotime($row->tgl_datang)) : '-',
-                '6'         => htmlspecialchars($row->jam ?? ''),
-                '7'         => htmlspecialchars($row->docnumb ?? ''),
-                '8'         => !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '-',
+                '6'         => htmlspecialchars($row->docnumb ?? ''),
+                '7'         => !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '-',
             );
         }
 
@@ -160,7 +158,7 @@ class Skmb extends CI_Controller {
             'pekerjaan_pengantar' => strtoupper(trim($this->input->post('pekerjaan_pengantar') ?? '')),
             'hubungan'        => $this->input->post('hubungan'),
             'tgl_datang'      => $this->format_date_db($this->input->post('tgl_datang')),
-            'jam'             => trim($this->input->post('jam')),
+            'jam'             => '00:00',
             'patient_diagnosa'=> trim($this->input->post('patient_diagnosa')),
             'docdate'         => $this->format_date_db($this->input->post('docdate')),
             'doct_by_id'      => $doct_by_id,
@@ -201,7 +199,7 @@ class Skmb extends CI_Controller {
             'pekerjaan_pengantar' => strtoupper(trim($this->input->post('pekerjaan_pengantar') ?? '')),
             'hubungan'        => $this->input->post('hubungan'),
             'tgl_datang'      => $this->format_date_db($this->input->post('tgl_datang')),
-            'jam'             => trim($this->input->post('jam')),
+            'jam'             => '00:00',
             'patient_diagnosa'=> trim($this->input->post('patient_diagnosa')),
             'docdate'         => $this->format_date_db($this->input->post('docdate')),
             'doct_by_id'      => $doct_by_id,

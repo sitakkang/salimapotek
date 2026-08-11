@@ -8,11 +8,11 @@
         .header h2 { margin: 0; color: #2d6a4f; font-size: 15px; }
         .header p { margin: 1px 0 0; font-size: 10px; color: #666; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        table tr td { padding: 2px 6px; vertical-align: top; }
+        table tr td { padding: 4px 8px; vertical-align: top; }
         table tr td:first-child { width: 120px; color: #666; font-weight: 600; }
         table tr td:nth-child(2) { width: 8px; color: #999; }
-        .section { margin-bottom: 8px; }
-        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #dceee4; }
+        .section { margin-bottom: 10px; }
+        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 6px; padding-bottom: 3px; border-bottom: 1px solid #dceee4; }
         .footer { margin-top: 12px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #ddd; padding-top: 6px; }
 
         /* Signature block — bottom right */
@@ -57,41 +57,20 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:15px;font-weight:bold;margin:2px 0 0;">(No.): <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
+        <p style="font-size:15px;font-weight:bold;margin:2px 0 0;">NO : <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
         <div class="section-title">Yang bertanda tangan dibawah ini, yang memeriksa menerangkan bahwa :</div>
-        <div class="section-title">Identitas Pasien</div>
+        
         <table>
             <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
             <tr><td>No. ID Card</td><td>:</td><td><?= !empty($row->sks_nik) ? htmlspecialchars($row->sks_nik) : '-' ?></td></tr>
             <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>
             <tr><td>Pekerjaan</td><td>:</td><td><?= !empty($row->patient_job) ? htmlspecialchars(ucwords(strtolower($row->patient_job))) : '-' ?></td></tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <!-- <div class="section-title">Alamat</div> -->
-        <table>
-            <tr>
-                <td>Alamat</td><td>:</td>
-                <td><?= !empty($row->alamat) ? nl2br(htmlspecialchars(ucwords(strtolower($row->alamat)))) : '-' ?></td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <!-- <div class="section-title">Diagnosa</div> -->
-        <table>
+            <tr><td>Alamat</td><td>:</td><td><?= !empty($row->alamat) ? nl2br(htmlspecialchars(ucwords(strtolower($row->alamat)))) : '-' ?></td></tr>
             <tr><td>Diagnosa</td><td>:</td><td><?= nl2br(htmlspecialchars($row->diagnosa ?? '')) ?></td></tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <!-- <div class="section-title">Terapi</div> -->
-        <table>
             <tr><td>Terapi</td><td>:</td><td><?= nl2br(htmlspecialchars($row->terapi ?? '')) ?></td></tr>
         </table>
     </div>
@@ -143,11 +122,11 @@
             if ($lama < 0) $lama = 0;
         }
         ?>
-        <p style="font-size: 12px; line-height: 1.5; text-align: justify; margin: 4px 0;">
+        <p style="font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0;">
             Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <b><?= $lama ?> (hari)</b>,
             terhitung tanggal <b><?= $datefrom ?> s/d <?= $dateto ?></b>.
         </p>
-        <p style="font-size: 12px; line-height: 1.5; text-align: justify; margin: 2px 0;">
+        <p style="font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0;">
             Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana perlunya.
         </p>
     </div>

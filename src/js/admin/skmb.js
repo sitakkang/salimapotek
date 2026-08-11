@@ -48,7 +48,6 @@ $(document).ready(function () {
             { data: '5', className: 'text-center' },
             { data: '6', className: 'text-center' },
             { data: '7', className: 'text-center' },
-            { data: '8', className: 'text-center' },
             {
                 data: null,
                 width: '120px',
@@ -82,7 +81,7 @@ $(document).ready(function () {
             emptyTable: 'Belum ada data SKMB',
             paginate: { previous: '&laquo;', next: '&raquo;' },
         },
-        order: [[8, 'desc']],
+        order: [[7, 'desc']],
         responsive: true,
         autoWidth: false,
     });
@@ -140,7 +139,6 @@ $(document).ready(function () {
             pekerjaan_pengantar: $('#pekerjaan_pengantar').val(),
             hubungan:        $('#hubungan').val(),
             tgl_datang:      $('#tgl_datang').val(),
-            jam:             $('#jam').val(),
             patient_diagnosa: $('#diagnosa').val(),
             docdate:         $('#docdate').val(),
             doctby:          $('#doctby').val(),
@@ -152,10 +150,6 @@ $(document).ready(function () {
 		}
         if($('#tgl_datang').val()==''){
 			notifNo("Silahkan isi tanggal datang");
-            return false;
-		}
-        if($('#jam').val()==''){
-			notifNo("Silahkan isi jam datang");
             return false;
 		}
         if($('#hubungan').val()==''){
@@ -219,7 +213,6 @@ $(document).ready(function () {
             pekerjaan_pengantar: $('#edit_pekerjaan_pengantar').val(),
             hubungan:         $('#edit_hubungan').val(),
             tgl_datang:       $('#edit_tgl_datang').val(),
-            jam:              $('#edit_jam').val(),
             patient_diagnosa: $('#edit_diagnosa').val(),
             docdate:          $('#edit_docdate').val(),
             doctby:           $('#edit_doctby').val(),
@@ -231,10 +224,6 @@ $(document).ready(function () {
 		}
         if($('#edit_tgl_datang').val()==''){
 			notifNo("Silahkan isi tanggal datang");
-            return false;
-		}
-        if($('#edit_jam').val()==''){
-			notifNo("Silahkan isi jam datang");
             return false;
 		}
         if($('#edit_hubungan').val()==''){

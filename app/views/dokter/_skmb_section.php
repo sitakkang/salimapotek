@@ -73,7 +73,7 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
 <hr style="border-color:var(--ds-border);margin:10px 0 14px;">
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Datang <span class="text-danger">*</span></label>
             <input type="text" id="skmb_tgl_datang" class="form-control datepicker"
@@ -81,15 +81,7 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
                    value="<?= $skmb && !empty($skmb->tgl_datang) ? date('d/m/Y', strtotime($skmb->tgl_datang)) : $now_tz->format('d/m/Y') ?>">
         </div>
     </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Jam <span class="text-danger">*</span></label>
-            <input type="text" id="skmb_jam" class="form-control clockpicker"
-                   placeholder="--:--" autocomplete="off" readonly
-                   value="<?= $skmb ? htmlspecialchars($skmb->jam ?? '') : $now_tz->format('H:i') ?>">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Hubungan <span class="text-danger">*</span></label>
             <select id="skmb_hubungan" class="form-control">

@@ -314,14 +314,12 @@ $(document).ready(function () {
             pekerjaan_pengantar: $('#skmb_pekerjaan_pengantar').val(),
             hubungan:         $('#skmb_hubungan').val(),
             tgl_datang:       $('#skmb_tgl_datang').val(),
-            jam:              $('#skmb_jam').val(),
             skmb_docnumb:     $('#skmb_docnumb').val(),
             diagnosa:         $('#skmb_diagnosa').val(),
         };
 
         if (!payload.patient_name) { notifNo('Silakan isi nama yang diantar'); return false; }
         if (!payload.tgl_datang) { notifNo('Silakan isi tanggal datang'); return false; }
-        if (!payload.jam) { notifNo('Silakan isi jam'); return false; }
         if (!payload.hubungan) { notifNo('Silakan pilih hubungan'); return false; }
         if (!payload.pengantar) { notifNo('Silakan isi nama pengantar'); return false; }
 

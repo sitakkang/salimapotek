@@ -58,10 +58,6 @@
                         <span class="ds-detail-label">Tgl. Datang</span>
                         <span class="ds-detail-value"><?= !empty($row->tgl_datang) ? date('d/m/Y', strtotime($row->tgl_datang)) : '-' ?></span>
                     </div>
-                    <div class="ds-detail-field">
-                        <span class="ds-detail-label">Jam</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->jam ?? '') ?: '<span class="text-muted">-</span>' ?> WITA</span>
-                    </div>
                 </div>
             </div>
         </div>

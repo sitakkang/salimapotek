@@ -8,11 +8,11 @@
         .header h2 { margin: 0; color: #2d6a4f; font-size: 15px; }
         .header p { margin: 1px 0 0; font-size: 10px; color: #666; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        table tr td { padding: 2px 6px; vertical-align: top; }
-        table tr td:first-child { width: 120px; color: #666; font-weight: 600; }
+        table tr td { padding: 4px 8px; vertical-align: top; }
+        table tr td:first-child { width: 175px; color: #666; font-weight: 600; white-space: nowrap; }
         table tr td:nth-child(2) { width: 8px; color: #999; }
-        .section { margin-bottom: 8px; }
-        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #dceee4; }
+        .section { margin-bottom: 10px; }
+        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 6px; padding-bottom: 3px; border-bottom: 1px solid #dceee4; }
         .footer { margin-top: 12px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #ddd; padding-top: 6px; }
 
         .hasil-box { margin: 10px 0; }
@@ -21,10 +21,8 @@
 
         .vital-grid { width: 100%; }
         .vital-grid td { padding: 4px 8px; font-size: 15px; }
-        .vital-grid td:first-child { width: 140px; }
-        .vital-grid td:nth-child(2) { width: auto; color: #333; }
-        .vital-grid td:nth-child(3) { width: 140px; }
-        .vital-grid td:nth-child(4) { width: auto; color: #333; }
+        .vital-grid td:first-child, .vital-grid td:nth-child(3) { width: 140px; color: #666; font-weight: 600; }
+        .vital-grid td:nth-child(2), .vital-grid td:nth-child(4) { width: auto; color: #333; }
 
         .ttd-wrap { display: flex; justify-content: flex-end; margin-top: 40px; }
         .ttd-box  { text-align: center; min-width: 220px; }

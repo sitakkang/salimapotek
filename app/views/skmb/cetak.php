@@ -8,14 +8,14 @@
         .header h2 { margin: 0; color: #2d6a4f; font-size: 15px; }
         .header p { margin: 1px 0 0; font-size: 10px; color: #666; }
         table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        table tr td { padding: 2px 6px; vertical-align: top; }
-        table tr td:first-child { width: 120px; color: #666; font-weight: 600; }
+        table tr td { padding: 4px 8px; vertical-align: top; }
+        table tr td:first-child { width: 175px; color: #666; font-weight: 600; white-space: nowrap; }
         table tr td:nth-child(2) { width: 8px; color: #999; }
-        .section { margin-bottom: 8px; }
-        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #dceee4; }
+        .section { margin-bottom: 10px; }
+        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 6px; padding-bottom: 3px; border-bottom: 1px solid #dceee4; }
 
         /* Keterangan text */
-        .ket-text { font-size: 14px; line-height: 1.5; text-align: justify; margin: 4px 0; }
+        .ket-text { font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0; }
 
         /* Signature block */
         .ttd-wrap { display: flex; justify-content: flex-end; margin-top: 16px; }
@@ -59,11 +59,10 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN MEMBAWA BEROBAT (SKMB)</h2>
-        <p style="font-size:15px;font-weight:bold;margin:2px 0 0;">(No.): <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
+        <p style="font-size:15px;font-weight:bold;margin:2px 0 0;">NO : <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
-        <div class="section-title">Keterangan</div>
         <p class="ket-text">
             Yang bertanda tangan di bawah ini menerangkan bahwa:
         </p>
@@ -78,7 +77,6 @@
     <div class="section">
         <p class="ket-text">
             Pada tanggal <strong><?= !empty($row->tgl_datang) ? date('d-m-Y', strtotime($row->tgl_datang)) : '-' ?></strong>
-            Jam : <strong><?= !empty($row->jam) ? htmlspecialchars($row->jam) : '-' ?> WITA</strong>.
             Telah datang ke Praktek Dokter Umum untuk mengantar berobat
             <?php
             $hubungan = htmlspecialchars($row->hubungan ?? '');

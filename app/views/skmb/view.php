@@ -31,7 +31,6 @@
                             <th width="180">Perusahaan</th>
                             <th>Pengantar</th>
                             <th width="90">Tgl. Datang</th>
-                            <th width="70">Jam</th>
                             <th width="100">No. Dokumen</th>
                             <th width="90">Tgl. Dokumen</th>
                             <th width="160" class="text-center">Aksi</th>
