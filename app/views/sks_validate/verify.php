@@ -290,7 +290,7 @@
                     <div class="v-value">
                         <?= htmlspecialchars($row->fullname) ?: htmlspecialchars($row->doctby) ?: '<span style="color:#b7d5c4">—</span>' ?>
                         <?php if (!empty($row->nip)): ?>
-                        <br><span style="font-size:11.5px;color:#8aa89a;font-weight:400;">NIP. <?= htmlspecialchars($row->nip) ?></span>
+                        <br><span style="font-size:11.5px;color:#8aa89a;font-weight:400;">SIP. <?= htmlspecialchars($row->nip) ?></span>
                         <?php endif; ?>
                     </div>
                 </div>

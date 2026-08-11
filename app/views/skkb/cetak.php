@@ -108,7 +108,7 @@
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
             <p class="ttd-name">( <?= htmlspecialchars($row->fullname) ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">NIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
             <?php endif; ?>
         </div>
     </div>
