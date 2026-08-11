@@ -15,7 +15,7 @@
                         <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">NIK Diantar</span>
+                        <span class="ds-detail-label">No. ID Card Diantar</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->nik ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
@@ -76,7 +76,7 @@
                     <span class="ds-detail-value"><?= htmlspecialchars($row->pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
-                    <span class="ds-detail-label">NIK Pengantar</span>
+                    <span class="ds-detail-label">No. ID Card Pengantar</span>
                     <span class="ds-detail-value"><?= htmlspecialchars($row->nik_pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">

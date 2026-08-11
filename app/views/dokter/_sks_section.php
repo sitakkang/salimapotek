@@ -11,7 +11,7 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK / No. ID Card</label>
+            <label>No. ID Card</label>
             <input type="text" id="sks_nik" class="form-control" maxlength="100"
                    value="<?= htmlspecialchars($sks && !empty($sks->sks_nik) ? $sks->sks_nik : ($row->patient_nik ?? '')) ?>">
         </div>

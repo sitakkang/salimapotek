@@ -9,7 +9,7 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK</label>
+            <label>No. ID Card</label>
             <input type="text" id="edit_patient_nik" name="patient_nik" class="form-control"
                    value="<?= htmlspecialchars($row->patient_nik ?? '') ?>" maxlength="10" autocomplete="off">
         </div>

@@ -181,7 +181,7 @@
                     <div class="v-value"><?= htmlspecialchars($row->patient_name ?? '') ?></div>
                 </div>
                 <div class="v-row">
-                    <div class="v-label">NIK</div>
+                    <div class="v-label">No. ID Card</div>
                     <div class="v-value"><?= htmlspecialchars($row->nik ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
@@ -199,7 +199,7 @@
                     <div class="v-value"><?= htmlspecialchars($row->pengantar ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
-                    <div class="v-label">NIK Pengantar</div>
+                    <div class="v-label">No. ID Card Pengantar</div>
                     <div class="v-value"><?= htmlspecialchars($row->nik_pengantar ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">

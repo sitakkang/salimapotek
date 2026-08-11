@@ -18,7 +18,7 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK Pengantar</label>
+            <label>No. ID Card Pengantar</label>
             <input type="text" id="edit_nik_pengantar" name="nik_pengantar" class="form-control"
                    value="<?= htmlspecialchars($row->nik_pengantar ?? '') ?>" maxlength="20" autocomplete="off">
         </div>
@@ -42,7 +42,7 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK Diantar</label>
+            <label>No. ID Card Diantar</label>
             <input type="text" id="edit_nik" name="nik" class="form-control"
                    value="<?= htmlspecialchars($row->nik ?? '') ?>" maxlength="50" autocomplete="off">
         </div>

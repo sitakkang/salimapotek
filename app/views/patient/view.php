@@ -32,7 +32,7 @@
                     <div class="col-md-3" style="padding: 0 6px;">
                         <div class="ds-form-group" style="margin-bottom: 0;">
                             <label style="font-size: 12px; margin-bottom: 4px;">KTP</label>
-                            <input type="text" id="search_ktp" class="form-control" placeholder="Cari No. KTP / NIK" maxlength="20" autocomplete="off">
+                            <input type="text" id="search_ktp" class="form-control" placeholder="Cari No. KTP / No. ID Card" maxlength="20" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-md-3" style="padding: 0 6px;">
@@ -63,7 +63,7 @@
                             <th class="text-center">Nama Pasien</th>
                             <th width="80" class="text-center">JK</th>
                             <th width="150" class="text-center">KTP</th>
-                            <th width="90" class="text-center">NIK</th>
+                            <th width="90" class="text-center">No. ID Card</th>
                             <th width="80" class="text-center">Perusahaan</th>
                             <th width="100" class="text-center">No. Telepon</th>
                             <th width="80" class="text-center">Status</th>

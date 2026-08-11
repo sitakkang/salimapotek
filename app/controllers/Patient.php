@@ -137,7 +137,7 @@ class Patient extends CI_Controller {
                 if (!empty($ktp) && $existing->patient_ktp === $ktp) {
                     $field = 'KTP';
                 } elseif (!empty($nik) && $existing->patient_nik === $nik) {
-                    $field = 'NIK';
+                    $field = 'No. ID';
                 }
                 echo json_encode(array(
                     'status' => 1,

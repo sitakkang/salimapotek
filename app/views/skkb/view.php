@@ -27,7 +27,7 @@
                         <tr>
                             <th width="40">No</th>
                             <th>Nama</th>
-                            <th width="100">NIK</th>
+                            <th width="100">No. ID Card</th>
                             <th width="150">Perusahaan</th>
                             <th width="150">Departemen</th>
                             <th>Jabatan</th>

@@ -51,7 +51,7 @@
         <table>
             <tr><td>Nama</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
             <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Thn</td></tr>
-            <tr><td>NIK</td><td>:</td><td><?= !empty($row->nik) ? htmlspecialchars($row->nik) : '-' ?></td></tr>
+            <tr><td>No. ID Card</td><td>:</td><td><?= !empty($row->nik) ? htmlspecialchars($row->nik) : '-' ?></td></tr>
             <tr><td>PT / Dept</td><td>:</td><td><?= !empty($row->company_name) ? htmlspecialchars($row->company_name) : '-' ?> / <?= !empty($row->bagian) ? htmlspecialchars($row->bagian) : '-' ?></td></tr>
             <tr><td>Jabatan</td><td>:</td><td><?= !empty($row->jabatan) ? htmlspecialchars($row->jabatan) : '-' ?></td></tr>
         </table>

@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK</label>
+            <label>No. ID Card</label>
             <input type="text" id="edit_patient_nik" name="patient_nik" class="form-control"
                    value="<?= htmlspecialchars($row->skbs_patient_nik ?? '') ?>" maxlength="20" autocomplete="off">
         </div>

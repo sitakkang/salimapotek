@@ -18,9 +18,9 @@
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK</label>
+            <label>No. ID Card</label>
             <input type="text" id="patient_nik" name="patient_nik" class="form-control"
-                   placeholder="NIK" maxlength="20" autocomplete="off">
+                   placeholder="No. ID Card" maxlength="20" autocomplete="off">
         </div>
     </div>
 </div>

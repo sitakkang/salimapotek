@@ -16,7 +16,7 @@
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK <span class="text-danger">*</span></label>
+            <label>No. ID Card <span class="text-danger">*</span></label>
             <input type="text" id="edit_nik" name="nik" class="form-control"
                    value="<?= htmlspecialchars($row->nik ?? '') ?>" maxlength="50" autocomplete="off">
         </div>

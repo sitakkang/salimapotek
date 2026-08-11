@@ -26,9 +26,9 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK Pengantar</label>
+            <label>No. ID Pengantar</label>
             <input type="text" id="skmb_nik_pengantar" class="form-control"
-                   placeholder="NIK pengantar" maxlength="20" autocomplete="off"
+                   placeholder="No. ID pengantar" maxlength="20" autocomplete="off"
                    value="<?= $skmb ? htmlspecialchars($skmb->nik_pengantar ?? '') : '' ?>">
         </div>
     </div>
@@ -54,7 +54,7 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK Diantar</label>
+            <label>No. ID Diantar</label>
             <input type="text" id="skmb_nik" class="form-control"
                    placeholder="Nomor induk karyawan" maxlength="50" autocomplete="off"
                    value="<?= $skmb ? htmlspecialchars($skmb->nik ?? '') : htmlspecialchars($row->patient_nik ?? '') ?>">

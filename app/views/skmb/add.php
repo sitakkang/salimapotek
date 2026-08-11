@@ -16,9 +16,9 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK Pengantar</label>
+            <label>No. ID Card Pengantar</label>
             <input type="text" id="nik_pengantar" name="nik_pengantar" class="form-control"
-                   placeholder="NIK pengantar" maxlength="20" autocomplete="off">
+                   placeholder="No. ID Card pengantar" maxlength="20" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
@@ -41,9 +41,9 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK Diantar</label>
+            <label>No. ID Card Diantar</label>
             <input type="text" id="nik" name="nik" class="form-control"
-                   placeholder="Nomor induk karyawan" maxlength="50" autocomplete="off">
+                   placeholder="No. ID Card yang diantar" maxlength="50" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">

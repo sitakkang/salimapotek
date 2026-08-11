@@ -7,7 +7,7 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK</label>
+            <label>No. ID Card</label>
             <input type="text" id="patient_nik" name="patient_nik" class="form-control"
                    placeholder="Nomor Induk Karyawan" maxlength="10" autocomplete="off">
         </div>

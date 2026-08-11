@@ -13,7 +13,7 @@
 </div>
 
 <div class="ds-form-group">
-    <label>NIK / No. ID Card</label>
+    <label>No. ID Card</label>
     <input type="text" id="edit_sks_nik" name="sks_nik" class="form-control"
            value="<?= htmlspecialchars($row->sks_nik ?? '') ?>" maxlength="100" autocomplete="off">
 </div>

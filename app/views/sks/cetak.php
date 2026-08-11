@@ -3,27 +3,27 @@
 <head>
     <title>Cetak SKS</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 10px; color: #333; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; margin: 0; padding: 10px; color: #333; }
         .header { text-align: center; margin: 16px 0 26px; }
         .header h2 { margin: 0; color: #2d6a4f; font-size: 15px; }
         .header p { margin: 1px 0 0; font-size: 10px; color: #666; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
         table tr td { padding: 2px 6px; vertical-align: top; }
         table tr td:first-child { width: 120px; color: #666; font-weight: 600; }
         table tr td:nth-child(2) { width: 8px; color: #999; }
         .section { margin-bottom: 8px; }
-        .section-title { font-weight: 700; font-size: 12px; color: #2d6a4f; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #dceee4; }
+        .section-title { font-weight: 700; font-size: 14px; color: #2d6a4f; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #dceee4; }
         .footer { margin-top: 12px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #ddd; padding-top: 6px; }
 
         /* Signature block — bottom right */
         .ttd-wrap { display: flex; justify-content: flex-end; margin-top: 16px; }
         .ttd-box  { text-align: center; min-width: 180px; }
-        .ttd-place { margin: 0 0 2px; font-size: 12px; color: #333; }
-        .ttd-role  { margin: 0 0 2px; font-size: 11px; color: #666; }
+        .ttd-place { margin: 0 0 2px; font-size: 14px; color: #333; }
+        .ttd-role  { margin: 0 0 2px; font-size: 13px; color: #666; }
         .ttd-qr    { margin: 3px 0; }
         .ttd-qr img { width: 60px; height: 60px; display: block; margin: 0 auto; }
-        .ttd-name  { margin: 2px 0 0; font-size: 12px; font-weight: 700; color: #333; border-top: 1px solid #333; padding-top: 4px; display: inline-block; min-width: 160px; }
-        .ttd-nip   { margin: 1px 0 0; font-size: 10px; color: #666; }
+        .ttd-name  { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: #333; border-top: 1px solid #333; padding-top: 4px; display: inline-block; min-width: 160px; }
+        .ttd-nip   { margin: 1px 0 0; font-size: 12px; color: #666; }
 
         .btn-print { display: inline-block; margin-bottom: 8px; padding: 6px 16px; background: #2d6a4f; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; }
         .btn-print:hover { background: #1b4332; }
@@ -64,7 +64,7 @@
         <div class="section-title">Identitas Pasien</div>
         <table>
             <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
-            <tr><td>NIK / No. ID Card</td><td>:</td><td><?= !empty($row->sks_nik) ? htmlspecialchars($row->sks_nik) : '-' ?></td></tr>
+            <tr><td>No. ID Card</td><td>:</td><td><?= !empty($row->sks_nik) ? htmlspecialchars($row->sks_nik) : '-' ?></td></tr>
             <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>
             <tr><td>Pekerjaan</td><td>:</td><td><?= !empty($row->patient_job) ? htmlspecialchars($row->patient_job) : '-' ?></td></tr>

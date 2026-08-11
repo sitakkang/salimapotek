@@ -19,7 +19,7 @@
                         <span class="ds-detail-value"><?= htmlspecialchars($row->age ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">NIK</span>
+                        <span class="ds-detail-label">No. ID Card</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->nik ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">

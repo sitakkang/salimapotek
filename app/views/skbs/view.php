@@ -27,7 +27,7 @@
                         <tr>
                             <th width="40">No</th>
                             <th>Nama Pasien</th>
-                            <th width="110">NIK</th>
+                            <th width="110">No. ID Card</th>
                             <th width="100">Hasil</th>
                             <th width="130">Dokter</th>
                             <th width="100">Tgl. Dokumen</th>
