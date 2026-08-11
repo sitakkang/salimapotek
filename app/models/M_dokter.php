@@ -332,6 +332,13 @@ class M_dokter extends CI_Model {
     }
 
     /**
+     * Generate nomor dokumen SKMB (default 00000, nomor diisi manual)
+     */
+    public function generate_docnumb_skmb() {
+        return '00000/SKMB/' . $this->month_roman(date('n')) . '/' . date('Y');
+    }
+
+    /**
      * Insert SKS
      */
     public function insert_sks($data) {

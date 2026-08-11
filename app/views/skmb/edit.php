@@ -1,5 +1,13 @@
 <input type="hidden" id="edit_id" name="id" value="<?= $row->id ?>">
 
+<!-- Nomor Dokumen -->
+<div class="ds-form-group">
+    <label>No. Dokumen / Nomor SKMB <span class="text-danger">*</span></label>
+    <input type="text" id="edit_skmb_docnumb" name="skmb_docnumb" class="form-control" maxlength="100"
+           value="<?= htmlspecialchars(!empty($row->docnumb) ? $row->docnumb : ($skmb_docnumb_default ?? '00000/SKMB')) ?>">
+</div>
+
+<hr style="border-color: var(--ds-border); margin: 6px 0 14px;">
 
 <div class="ds-form-group">
     <label>Pengantar <span class="text-danger">*</span></label>

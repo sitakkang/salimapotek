@@ -147,28 +147,11 @@ class M_skmb extends CI_Model {
     }
 
     /**
-     * Generate nomor dokumen otomatis (running number per bulan)
-     * Format: 00001/SKMB/VII/2026
+     * Generate nomor dokumen SKMB (default 00000, nomor diisi manual)
+     * Format: 00000/SKMB/VII/2026
      */
     public function generate_docnumb() {
-        $month = date('n');  // 1–12
-        $year  = date('Y');
-
-        // Cari nomor terakhir di bulan & tahun ini
-        $last = $this->db->query(
-            "SELECT docnumb FROM skmb
-             WHERE docnumb LIKE '%/SKMB/" . $this->db->escape_like_str($this->month_roman($month)) . "/$year'
-             ORDER BY id DESC LIMIT 1"
-        )->row();
-
-        if ($last) {
-            $parts = explode('/', $last->docnumb);
-            $next  = intval($parts[0]) + 1;
-        } else {
-            $next = 1;
-        }
-
-        return sprintf('%05d', $next) . '/SKMB/' . $this->month_roman($month) . '/' . $year;
+        return '00000/SKMB/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

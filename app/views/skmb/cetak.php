@@ -34,7 +34,7 @@
             margin: 0;
         }
         @media print {
-            body { padding: 12mm; }
+            body { padding: 15mm 18mm 12mm; }
             .no-print { display: none; }
         }
     </style>

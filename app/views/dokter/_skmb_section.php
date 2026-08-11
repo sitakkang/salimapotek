@@ -5,6 +5,12 @@
 $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
 ?>
 
+<div class="ds-form-group">
+    <label>No. Dokumen / Nomor SKMB <span class="text-danger">*</span></label>
+    <input type="text" id="skmb_docnumb" class="form-control" maxlength="100"
+           value="<?= htmlspecialchars($skmb && !empty($skmb->docnumb) ? $skmb->docnumb : ($skmb_docnumb_default ?? '00000/SKMB')) ?>">
+</div>
+
 <p class="text-muted" style="margin-bottom:12px;">
     <i class="fa fa-info-circle"></i>
     Data pasien diantar akan diambil secara otomatis dari data pendaftaran.

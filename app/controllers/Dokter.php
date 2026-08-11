@@ -128,6 +128,7 @@ class Dokter extends CI_Controller {
         $data['sks_terapi_default'] = $sks_terapi_default;
         $data['sks_docnumb_default'] = $this->M_dokter->generate_docnumb_sks();
         $data['skbs_docnumb_default'] = $this->M_dokter->generate_docnumb_skbs();
+        $data['skmb_docnumb_default'] = $this->M_dokter->generate_docnumb_skmb();
 
         $data['sks'] = $this->M_dokter->get_sks_by_visit_id($visit_id);
         $data['sks_list'] = $data['sks'] ? array($data['sks']) : array();
@@ -786,6 +787,12 @@ class Dokter extends CI_Controller {
         $insert_by = $row->trans_doct_by;
         $doct = $this->M_dokter->get_doct_by($insert_by);
 
+        // Nomor dokumen SKMB (default jika kosong)
+        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_dokter->generate_docnumb_skmb();
+        }
+
         $data = array(
             'visit_id'          => $visit_id,
             'patient_name'      => strtoupper(trim($this->input->post('patient_name'))),
@@ -800,6 +807,7 @@ class Dokter extends CI_Controller {
             'docdate'           => date('Y-m-d'),
             'doct_by_id'        => $insert_by,
             'doct_by_name'      => $doct ? $doct->fullname : '',
+            'docnumb'           => $docnumb,
         );
 
         if ($existing) {
@@ -808,7 +816,6 @@ class Dokter extends CI_Controller {
             $this->M_dokter->update_skmb($existing->id, $data);
             $msg = 'SKMB berhasil diperbarui!';
         } else {
-            $data['docnumb']  = $this->generate_docnumb_skmb();
             $data['insertby'] = $insert_by;
             $data['insertdt'] = $now;
             $this->M_dokter->insert_skmb($data);
@@ -874,31 +881,16 @@ class Dokter extends CI_Controller {
 
         $data['row'] = $row;
         $data['skmb'] = $this->M_dokter->get_skmb_by_visit_id($visit_id);
+        $data['skmb_docnumb_default'] = $this->M_dokter->generate_docnumb_skmb();
         $data['dokter_list'] = $this->M_dokter->get_all_doctor();
         $this->load->view($this->dir_v.'_skmb_section', $data);
     }
 
     /**
-     * Generate nomor dokumen SKMB (running number per bulan)
+     * Generate nomor dokumen SKMB (default 00000, nomor diisi manual)
      */
     private function generate_docnumb_skmb() {
-        $month_roman = $this->month_roman(date('n'));
-        $year = date('Y');
-
-        $last = $this->db->query(
-            "SELECT docnumb FROM skmb
-             WHERE docnumb LIKE '%/SKMB/" . $month_roman . "/$year'
-             ORDER BY id DESC LIMIT 1"
-        )->row();
-
-        if ($last) {
-            $parts = explode('/', $last->docnumb);
-            $next  = intval($parts[0]) + 1;
-        } else {
-            $next = 1;
-        }
-
-        return sprintf('%05d', $next) . '/SKMB/' . $month_roman . '/' . $year;
+        return '00000/SKMB/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

@@ -106,6 +106,7 @@ class Skmb extends CI_Controller {
     public function add() {
         $dokter = $this->M_skmb->get_all_doctor();
         $data['dokter'] = $dokter->result();
+        $data['skmb_docnumb_default'] = $this->M_skmb->generate_docnumb();
         
         $this->load->view($this->dir_v.'add', $data);
     }
@@ -117,6 +118,7 @@ class Skmb extends CI_Controller {
         $id = intval($this->input->get('id'));
         $dokter = $this->M_skmb->get_all_doctor();
         $data['dokter'] = $dokter->result();
+        $data['skmb_docnumb_default'] = $this->M_skmb->generate_docnumb();
         $data['row'] = $this->M_skmb->get_by_id($id);
         if (!$data['row']) {
             show_404();
@@ -143,6 +145,12 @@ class Skmb extends CI_Controller {
         $doct_by_id = intval($this->input->post('doctby'));
         $doct = $this->db->get_where('conf_users', array('id_user' => $doct_by_id))->row();
 
+        // Nomor dokumen SKMB (default jika kosong)
+        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_skmb->generate_docnumb();
+        }
+
         $data = array(
             'patient_name'    => strtoupper(trim($this->input->post('patient_name'))),
             'nik'             => trim($this->input->post('nik')),
@@ -156,7 +164,7 @@ class Skmb extends CI_Controller {
             'docdate'         => $this->format_date_db($this->input->post('docdate')),
             'doct_by_id'      => $doct_by_id,
             'doct_by_name'    => $doct ? $doct->fullname : '',
-            'docnumb'         => $this->M_skmb->generate_docnumb(),
+            'docnumb'         => $docnumb,
             'insertby'        => $this->session->userdata('sess_id'),
             'insertdt'        => date('Y-m-d H:i:s'),
         );
@@ -177,6 +185,12 @@ class Skmb extends CI_Controller {
         $doct_by_id = intval($this->input->post('doctby'));
         $doct = $this->db->get_where('conf_users', array('id_user' => $doct_by_id))->row();
 
+        // Nomor dokumen SKMB (default jika kosong)
+        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_skmb->generate_docnumb();
+        }
+
         $data = array(
             'patient_name'    => strtoupper(trim($this->input->post('patient_name'))),
             'nik'             => trim($this->input->post('nik')),
@@ -190,6 +204,7 @@ class Skmb extends CI_Controller {
             'docdate'         => $this->format_date_db($this->input->post('docdate')),
             'doct_by_id'      => $doct_by_id,
             'doct_by_name'    => $doct ? $doct->fullname : '',
+            'docnumb'         => $docnumb,
             'updateby'        => $this->session->userdata('sess_id'),
             'updatedt'        => date('Y-m-d H:i:s'),
         );

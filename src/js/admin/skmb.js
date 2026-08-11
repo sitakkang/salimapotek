@@ -143,6 +143,7 @@ $(document).ready(function () {
             jam:             $('#jam').val(),
             docdate:         $('#docdate').val(),
             doctby:          $('#doctby').val(),
+            skmb_docnumb:    $('#skmb_docnumb').val(),
         };
         if($('#patient_name').val()==''){
 			notifNo("Silahkan isi nama yang diantar");
@@ -220,6 +221,7 @@ $(document).ready(function () {
             jam:              $('#edit_jam').val(),
             docdate:          $('#edit_docdate').val(),
             doctby:           $('#edit_doctby').val(),
+            skmb_docnumb:     $('#edit_skmb_docnumb').val(),
         };
         if($('#edit_patient_name').val()==''){
 			notifNo("Silahkan isi nama yang diantar");
