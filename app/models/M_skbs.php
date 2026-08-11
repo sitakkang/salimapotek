@@ -9,17 +9,30 @@ class M_skbs extends CI_Model {
     }
 
     /**
+     * Generate nomor dokumen SKBS (default 00000, nomor diisi manual)
+     */
+    public function generate_docnumb_skbs() {
+        return '00000/SKBS/PDUKRWP-SAC/' . $this->month_roman(date('n')) . '/' . date('Y');
+    }
+
+    private function month_roman($n) {
+        $map = array(1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
+                     7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII');
+        return isset($map[$n]) ? $map[$n] : '';
+    }
+
+    /**
      * Get all SKBS records for DataTable (only active)
      */
     public function get_all() {
         return $this->db->query(
             'SELECT id_skbs, visit_id, skbs_patient_name, skbs_patient_nik,
-                    skbs_patient_department, skbs_patient_company,
                     skbs_patient_ktp, skbs_patient_age,
                     skbs_result_id, skbs_result_name,
                     skbs_desc, skbs_note,
-                    skbs_td, skbs_bw, skbs_tb, skbs_bb,
-                    skbs_r, skbs_l, skbs_koreksi_r, skbs_koreksi_l,
+                    skbs_blood_press, skbs_pulse, skbs_respirasi, skbs_temp,
+                    skbs_bw, skbs_tb, skbs_bb,
+                    skbs_r, skbs_l,
                     skbs_doc_date, skbs_doct_id, skbs_doct_name,
                     skbs_status, insert_dt, insert_by
              FROM trans_skbs
@@ -51,12 +64,12 @@ class M_skbs extends CI_Model {
      */
     public function get_datatables($search, $order_col = '', $order_dir = 'ASC', $start = 0, $length = 10) {
         $this->db->select('id_skbs, visit_id, skbs_patient_name, skbs_patient_nik,
-                           skbs_patient_department, skbs_patient_company,
                            skbs_patient_ktp, skbs_patient_age,
                            skbs_result_id, skbs_result_name,
                            skbs_desc, skbs_note,
-                           skbs_td, skbs_bw, skbs_tb, skbs_bb,
-                           skbs_r, skbs_l, skbs_koreksi_r, skbs_koreksi_l,
+                           skbs_blood_press, skbs_pulse, skbs_respirasi, skbs_temp,
+                           skbs_bw, skbs_tb, skbs_bb,
+                           skbs_r, skbs_l,
                            skbs_doc_date, skbs_doct_id, skbs_doct_name,
                            skbs_status, insert_dt, insert_by');
         $this->db->from($this->table);
@@ -87,8 +100,6 @@ class M_skbs extends CI_Model {
         $this->db->group_start();
         $this->db->like('skbs_patient_name', $search);
         $this->db->or_like('skbs_patient_nik', $search);
-        $this->db->or_like('skbs_patient_company', $search);
-        $this->db->or_like('skbs_patient_department', $search);
         $this->db->or_like('skbs_result_name', $search);
         $this->db->or_like('skbs_doct_name', $search);
         $this->db->or_like('skbs_doc_date', $search);

@@ -126,6 +126,8 @@ class Dokter extends CI_Controller {
             }
         }
         $data['sks_terapi_default'] = $sks_terapi_default;
+        $data['sks_docnumb_default'] = $this->M_dokter->generate_docnumb_sks();
+        $data['skbs_docnumb_default'] = $this->M_dokter->generate_docnumb_skbs();
 
         $data['sks'] = $this->M_dokter->get_sks_by_visit_id($visit_id);
         $data['sks_list'] = $data['sks'] ? array($data['sks']) : array();
@@ -449,21 +451,28 @@ class Dokter extends CI_Controller {
         $age    = !empty($row->patient_bod) ? date_diff(date_create($row->patient_bod), date_create('now'))->y : ($existing->age ?? '');
         $gender = !empty($row->patient_gender) ? $row->patient_gender : ($existing->gender ?? '');
 
+        // Nomor dokumen SKS: diisi manual, default 00000/SKS/PMDMH-SAC/BULAN/TAHUN
+        $docnumb = strtoupper(trim($this->input->post('docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_dokter->generate_docnumb_sks();
+        }
+
         $data = array(
             'visit_id'     => $visit_id,
             'patient_name' => strtoupper(trim($row->patient_name)),
+            'sks_nik'      => trim($this->input->post('sks_nik')),
             'company_name' => strtoupper(trim($row->trans_patient_company)),
             'patient_job'  => strtoupper(trim($row->patient_job)),
             'age'          => $age,
             'gender'       => $gender,
             'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
             'terapi'       => trim($this->input->post('terapi')),
+            'docnumb'      => $docnumb,
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),
             'doctby'       => $doct_by,
             'alamat'         => strtoupper(trim($row->patient_address)),
-            
         );
 
         if ($existing) {
@@ -471,14 +480,13 @@ class Dokter extends CI_Controller {
             $data['updateby'] = $insertby;
             $data['updatedt'] = $now;
             $this->M_dokter->update_sks($existing->id, $data);
-            $msg = 'SKS berhasil diperbarui! (No. ' . htmlspecialchars($existing->docnumb) . ')';
+            $msg = 'SKS berhasil diperbarui! (No. ' . htmlspecialchars($docnumb) . ')';
         } else {
             // INSERT
-            $data['docnumb']  = $this->M_dokter->generate_docnumb_sks();
             $data['insertby'] = $insertby;
             $data['insertdt'] = $now;
             $this->M_dokter->insert_sks($data);
-            $msg = 'SKS berhasil dibuat! (No. ' . $data['docnumb'] . ')';
+            $msg = 'SKS berhasil dibuat! (No. ' . htmlspecialchars($docnumb) . ')';
         }
 
         echo json_encode(array(
@@ -605,6 +613,7 @@ class Dokter extends CI_Controller {
             }
         }
         $data['sks_terapi_default'] = $sks_terapi_default;
+        $data['sks_docnumb_default'] = $this->M_dokter->generate_docnumb_sks();
 
         $this->load->view($this->dir_v.'_sks_section', $data);
     }
@@ -633,30 +642,39 @@ class Dokter extends CI_Controller {
         $insert_by = $row->trans_doct_by;
         $doct_by = $this->M_dokter->get_doct_by($insert_by)->fullname;
 
+        // Nomor dokumen SKBS (default jika kosong)
+        $docnumb = strtoupper(trim($this->input->post('skbs_docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_dokter->generate_docnumb_skbs();
+        }
 
         $data = array(
             'visit_id'             => $visit_id,
             'skbs_patient_name'    => strtoupper(trim($row->patient_name)),
             'skbs_patient_nik'     => $row->patient_nik,
-            'skbs_patient_department' => strtoupper(trim($row->trans_patient_department)),
-            'skbs_patient_company' => strtoupper(trim($row->trans_patient_company)),
             'skbs_patient_ktp'     => $row->patient_ktp,
             'skbs_patient_age'     => !empty($row->patient_bod) ? date_diff(date_create($row->patient_bod), date_create('now'))->y : '0',
+            'skbs_address'         => trim($row->patient_address),
+            'skbs_birth_place'     => strtoupper(trim($row->patient_birth_place)),
+            'skbs_bod'             => !empty($row->patient_bod) ? $row->patient_bod : null,
+            'skbs_gender'          => trim($row->patient_gender),
             'skbs_result_id'       => null,
             'skbs_result_name'     => strtoupper(trim($this->input->post('skbs_result'))),
             'skbs_desc'            => trim($this->input->post('skbs_desc')),
             'skbs_note'            => trim($this->input->post('skbs_note')),
-            'skbs_td'              => trim($this->input->post('skbs_td')),
+            'skbs_blood_press'     => trim($this->input->post('skbs_blood_press')),
+            'skbs_pulse'           => trim($this->input->post('skbs_pulse')),
+            'skbs_respirasi'       => trim($this->input->post('skbs_respirasi')),
+            'skbs_temp'            => trim($this->input->post('skbs_temp')),
             'skbs_bw'              => trim($this->input->post('skbs_bw')),
             'skbs_tb'              => trim($this->input->post('skbs_tb')),
             'skbs_bb'              => trim($this->input->post('skbs_bb')),
             'skbs_r'               => trim($this->input->post('skbs_r')),
             'skbs_l'               => trim($this->input->post('skbs_l')),
-            'skbs_koreksi_r'       => trim($this->input->post('skbs_koreksi_r')),
-            'skbs_koreksi_l'       => trim($this->input->post('skbs_koreksi_l')),
             'skbs_doc_date'        => date('Y-m-d'),
             'skbs_doct_id'         => $insert_by,
             'skbs_doct_name'       => $doct_by,
+            'skbs_docnumb'         => $docnumb,
             'skbs_status'          => 1,
         );
 
@@ -686,10 +704,12 @@ class Dokter extends CI_Controller {
         $doct = $this->db->get_where('conf_users', array('id_user' => intval($row->skbs_doct_id)))->row();
         $row->nip = $doct ? $doct->nip : '';
 
-        // Generate nomor dokumen
+        // Nomor dokumen: pakai yang tersimpan, fallback ke format default
         $month_roman = $this->month_roman(date('n'));
         $year = date('Y');
-        $data['docnumb'] = sprintf('%05d', $row->id_skbs) . '/IMIP-SKBS/' . $month_roman . '/' . $year;
+        $data['docnumb'] = !empty($row->skbs_docnumb)
+            ? $row->skbs_docnumb
+            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP-SAC/' . $month_roman . '/' . $year;
         $data['row'] = $row;
         $data['qrcode'] = $this->generate_qrcode_skbs($id);
 
@@ -737,6 +757,7 @@ class Dokter extends CI_Controller {
 
         $data['row'] = $row;
         $data['skbs'] = $this->M_dokter->get_skbs_by_visit_id($visit_id);
+        $data['skbs_docnumb_default'] = $this->M_dokter->generate_docnumb_skbs();
         $data['dokter_list'] = $this->M_dokter->get_all_doctor();
         $this->load->view($this->dir_v.'_skbs_section', $data);
     }

@@ -321,24 +321,14 @@ class M_dokter extends CI_Model {
      * Generate nomor dokumen SKS (copied from M_sks)
      */
     public function generate_docnumb_sks() {
-        $month = date('n');
-        $year  = date('Y');
-        $roman = $this->month_roman($month);
+        return '00000/SKS/PMDMH-SAC/' . $this->month_roman(date('n')) . '/' . date('Y');
+    }
 
-        $last = $this->db->query(
-            "SELECT docnumb FROM sks
-             WHERE docnumb LIKE '%/SKS/$roman/$year'
-             ORDER BY id DESC LIMIT 1"
-        )->row();
-
-        if ($last) {
-            $parts = explode('/', $last->docnumb);
-            $next  = intval($parts[0]) + 1;
-        } else {
-            $next = 1;
-        }
-
-        return sprintf('%05d', $next) . '/SKS/' . $roman . '/' . $year;
+    /**
+     * Generate nomor dokumen SKBS (default 00000, nomor diisi manual)
+     */
+    public function generate_docnumb_skbs() {
+        return '00000/SKBS/PDUKRWP-SAC/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

@@ -176,6 +176,8 @@ $(document).ready(function () {
         var payload = {
             visit_id:  $('#visit_id_sks').val(),
             doctby:    $('#sks_doctby').val(),
+            sks_nik:   $('#sks_nik').val(),
+            docnumb:   $('#sks_docnumb').val(),
             diagnosa:  $('#sks_diagnosa').val(),
             terapi:    $('#sks_terapi').val(),
             docdate:   $('#sks_docdate').val(),
@@ -228,14 +230,16 @@ $(document).ready(function () {
             skbs_result:   $('#skbs_result').val(),
             skbs_desc:     $('#skbs_desc').val(),
             skbs_note:     $('#skbs_note').val(),
-            skbs_td:       $('#skbs_td').val(),
+            skbs_blood_press: $('#skbs_blood_press').val(),
+            skbs_pulse:    $('#skbs_pulse').val(),
+            skbs_respirasi:$('#skbs_respirasi').val(),
+            skbs_temp:     $('#skbs_temp').val(),
             skbs_tb:       $('#skbs_tb').val(),
             skbs_bb:       $('#skbs_bb').val(),
             skbs_bw:       $('#skbs_bw').val(),
             skbs_r:        $('#skbs_r').val(),
             skbs_l:        $('#skbs_l').val(),
-            skbs_koreksi_r:$('#skbs_koreksi_r').val(),
-            skbs_koreksi_l:$('#skbs_koreksi_l').val(),
+            skbs_docnumb:  $('#skbs_docnumb').val(),
         };
         if (!payload.skbs_result) { notifNo('Silakan pilih hasil'); return false; }
 

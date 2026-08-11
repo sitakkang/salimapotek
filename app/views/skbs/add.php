@@ -1,53 +1,69 @@
+<!-- Nomor Dokumen -->
+<div class="ds-form-group">
+    <label>No. Dokumen / Nomor SKBS <span class="text-danger">*</span></label>
+    <input type="text" id="skbs_docnumb" name="skbs_docnumb" class="form-control" maxlength="100"
+           value="<?= htmlspecialchars($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP-SAC') ?>">
+</div>
+
+<hr style="border-color: var(--ds-border); margin: 6px 0 12px;">
+
 <!-- Data Pasien -->
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-6" style="padding: 0 6px;">
+    <div class="col-md-8" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Nama Pasien <span class="text-danger">*</span></label>
             <input type="text" id="patient_name" name="patient_name" class="form-control"
                    placeholder="Nama lengkap pasien" maxlength="100" autocomplete="off">
         </div>
     </div>
-    <div class="col-md-3" style="padding: 0 6px;">
+    <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK <span class="text-danger">*</span></label>
+            <label>NIK</label>
             <input type="text" id="patient_nik" name="patient_nik" class="form-control"
                    placeholder="NIK" maxlength="20" autocomplete="off">
-        </div>
-    </div>
-    <div class="col-md-3" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Umur <span class="text-danger">*</span></label>
-            <input type="text" id="patient_age" name="patient_age" class="form-control"
-                   placeholder="Usia (tahun)" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>No. KTP</label>
             <input type="text" id="patient_ktp" name="patient_ktp" class="form-control"
                    placeholder="No. KTP" maxlength="20" autocomplete="off">
         </div>
     </div>
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Perusahaan</label>
-            <input type="text" id="patient_company" name="patient_company" class="form-control"
-                   placeholder="Nama perusahaan" maxlength="100" autocomplete="off">
+            <label>Jenis Kelamin</label>
+            <select id="skbs_gender" name="skbs_gender" class="form-control">
+                <option value="">-- Pilih --</option>
+                <option value="L">Laki-laki</option>
+                <option value="P">Perempuan</option>
+            </select>
         </div>
     </div>
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Departemen</label>
-            <input type="text" id="patient_department" name="patient_department" class="form-control"
-                   placeholder="Departemen" maxlength="100" autocomplete="off">
+            <label>Tempat Lahir</label>
+            <input type="text" id="skbs_birth_place" name="skbs_birth_place" class="form-control"
+                   placeholder="Tempat lahir" maxlength="225" autocomplete="off">
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Tanggal Lahir</label>
+            <input type="text" id="skbs_bod" name="skbs_bod" class="form-control datepicker"
+                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
         </div>
     </div>
 </div>
 
-<hr style="border-color: var(--ds-border); margin: 6px 0 12px;">
+<div class="ds-form-group">
+    <label>Alamat</label>
+    <textarea id="skbs_address" name="skbs_address" class="form-control" rows="2"
+              placeholder="Alamat pasien" maxlength="255"></textarea>
+</div>
 
 <!-- Hasil Pemeriksaan -->
 <div class="row" style="margin: 0 -6px;">
@@ -72,17 +88,53 @@
 </div>
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Tekanan Darah (TD)</label>
+            <label>Tekanan Darah</label>
             <div class="input-group">
-                <input type="text" id="skbs_td" name="skbs_td" class="form-control" placeholder="cth: 120/80">
+                <input type="text" id="skbs_blood_press" name="skbs_blood_press" class="form-control" placeholder="cth: 120/80">
                 <div class="input-group-append">
                     <span class="input-group-text" style="font-size:11px;padding:4px 8px;">mmHg</span>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Nadi</label>
+            <div class="input-group">
+                <input type="text" id="skbs_pulse" name="skbs_pulse" class="form-control" placeholder="cth: 80">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">x/menit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Respirasi</label>
+            <div class="input-group">
+                <input type="text" id="skbs_respirasi" name="skbs_respirasi" class="form-control" placeholder="cth: 20">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">x/menit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Suhu Tubuh</label>
+            <div class="input-group">
+                <input type="text" id="skbs_temp" name="skbs_temp" class="form-control" placeholder="cth: 36.5">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">&deg;C</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tinggi Badan (TB)</label>
@@ -105,15 +157,15 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Buta Warna (BW)</label>
             <input type="text" id="skbs_bw" name="skbs_bw" class="form-control" placeholder="cth: Normal / Parsial">
         </div>
     </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Visus Kanan (R)</label>
@@ -124,21 +176,6 @@
         <div class="ds-form-group">
             <label>Visus Kiri (L)</label>
             <input type="text" id="skbs_l" name="skbs_l" class="form-control" placeholder="cth: 6/6">
-        </div>
-    </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Koreksi (R)</label>
-            <input type="text" id="skbs_koreksi_r" name="skbs_koreksi_r" class="form-control" placeholder="cth: 6/6">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Koreksi (L)</label>
-            <input type="text" id="skbs_koreksi_l" name="skbs_koreksi_l" class="form-control" placeholder="cth: 6/6">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px; display:none;" id="skbs_note_wrap">

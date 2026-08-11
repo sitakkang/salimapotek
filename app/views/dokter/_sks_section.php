@@ -11,6 +11,23 @@
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
+            <label>NIK / No. ID Card</label>
+            <input type="text" id="sks_nik" class="form-control" maxlength="100"
+                   value="<?= htmlspecialchars($sks && !empty($sks->sks_nik) ? $sks->sks_nik : ($row->patient_nik ?? '')) ?>">
+        </div>
+    </div>
+    <div class="col-md-8" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>No. Dokumen / Nomor SKS <span class="text-danger">*</span></label>
+            <input type="text" id="sks_docnumb" class="form-control" maxlength="100"
+                   value="<?= htmlspecialchars($sks && !empty($sks->docnumb) ? $sks->docnumb : ($sks_docnumb_default ?? '00000/SKS/PMDMH-SAC')) ?>">
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
+    <div class="col-md-4" style="padding: 0 6px;">
+        <div class="ds-form-group">
             <label>Dokter / Petugas <span class="text-danger">*</span></label>
             <input type="hidden" id="sks_doctby" value="<?= intval($row->trans_doct_by) ?>">
             <input type="text" class="form-control" value="<?= htmlspecialchars($row->trans_doct_name ?: 'Belum ditentukan') ?>" readonly>

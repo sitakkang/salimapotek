@@ -4,7 +4,7 @@
     <title>Cetak SKS</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 10px; color: #333; }
-        .header { text-align: center; margin-bottom: 8px; }
+        .header { text-align: center; margin: 16px 0 26px; }
         .header h2 { margin: 0; color: #2d6a4f; font-size: 15px; }
         .header p { margin: 1px 0 0; font-size: 10px; color: #666; }
         table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -28,8 +28,11 @@
         .btn-print { display: inline-block; margin-bottom: 8px; padding: 6px 16px; background: #2d6a4f; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; }
         .btn-print:hover { background: #1b4332; }
 
+        @page {
+            margin: 0;
+        }
         @media print {
-            body { padding: 0; }
+            body { padding: 12mm; }
             .no-print { display: none; }
         }
     </style>
@@ -41,9 +44,16 @@
     <div class="header">
         <hr style="border:1px solid #2d6a4f;margin:0 0 4px;">
         <div style="font-size:14px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
-        <div style="font-size:11px;color:#555;font-weight:600;"><?= htmlspecialchars($row->fullname) ?: $fullname ?></div>
+        <div style="font-size:11px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
+        
         <div style="font-size:9px;color:#888;margin-top:1px;">
-            Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
+            SIP : MR72062607007791 &nbsp;|&nbsp; STR : WN00001241279556
+        </div>
+        <div style="font-size:9px;color:#888;margin-top:1px;">
+            Alamat : Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
+        </div>
+        <div style="font-size:9px;color:#888;margin-top:1px;">
+            Telp/WA : 0821-5277-0277
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
@@ -54,6 +64,7 @@
         <div class="section-title">Identitas Pasien</div>
         <table>
             <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
+            <tr><td>NIK / No. ID Card</td><td>:</td><td><?= htmlspecialchars($row->sks_nik) ?: '-' ?></td></tr>
             <tr><td>Umur</td><td>:</td><td><?= htmlspecialchars($row->age) ?: '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>
             <tr><td>Pekerjaan</td><td>:</td><td><?= htmlspecialchars($row->patient_job) ?: '-' ?></td></tr>
@@ -152,7 +163,7 @@
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
             <p class="ttd-name">( <?= htmlspecialchars($row->fullname) ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">NIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
             <?php endif; ?>
         </div>
     </div>

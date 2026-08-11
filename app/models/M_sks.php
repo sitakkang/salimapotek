@@ -13,7 +13,7 @@ class M_sks extends CI_Model {
      */
     public function get_all() {
         return $this->db->query(
-            'SELECT id, patient_name, company_name, patient_job, age, gender, alamat, diagnosa, datefrom, dateto,
+            'SELECT id, patient_name, sks_nik, company_name, patient_job, age, gender, alamat, diagnosa, datefrom, dateto,
                     docdate, doctby, docnumb, insertby, insertdt
              FROM sks
              ORDER BY insertdt DESC'
@@ -40,7 +40,7 @@ class M_sks extends CI_Model {
      * Ambil data SKS ter-pagination + filter untuk DataTables server-side
      */
     public function get_datatables($search, $order_col = '', $order_dir = 'ASC', $start = 0, $length = 10) {
-        $this->db->select('id, patient_name, company_name, patient_job, age, gender, alamat, diagnosa, datefrom, dateto,
+        $this->db->select('id, patient_name, sks_nik, company_name, patient_job, age, gender, alamat, diagnosa, datefrom, dateto,
                            docdate, doctby, docnumb, insertby, insertdt');
         $this->db->from($this->table);
         $this->apply_search($search);
@@ -156,29 +156,12 @@ class M_sks extends CI_Model {
     }
 
     /**
-     * Generate nomor dokumen otomatis (running number per bulan)
-     * Format: 00001/SKS/VII/2026
+     * Generate default nomor dokumen SKS.
+     * Running number default 00000, yang otomatis hanya bulan & tahun.
+     * Format: 00000/SKS/PMDMH-SAC/VII/2026
      */
     public function generate_docnumb() {
-        $month = date('n');  // 1–12
-        $year  = date('Y');
-
-        // Cari nomor terakhir di bulan & tahun ini
-        $last = $this->db->query(
-            "SELECT docnumb FROM sks
-             WHERE docnumb LIKE '%/SKS/" . $this->db->escape_like_str($this->month_roman($month)) . "/$year'
-             ORDER BY id DESC LIMIT 1"
-        )->row();
-
-        if ($last) {
-            // Ambil angka dari depan: 00001/SKS/...
-            $parts = explode('/', $last->docnumb);
-            $next  = intval($parts[0]) + 1;
-        } else {
-            $next = 1;
-        }
-
-        return sprintf('%05d', $next) . '/SKS/' . $this->month_roman($month) . '/' . $year;
+        return '00000/SKS/PMDMH-SAC/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

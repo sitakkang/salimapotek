@@ -1,52 +1,71 @@
 <input type="hidden" id="edit_id" name="id" value="<?= $row->id_skbs ?>">
 
+<!-- Nomor Dokumen -->
+<div class="ds-form-group">
+    <label>No. Dokumen / Nomor SKBS <span class="text-danger">*</span></label>
+    <input type="text" id="edit_skbs_docnumb" name="skbs_docnumb" class="form-control" maxlength="100"
+           value="<?= htmlspecialchars(!empty($row->skbs_docnumb) ? $row->skbs_docnumb : ($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP-SAC')) ?>">
+</div>
+
+<hr style="border-color: var(--ds-border); margin: 6px 0 12px;">
+
 <!-- Data Pasien -->
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-6" style="padding: 0 6px;">
+    <div class="col-md-8" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Nama Pasien <span class="text-danger">*</span></label>
             <input type="text" id="edit_patient_name" name="patient_name" class="form-control"
                    value="<?= htmlspecialchars($row->skbs_patient_name) ?>" maxlength="100" autocomplete="off">
         </div>
     </div>
-    <div class="col-md-3" style="padding: 0 6px;">
+    <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>NIK <span class="text-danger">*</span></label>
+            <label>NIK</label>
             <input type="text" id="edit_patient_nik" name="patient_nik" class="form-control"
                    value="<?= htmlspecialchars($row->skbs_patient_nik) ?>" maxlength="20" autocomplete="off">
-        </div>
-    </div>
-    <div class="col-md-3" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Umur <span class="text-danger">*</span></label>
-            <input type="text" id="edit_patient_age" name="patient_age" class="form-control"
-                   value="<?= htmlspecialchars($row->skbs_patient_age) ?>" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>No. KTP</label>
             <input type="text" id="edit_patient_ktp" name="patient_ktp" class="form-control"
                    value="<?= htmlspecialchars($row->skbs_patient_ktp) ?>" maxlength="20" autocomplete="off">
         </div>
     </div>
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Perusahaan</label>
-            <input type="text" id="edit_patient_company" name="patient_company" class="form-control"
-                   value="<?= htmlspecialchars($row->skbs_patient_company) ?>" maxlength="100" autocomplete="off">
+            <label>Jenis Kelamin</label>
+            <select id="edit_skbs_gender" name="skbs_gender" class="form-control">
+                <option value="">-- Pilih --</option>
+                <option value="L" <?= $row->skbs_gender == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+                <option value="P" <?= $row->skbs_gender == 'P' ? 'selected' : '' ?>>Perempuan</option>
+            </select>
         </div>
     </div>
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Departemen</label>
-            <input type="text" id="edit_patient_department" name="patient_department" class="form-control"
-                   value="<?= htmlspecialchars($row->skbs_patient_department) ?>" maxlength="100" autocomplete="off">
+            <label>Tempat Lahir</label>
+            <input type="text" id="edit_skbs_birth_place" name="skbs_birth_place" class="form-control"
+                   value="<?= htmlspecialchars($row->skbs_birth_place) ?>" placeholder="Tempat lahir" maxlength="225" autocomplete="off">
         </div>
     </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Tanggal Lahir</label>
+            <input type="text" id="edit_skbs_bod" name="skbs_bod" class="form-control datepicker"
+                   value="<?= !empty($row->skbs_bod) ? date('d/m/Y', strtotime($row->skbs_bod)) : '' ?>"
+                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+        </div>
+    </div>
+</div>
+
+<div class="ds-form-group">
+    <label>Alamat</label>
+    <textarea id="edit_skbs_address" name="skbs_address" class="form-control" rows="2"
+              placeholder="Alamat pasien" maxlength="255"><?= htmlspecialchars($row->skbs_address) ?></textarea>
 </div>
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 12px;">
@@ -80,18 +99,57 @@ $show_note   = ($result_name == 'FIT DENGAN CATATAN') ? '' : 'display:none;';
 </div>
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Tekanan Darah (TD)</label>
+            <label>Tekanan Darah</label>
             <div class="input-group">
-                <input type="text" id="edit_skbs_td" name="skbs_td" class="form-control" placeholder="cth: 120/80"
-                       value="<?= htmlspecialchars($row->skbs_td) ?>">
+                <input type="text" id="edit_skbs_blood_press" name="skbs_blood_press" class="form-control" placeholder="cth: 120/80"
+                       value="<?= htmlspecialchars($row->skbs_blood_press) ?>">
                 <div class="input-group-append">
                     <span class="input-group-text" style="font-size:11px;padding:4px 8px;">mmHg</span>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Nadi</label>
+            <div class="input-group">
+                <input type="text" id="edit_skbs_pulse" name="skbs_pulse" class="form-control" placeholder="cth: 80"
+                       value="<?= htmlspecialchars($row->skbs_pulse) ?>">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">x/menit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Respirasi</label>
+            <div class="input-group">
+                <input type="text" id="edit_skbs_respirasi" name="skbs_respirasi" class="form-control" placeholder="cth: 20"
+                       value="<?= htmlspecialchars($row->skbs_respirasi) ?>">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">x/menit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Suhu Tubuh</label>
+            <div class="input-group">
+                <input type="text" id="edit_skbs_temp" name="skbs_temp" class="form-control" placeholder="cth: 36.5"
+                       value="<?= htmlspecialchars($row->skbs_temp) ?>">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">&deg;C</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tinggi Badan (TB)</label>
@@ -116,9 +174,6 @@ $show_note   = ($result_name == 'FIT DENGAN CATATAN') ? '' : 'display:none;';
             </div>
         </div>
     </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Buta Warna (BW)</label>
@@ -126,6 +181,9 @@ $show_note   = ($result_name == 'FIT DENGAN CATATAN') ? '' : 'display:none;';
                    value="<?= htmlspecialchars($row->skbs_bw) ?>">
         </div>
     </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Visus Kanan (R)</label>
@@ -138,23 +196,6 @@ $show_note   = ($result_name == 'FIT DENGAN CATATAN') ? '' : 'display:none;';
             <label>Visus Kiri (L)</label>
             <input type="text" id="edit_skbs_l" name="skbs_l" class="form-control" placeholder="cth: 6/6"
                    value="<?= htmlspecialchars($row->skbs_l) ?>">
-        </div>
-    </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Koreksi (R)</label>
-            <input type="text" id="edit_skbs_koreksi_r" name="skbs_koreksi_r" class="form-control" placeholder="cth: 6/6"
-                   value="<?= htmlspecialchars($row->skbs_koreksi_r) ?>">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Koreksi (L)</label>
-            <input type="text" id="edit_skbs_koreksi_l" name="skbs_koreksi_l" class="form-control" placeholder="cth: 6/6"
-                   value="<?= htmlspecialchars($row->skbs_koreksi_l) ?>">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;<?= $show_note ?>" id="skbs_note_wrap">

@@ -39,7 +39,24 @@
 </div>
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-6" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Tempat Lahir</label>
+            <input type="text" id="patient_birth_place" name="patient_birth_place" class="form-control"
+                   placeholder="Tempat lahir" maxlength="225" autocomplete="off">
+        </div>
+    </div>
+    <div class="col-md-6" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Tanggal Lahir <span class="text-danger">*</span></label>
+            <input type="text" id="patient_bod" name="patient_bod" class="form-control datepicker"
+                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
+    <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Jenis Kelamin <span class="text-danger">*</span></label>
             <select id="patient_gender" class="form-control">
@@ -49,14 +66,7 @@
             </select>
         </div>
     </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Tanggal Lahir <span class="text-danger">*</span></label>
-            <input type="text" id="patient_bod" name="patient_bod" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>No. Telepon <span class="text-danger">*</span></label>
             <input type="text" id="patient_phone" name="patient_phone" class="form-control"

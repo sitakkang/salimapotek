@@ -264,6 +264,7 @@ if (!empty($row->patient_bod)) {
                                     'dokter_list' => $dokter_list,
                                     'sks_diagnosa_default' => $sks_diagnosa_default,
                                     'sks_terapi_default' => $sks_terapi_default,
+                                    'sks_docnumb_default' => $sks_docnumb_default,
                                 )); ?>
                             </div>
                         </div>

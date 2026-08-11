@@ -11,6 +11,12 @@
            placeholder="Nama lengkap pasien" maxlength="200" autocomplete="off">
 </div>
 
+<div class="ds-form-group">
+    <label>NIK / No. ID Card</label>
+    <input type="text" id="sks_nik" name="sks_nik" class="form-control"
+           placeholder="NIK / No. ID Card" maxlength="100" autocomplete="off">
+</div>
+
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">

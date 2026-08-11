@@ -30,6 +30,7 @@
         .ttd-box  { text-align: center; min-width: 220px; }
         .ttd-place { margin: 0 0 4px; font-size: 13px; color: #333; }
         .ttd-role  { margin: 0 0 4px; font-size: 12px; color: #666; }
+        .ttd-date  { margin: 0 0 14px; font-size: 12px; color: #333; }
         .ttd-qr    { margin: 6px 0; }
         .ttd-qr img { width: 80px; height: 80px; display: block; margin: 0 auto; }
         .ttd-name  { margin: 4px 0 0; font-size: 13px; font-weight: 700; color: #333; border-top: 1px solid #333; padding-top: 6px; display: inline-block; min-width: 200px; }
@@ -38,8 +39,11 @@
         .btn-print { display: inline-block; margin-bottom: 16px; padding: 8px 20px; background: #2d6a4f; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
         .btn-print:hover { background: #1b4332; }
 
+        @page {
+            margin: 0;
+        }
         @media print {
-            body { padding: 0; }
+            body { padding: 12mm; }
             .no-print { display: none; }
         }
     </style>
@@ -51,12 +55,19 @@
     <div class="header">
         <hr style="border:1px solid #2d6a4f;margin:0 0 4px;">
         <div style="font-size:14px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
-        <div style="font-size:11px;color:#555;font-weight:600;"><?= htmlspecialchars($row->skbs_doct_name)?></div>
+        <div style="font-size:11px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
+        
         <div style="font-size:9px;color:#888;margin-top:1px;">
-            Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
+            SIP : MR72062607007791 &nbsp;|&nbsp; STR : WN00001241279556
+        </div>
+        <div style="font-size:9px;color:#888;margin-top:1px;">
+            Alamat : Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
+        </div>
+        <div style="font-size:9px;color:#888;margin-top:1px;">
+            Telp/WA : 0821-5277-0277
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
-        <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN BERBADAN SEHAT</h2>
+        <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN BERBADAN SEHAT (SKBS)</h2>
         <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($docnumb) ?></p>
     </div>
 
@@ -64,9 +75,9 @@
         <div class="section-title">Identitas Pasien</div>
         <table>
             <tr><td>Nama</td><td class="lbl">:</td><td><strong><?= htmlspecialchars($row->skbs_patient_name) ?></strong></td></tr>
-            <tr><td>Umur</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun</td></tr>
-            <tr><td>NIK</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_nik ?: '-') ?></td></tr>
-            <tr><td>Perusahaan</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_company ?: '-') ?></td></tr>
+            <tr><td>Tempat dan Tanggal Lahir</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_birth_place ?: '-') ?> / <?= !empty($row->skbs_bod) ? date('d-m-Y', strtotime($row->skbs_bod)) : '-' ?></td></tr>
+            <tr><td>Umur / Jenis Kelamin</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun / <?= strtoupper($row->skbs_gender) == 'L' ? 'Laki-laki' : (strtoupper($row->skbs_gender) == 'P' ? 'Perempuan' : '-') ?></td></tr>
+            <tr><td>Alamat</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_address ?: '-') ?></td></tr>
         </table>
     </div>
 
@@ -89,27 +100,27 @@
         <table class="vital-grid">
             <tr>
                 <td><strong>Tekanan Darah</strong></td>
-                <td>: <?= htmlspecialchars($row->skbs_td ?: '-') ?> mmHg</td>
+                <td>: <?= htmlspecialchars($row->skbs_blood_press ?: '-') ?> mmHg</td>
+                <td><strong>Nadi</strong></td>
+                <td>: <?= htmlspecialchars($row->skbs_pulse ?: '-') ?> x/menit</td>
+            </tr>
+            <tr>
+                <td><strong>Respirasi</strong></td>
+                <td>: <?= htmlspecialchars($row->skbs_respirasi ?: '-') ?> x/menit</td>
+                <td><strong>Suhu Tubuh</strong></td>
+                <td>: <?= htmlspecialchars($row->skbs_temp ?: '-') ?> &deg;C</td>
+            </tr>
+            <tr>
                 <td><strong>Tinggi Badan</strong></td>
                 <td>: <?= htmlspecialchars($row->skbs_tb ?: '-') ?> Cm</td>
-            </tr>
-            <tr>
                 <td><strong>Berat Badan</strong></td>
                 <td>: <?= htmlspecialchars($row->skbs_bb ?: '-') ?> Kg</td>
+            </tr>
+            <tr>
                 <td><strong>Buta Warna</strong></td>
                 <td>: <?= htmlspecialchars($row->skbs_bw ?: '-') ?></td>
-            </tr>
-            <tr>
-                <td><strong>Visus R</strong></td>
-                <td>: <?= htmlspecialchars($row->skbs_r ?: '-') ?></td>
-                <td><strong>Visus L</strong></td>
-                <td>: <?= htmlspecialchars($row->skbs_l ?: '-') ?></td>
-            </tr>
-            <tr>
-                <td><strong>Visus Koreksi R</strong></td>
-                <td>: <?= htmlspecialchars($row->skbs_koreksi_r ?: '-') ?></td>
-                <td><strong>Visus Koreksi L</strong></td>
-                <td>: <?= htmlspecialchars($row->skbs_koreksi_l ?: '-') ?></td>
+                <td><strong>Visus R / L</strong></td>
+                <td>: <?= htmlspecialchars($row->skbs_r ?: '-') ?> / <?= htmlspecialchars($row->skbs_l ?: '-') ?></td>
             </tr>
         </table>
         <?php if (!empty($row->skbs_note)): ?>
@@ -117,17 +128,14 @@
         <?php endif; ?>
     </div>
 
-    <div style="margin-top:20px;font-size:13px;">
-        <strong>Morowali, <?= !empty($row->skbs_doc_date) ? date('d/m/Y', strtotime($row->skbs_doc_date)) : date('d/m/Y') ?></strong>
-    </div>
-
-    <div class="ttd-wrap">
+    <div class="ttd-wrap" style="margin-top:28px;">
         <div class="ttd-box">
+            <p class="ttd-date"><strong>Morowali, <?= !empty($row->skbs_doc_date) ? date('d/m/Y', strtotime($row->skbs_doc_date)) : date('d/m/Y') ?></strong></p>
             <p class="ttd-role">Dokter Pemeriksa</p>
             <div class="ttd-qr"><?= isset($qrcode) ? '<img src="'.$qrcode.'" alt="QR Code">' : '' ?></div>
             <p class="ttd-name"><?= htmlspecialchars($row->skbs_doct_name ?: '_________________') ?></p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">NIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
             <?php endif; ?>
         </div>
     </div>

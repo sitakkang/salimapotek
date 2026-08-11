@@ -26,14 +26,6 @@
                         <span class="ds-detail-label">No. KTP</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_patient_ktp) ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
-                    <div class="ds-detail-field">
-                        <span class="ds-detail-label">Perusahaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_patient_company) ?: '<span class="text-muted">-</span>' ?></span>
-                    </div>
-                    <div class="ds-detail-field">
-                        <span class="ds-detail-label">Departemen</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_patient_department) ?: '<span class="text-muted">-</span>' ?></span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -74,7 +66,19 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Tekanan Darah</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_td) ?: '-' ?> mmHg</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_blood_press) ?: '-' ?> mmHg</span>
+                    </div>
+                    <div class="ds-detail-field">
+                        <span class="ds-detail-label">Nadi</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_pulse) ?: '-' ?> x/menit</span>
+                    </div>
+                    <div class="ds-detail-field">
+                        <span class="ds-detail-label">Respirasi</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_respirasi) ?: '-' ?> x/menit</span>
+                    </div>
+                    <div class="ds-detail-field">
+                        <span class="ds-detail-label">Suhu Tubuh</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_temp) ?: '-' ?> &deg;C</span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Buta Warna</span>
@@ -95,14 +99,6 @@
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Visus L</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_l) ?: '-' ?></span>
-                    </div>
-                    <div class="ds-detail-field">
-                        <span class="ds-detail-label">Visus Koreksi R</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_koreksi_r) ?: '-' ?></span>
-                    </div>
-                    <div class="ds-detail-field">
-                        <span class="ds-detail-label">Visus Koreksi L</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->skbs_koreksi_l) ?: '-' ?></span>
                     </div>
                 </div>
                 <?php if (!empty($row->skbs_note)): ?>

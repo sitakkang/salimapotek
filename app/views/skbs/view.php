@@ -28,8 +28,6 @@
                             <th width="40">No</th>
                             <th>Nama Pasien</th>
                             <th width="110">NIK</th>
-                            <th width="150">Perusahaan</th>
-                            <th width="150">Departemen</th>
                             <th width="100">Hasil</th>
                             <th width="130">Dokter</th>
                             <th width="100">Tgl. Dokumen</th>

@@ -168,6 +168,7 @@ class Sks extends CI_Controller {
 
         $data = array(
             'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
+            'sks_nik'      => trim($this->input->post('sks_nik')),
             'company_name' => strtoupper(trim($this->input->post('company_name'))),
             'patient_job'  => $patient_job ?: 'KARYAWAN',
             'age'          => trim($this->input->post('age')),
@@ -219,6 +220,7 @@ class Sks extends CI_Controller {
 
         $data = array(
             'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
+            'sks_nik'      => trim($this->input->post('sks_nik')),
             'company_name' => strtoupper(trim($this->input->post('company_name'))),
             'patient_job'  => $patient_job ?: 'KARYAWAN',
             'age'          => trim($this->input->post('age')),

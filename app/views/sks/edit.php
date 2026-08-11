@@ -12,6 +12,12 @@
            value="<?= htmlspecialchars($row->patient_name) ?>" maxlength="200" autocomplete="off">
 </div>
 
+<div class="ds-form-group">
+    <label>NIK / No. ID Card</label>
+    <input type="text" id="edit_sks_nik" name="sks_nik" class="form-control"
+           value="<?= htmlspecialchars($row->sks_nik) ?>" maxlength="100" autocomplete="off">
+</div>
+
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">

@@ -1,6 +1,16 @@
 <input type="hidden" id="skbs_id" value="<?= $skbs ? $skbs->id_skbs : '' ?>">
 
 <div class="row" style="margin: 0 -6px;">
+    <div class="col-md-12" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>No. Dokumen / Nomor SKBS <span class="text-danger">*</span></label>
+            <input type="text" id="skbs_docnumb" class="form-control" maxlength="100"
+                   value="<?= htmlspecialchars($skbs && !empty($skbs->skbs_docnumb) ? $skbs->skbs_docnumb : ($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP-SAC')) ?>">
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Hasil <span class="text-danger">*</span></label>
@@ -37,17 +47,53 @@ function toggleSkbsDesc(el) {
 <hr style="border-color:var(--ds-border);margin:6px 0 12px;">
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
+    <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Tekanan Darah (TD)</label>
+            <label>Tekanan Darah</label>
             <div class="input-group">
-                <input type="text" id="skbs_td" class="form-control" placeholder="cth: 120/80" value="<?= $skbs ? htmlspecialchars($skbs->skbs_td) : '' ?>">
+                <input type="text" id="skbs_blood_press" class="form-control" placeholder="cth: 120/80" value="<?= $skbs ? htmlspecialchars($skbs->skbs_blood_press) : '' ?>">
                 <div class="input-group-append">
                     <span class="input-group-text" style="font-size:11px;padding:4px 8px;">mmHg</span>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Nadi</label>
+            <div class="input-group">
+                <input type="text" id="skbs_pulse" class="form-control" placeholder="cth: 80" value="<?= $skbs ? htmlspecialchars($skbs->skbs_pulse) : '' ?>">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">x/menit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Respirasi</label>
+            <div class="input-group">
+                <input type="text" id="skbs_respirasi" class="form-control" placeholder="cth: 20" value="<?= $skbs ? htmlspecialchars($skbs->skbs_respirasi) : '' ?>">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">x/menit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="padding: 0 6px;">
+        <div class="ds-form-group">
+            <label>Suhu Tubuh</label>
+            <div class="input-group">
+                <input type="text" id="skbs_temp" class="form-control" placeholder="cth: 36.5" value="<?= $skbs ? htmlspecialchars($skbs->skbs_temp) : '' ?>">
+                <div class="input-group-append">
+                    <span class="input-group-text" style="font-size:11px;padding:4px 8px;">&deg;C</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tinggi Badan (TB)</label>
@@ -70,15 +116,15 @@ function toggleSkbsDesc(el) {
             </div>
         </div>
     </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Buta Warna (BW)</label>
             <input type="text" id="skbs_bw" class="form-control" placeholder="cth: Normal / Parsial" value="<?= $skbs ? htmlspecialchars($skbs->skbs_bw) : '' ?>">
         </div>
     </div>
+</div>
+
+<div class="row" style="margin: 0 -6px;">
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Visus Kanan (R)</label>
@@ -89,21 +135,6 @@ function toggleSkbsDesc(el) {
         <div class="ds-form-group">
             <label>Visus Kiri (L)</label>
             <input type="text" id="skbs_l" class="form-control" placeholder="cth: 6/6" value="<?= $skbs ? htmlspecialchars($skbs->skbs_l) : '' ?>">
-        </div>
-    </div>
-</div>
-
-<div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Koreksi (R)</label>
-            <input type="text" id="skbs_koreksi_r" class="form-control" placeholder="cth: 6/6" value="<?= $skbs ? htmlspecialchars($skbs->skbs_koreksi_r) : '' ?>">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Koreksi (L)</label>
-            <input type="text" id="skbs_koreksi_l" class="form-control" placeholder="cth: 6/6" value="<?= $skbs ? htmlspecialchars($skbs->skbs_koreksi_l) : '' ?>">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;<?= $skbs && $skbs->skbs_result_name == 'FIT DENGAN CATATAN' ? '' : 'display:none;' ?>" id="skbs_note_wrap">
@@ -132,28 +163,30 @@ function toggleSkbsDesc(el) {
         <thead>
             <tr>
                 <th>Hasil</th>
-                <th>TD</th>
+                <th>Tekanan Darah</th>
+                <th>Nadi</th>
+                <th>Respirasi</th>
+                <th>Suhu</th>
                 <th>TB</th>
                 <th>BB</th>
                 <th>BW</th>
                 <th>Visus R</th>
                 <th>Visus L</th>
-                <th>Koreksi R</th>
-                <th>Koreksi L</th>
                 <th width="80" class="text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td><?= htmlspecialchars($skbs->skbs_result_name) ?></td>
-                <td><?= htmlspecialchars($skbs->skbs_td) ?: '-' ?></td>
+                <td><?= htmlspecialchars($skbs->skbs_blood_press) ?: '-' ?></td>
+                <td><?= htmlspecialchars($skbs->skbs_pulse) ?: '-' ?></td>
+                <td><?= htmlspecialchars($skbs->skbs_respirasi) ?: '-' ?></td>
+                <td><?= htmlspecialchars($skbs->skbs_temp) ?: '-' ?></td>
                 <td><?= htmlspecialchars($skbs->skbs_tb) ?: '-' ?> cm</td>
                 <td><?= htmlspecialchars($skbs->skbs_bb) ?: '-' ?> kg</td>
                 <td><?= htmlspecialchars($skbs->skbs_bw) ?: '-' ?></td>
                 <td><?= htmlspecialchars($skbs->skbs_r) ?: '-' ?></td>
                 <td><?= htmlspecialchars($skbs->skbs_l) ?: '-' ?></td>
-                <td><?= htmlspecialchars($skbs->skbs_koreksi_r) ?: '-' ?></td>
-                <td><?= htmlspecialchars($skbs->skbs_koreksi_l) ?: '-' ?></td>
                 <td class="text-center">
                     <a href="<?= site_url('dokter/cetak_skbs/' . $skbs->id_skbs) ?>" target="_blank" class="ds-act-btn ds-act-print" title="Cetak SKBS" style="display:inline-flex;padding:3px 8px;">
                         <i class="fa fa-print"></i>

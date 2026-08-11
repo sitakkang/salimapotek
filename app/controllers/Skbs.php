@@ -50,11 +50,9 @@ class Skbs extends CI_Controller {
         $col_map = array(
             1 => 'skbs_patient_name',
             2 => 'skbs_patient_nik',
-            3 => 'skbs_patient_company',
-            4 => 'skbs_patient_department',
-            5 => 'skbs_result_name',
-            6 => 'skbs_doct_name',
-            7 => 'skbs_doc_date',
+            3 => 'skbs_result_name',
+            4 => 'skbs_doct_name',
+            5 => 'skbs_doc_date',
         );
 
         $order_col = '';
@@ -79,11 +77,9 @@ class Skbs extends CI_Controller {
                 '0'             => $i++,
                 '1'             => htmlspecialchars($row->skbs_patient_name),
                 '2'             => htmlspecialchars($row->skbs_patient_nik),
-                '3'             => htmlspecialchars($row->skbs_patient_company),
-                '4'             => htmlspecialchars($row->skbs_patient_department),
-                '5'             => htmlspecialchars($row->skbs_result_name),
-                '6'             => htmlspecialchars($row->skbs_doct_name),
-                '7'             => !empty($row->skbs_doc_date) ? date('d/m/Y', strtotime($row->skbs_doc_date)) : '-',
+                '3'             => htmlspecialchars($row->skbs_result_name),
+                '4'             => htmlspecialchars($row->skbs_doct_name),
+                '5'             => !empty($row->skbs_doc_date) ? date('d/m/Y', strtotime($row->skbs_doc_date)) : '-',
             );
         }
 
@@ -114,6 +110,7 @@ class Skbs extends CI_Controller {
     public function add() {
         $dokter = $this->M_skbs->get_all_doctor();
         $data['dokter'] = $dokter->result();
+        $data['skbs_docnumb_default'] = $this->M_skbs->generate_docnumb_skbs();
 
         $this->load->view($this->dir_v.'add', $data);
     }
@@ -125,6 +122,7 @@ class Skbs extends CI_Controller {
         $id = intval($this->input->get('id'));
         $dokter = $this->M_skbs->get_all_doctor();
         $data['dokter'] = $dokter->result();
+        $data['skbs_docnumb_default'] = $this->M_skbs->generate_docnumb_skbs();
         $data['row'] = $this->M_skbs->get_by_id($id);
         if (!$data['row']) {
             show_404();
@@ -146,32 +144,46 @@ class Skbs extends CI_Controller {
             return;
         }
 
+        // Nomor dokumen SKBS (default jika kosong)
+        $docnumb = strtoupper(trim($this->input->post('skbs_docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_skbs->generate_docnumb_skbs();
+        }
+
         $doct_by_id = intval($this->input->post('doctby'));
         $doct = $this->db->get_where('conf_users', array('id_user' => $doct_by_id))->row();
+
+        // Hitung umur otomatis dari tanggal lahir
+        $skbs_bod = $this->format_date_db($this->input->post('skbs_bod'));
+        $skbs_age = !empty($skbs_bod) ? date_diff(date_create($skbs_bod), date_create('now'))->y : '0';
 
         $data = array(
             'visit_id'                => null,
             'skbs_patient_name'       => strtoupper(trim($this->input->post('patient_name'))),
             'skbs_patient_nik'        => trim($this->input->post('patient_nik')),
-            'skbs_patient_department' => strtoupper(trim($this->input->post('patient_department'))),
-            'skbs_patient_company'    => strtoupper(trim($this->input->post('patient_company'))),
             'skbs_patient_ktp'        => trim($this->input->post('patient_ktp')),
-            'skbs_patient_age'        => trim($this->input->post('patient_age')),
+            'skbs_patient_age'        => $skbs_age,
+            'skbs_gender'             => strtoupper(trim($this->input->post('skbs_gender'))),
+            'skbs_birth_place'        => strtoupper(trim($this->input->post('skbs_birth_place'))),
+            'skbs_bod'                => $skbs_bod,
+            'skbs_address'            => trim($this->input->post('skbs_address')),
             'skbs_result_id'          => null,
             'skbs_result_name'        => strtoupper(trim($this->input->post('skbs_result'))),
             'skbs_desc'               => trim($this->input->post('skbs_desc')),
             'skbs_note'               => trim($this->input->post('skbs_note')),
-            'skbs_td'                 => trim($this->input->post('skbs_td')),
+            'skbs_blood_press'        => trim($this->input->post('skbs_blood_press')),
+            'skbs_pulse'              => trim($this->input->post('skbs_pulse')),
+            'skbs_respirasi'          => trim($this->input->post('skbs_respirasi')),
+            'skbs_temp'               => trim($this->input->post('skbs_temp')),
             'skbs_bw'                 => trim($this->input->post('skbs_bw')),
             'skbs_tb'                 => trim($this->input->post('skbs_tb')),
             'skbs_bb'                 => trim($this->input->post('skbs_bb')),
             'skbs_r'                  => trim($this->input->post('skbs_r')),
             'skbs_l'                  => trim($this->input->post('skbs_l')),
-            'skbs_koreksi_r'          => trim($this->input->post('skbs_koreksi_r')),
-            'skbs_koreksi_l'          => trim($this->input->post('skbs_koreksi_l')),
             'skbs_doc_date'           => $this->format_date_db($this->input->post('docdate')),
             'skbs_doct_id'            => $doct_by_id,
             'skbs_doct_name'          => $doct ? $doct->fullname : '',
+            'skbs_docnumb'            => $docnumb,
             'skbs_status'             => 1,
             'insert_dt'               => date('Y-m-d H:i:s'),
             'insert_by'               => $this->session->userdata('sess_id'),
@@ -200,31 +212,45 @@ class Skbs extends CI_Controller {
             return;
         }
 
+        // Nomor dokumen SKBS (default jika kosong)
+        $docnumb = strtoupper(trim($this->input->post('skbs_docnumb')));
+        if (empty($docnumb)) {
+            $docnumb = $this->M_skbs->generate_docnumb_skbs();
+        }
+
         $doct_by_id = intval($this->input->post('doctby'));
         $doct = $this->db->get_where('conf_users', array('id_user' => $doct_by_id))->row();
+
+        // Hitung umur otomatis dari tanggal lahir
+        $skbs_bod = $this->format_date_db($this->input->post('skbs_bod'));
+        $skbs_age = !empty($skbs_bod) ? date_diff(date_create($skbs_bod), date_create('now'))->y : '0';
 
         $data = array(
             'skbs_patient_name'       => strtoupper(trim($this->input->post('patient_name'))),
             'skbs_patient_nik'        => trim($this->input->post('patient_nik')),
-            'skbs_patient_department' => strtoupper(trim($this->input->post('patient_department'))),
-            'skbs_patient_company'    => strtoupper(trim($this->input->post('patient_company'))),
             'skbs_patient_ktp'        => trim($this->input->post('patient_ktp')),
-            'skbs_patient_age'        => trim($this->input->post('patient_age')),
+            'skbs_patient_age'        => $skbs_age,
+            'skbs_gender'             => strtoupper(trim($this->input->post('skbs_gender'))),
+            'skbs_birth_place'        => strtoupper(trim($this->input->post('skbs_birth_place'))),
+            'skbs_bod'                => $skbs_bod,
+            'skbs_address'            => trim($this->input->post('skbs_address')),
             'skbs_result_id'          => null,
             'skbs_result_name'        => strtoupper(trim($this->input->post('skbs_result'))),
             'skbs_desc'               => trim($this->input->post('skbs_desc')),
             'skbs_note'               => trim($this->input->post('skbs_note')),
-            'skbs_td'                 => trim($this->input->post('skbs_td')),
+            'skbs_blood_press'        => trim($this->input->post('skbs_blood_press')),
+            'skbs_pulse'              => trim($this->input->post('skbs_pulse')),
+            'skbs_respirasi'          => trim($this->input->post('skbs_respirasi')),
+            'skbs_temp'               => trim($this->input->post('skbs_temp')),
             'skbs_bw'                 => trim($this->input->post('skbs_bw')),
             'skbs_tb'                 => trim($this->input->post('skbs_tb')),
             'skbs_bb'                 => trim($this->input->post('skbs_bb')),
             'skbs_r'                  => trim($this->input->post('skbs_r')),
             'skbs_l'                  => trim($this->input->post('skbs_l')),
-            'skbs_koreksi_r'          => trim($this->input->post('skbs_koreksi_r')),
-            'skbs_koreksi_l'          => trim($this->input->post('skbs_koreksi_l')),
             'skbs_doc_date'           => $this->format_date_db($this->input->post('docdate')),
             'skbs_doct_id'            => $doct_by_id,
             'skbs_doct_name'          => $doct ? $doct->fullname : '',
+            'skbs_docnumb'            => $docnumb,
             'update_dt'               => date('Y-m-d H:i:s'),
             'update_by'               => $this->session->userdata('sess_id'),
         );
@@ -268,10 +294,12 @@ class Skbs extends CI_Controller {
         $doct = $this->db->get_where('conf_users', array('id_user' => intval($row->skbs_doct_id)))->row();
         $row->nip = $doct ? $doct->nip : '';
 
-        // Generate nomor dokumen
+        // Nomor dokumen: pakai yang tersimpan, fallback ke format default
         $month_roman = $this->month_roman(date('n'));
         $year = date('Y');
-        $data['docnumb'] = sprintf('%05d', $row->id_skbs) . '/IMIP-SKBS/' . $month_roman . '/' . $year;
+        $data['docnumb'] = !empty($row->skbs_docnumb)
+            ? $row->skbs_docnumb
+            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP-SAC/' . $month_roman . '/' . $year;
         $data['row'] = $row;
         $data['qrcode'] = $this->generate_qrcode($id);
 

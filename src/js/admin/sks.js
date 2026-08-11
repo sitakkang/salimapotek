@@ -120,6 +120,7 @@ $(document).ready(function () {
     $(document).on('click', '#save_add_btn', function () {
         var payload = {
             patient_name: $('#patient_name').val(),
+            sks_nik:      $('#sks_nik').val(),
             company_name: $('#company_name').val(),
             age:          $('#age').val(),
             gender:       $('#gender').val(),
@@ -206,6 +207,7 @@ $(document).ready(function () {
         var payload = {
             id:           $('#edit_id').val(),
             patient_name: $('#edit_patient_name').val(),
+            sks_nik:      $('#edit_sks_nik').val(),
             company_name: $('#edit_company_name').val(),
             age:          $('#edit_age').val(),
             gender:       $('#edit_gender').val(),
