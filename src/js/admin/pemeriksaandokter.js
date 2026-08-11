@@ -316,6 +316,7 @@ $(document).ready(function () {
             tgl_datang:       $('#skmb_tgl_datang').val(),
             jam:              $('#skmb_jam').val(),
             skmb_docnumb:     $('#skmb_docnumb').val(),
+            diagnosa:         $('#skmb_diagnosa').val(),
         };
 
         if (!payload.patient_name) { notifNo('Silakan isi nama yang diantar'); return false; }

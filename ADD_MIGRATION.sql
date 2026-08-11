@@ -36,3 +36,7 @@ ADD patient_birth_place VARCHAR(225) NULL;
 ALTER TABLE skmb
 ADD pekerjaan_pengantar VARCHAR(100) NULL;
 
+--------------------------------------
+ALTER TABLE skmb
+ADD patient_diagnosa VARCHAR(225) NULL;
+

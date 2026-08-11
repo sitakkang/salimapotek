@@ -21,7 +21,7 @@
         .ttd-place { margin: 0 0 2px; font-size: 14px; color: #333; }
         .ttd-role  { margin: 0 0 2px; font-size: 13px; color: #666; }
         .ttd-qr    { margin: 3px 0; }
-        .ttd-qr img { width: 60px; height: 60px; display: block; margin: 0 auto; }
+        .ttd-qr img { width: 130px; height: 130px; display: block; margin: 0 auto; }
         .ttd-name  { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: #333; border-top: 1px solid #333; padding-top: 4px; display: inline-block; min-width: 160px; }
         .ttd-nip   { margin: 1px 0 0; font-size: 12px; color: #666; }
 
@@ -57,7 +57,7 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:11px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
+        <p style="font-size:15px;font-weight:bold;margin:2px 0 0;">(No.): <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">

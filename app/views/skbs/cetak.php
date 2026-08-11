@@ -32,7 +32,7 @@
         .ttd-role  { margin: 0 0 4px; font-size: 14px; color: #666; }
         .ttd-date  { margin: 0 0 14px; font-size: 14px; color: #333; }
         .ttd-qr    { margin: 6px 0; }
-        .ttd-qr img { width: 80px; height: 80px; display: block; margin: 0 auto; }
+        .ttd-qr img { width: 130px; height: 130px; display: block; margin: 0 auto; }
         .ttd-name  { margin: 4px 0 0; font-size: 15px; font-weight: 700; color: #333; border-top: 1px solid #333; padding-top: 6px; display: inline-block; min-width: 200px; }
         .ttd-nip   { margin: 2px 0 0; font-size: 13px; color: #666; }
 
@@ -68,8 +68,12 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN BERBADAN SEHAT (SKBS)</h2>
-        <p style="font-size:11px;margin:0;">No. Dokumen: <?= htmlspecialchars($docnumb ?? '') ?></p>
+        <p style="font-size:15px;font-weight:bold;margin:2px 0 0;">(No.): <?= htmlspecialchars($docnumb ?? '') ?></p>
     </div>
+
+    <p style="font-size:14px;margin:8px 0 6px;text-align:justify;">
+        Yang bertanda tangan dibawah ini, menerangkan bahwa :
+    </p>
 
     <div class="section">
         <div class="section-title">Identitas Pasien</div>

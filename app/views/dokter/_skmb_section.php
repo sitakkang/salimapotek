@@ -105,6 +105,11 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
     </div>
 </div>
 
+<div class="ds-form-group">
+    <label>Diagnosa</label>
+    <textarea id="skmb_diagnosa" class="form-control" rows="3"
+              placeholder="Diagnosa / keterangan"><?= htmlspecialchars($skmb && !empty($skmb->patient_diagnosa) ? $skmb->patient_diagnosa : ($skmb_diagnosa_default ?? '')) ?></textarea>
+</div>
 
 <hr style="border-color:var(--ds-border);margin:6px 0 12px;">
 

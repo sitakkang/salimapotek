@@ -56,6 +56,12 @@
     </div>
 </div>
 
+<div class="ds-form-group">
+    <label>Diagnosa</label>
+    <textarea id="edit_diagnosa" name="patient_diagnosa" class="form-control" rows="3"
+              placeholder="Diagnosa / keterangan"><?= htmlspecialchars($row->patient_diagnosa ?? '') ?></textarea>
+</div>
+
 <hr style="border-color: var(--ds-border); margin: 10px 0 14px;">
 
 
