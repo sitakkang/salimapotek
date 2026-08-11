@@ -124,6 +124,28 @@ class Sks extends CI_Controller {
     }
 
     /**
+     * Load form tambah SKS dengan data pasien otomatis (via AJAX ke modal)
+     */
+    public function add_from_patient($id) {
+        $patient = $this->db->get_where('ms_patient', array('id_patient' => intval($id)))->row();
+        if (!$patient) {
+            show_404();
+        }
+
+        $dokter = $this->M_sks->get_all_doctor();
+        $data['dokter'] = $dokter->result();
+        $data['docnumb'] = $this->M_sks->generate_docnumb();
+        $data['districts'] = $this->db->select('district_name')
+            ->from('ms_district')
+            ->where('city_id', 3)
+            ->order_by('district_name', 'ASC')
+            ->get()->result();
+        $data['patient'] = $patient;
+
+        $this->load->view($this->dir_v.'add', $data);
+    }
+
+    /**
      * Load form edit SKS (via AJAX ke modal)
      */
     public function edit() {
