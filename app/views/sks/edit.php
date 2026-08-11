@@ -86,8 +86,21 @@
 
 <div class="ds-form-group">
     <label>Alamat <span class="text-danger">*</span></label>
-    <textarea id="edit_alamat" name="alamat" class="form-control" rows="2"
-              placeholder="Alamat lengkap pasien"><?= htmlspecialchars($row->alamat ?? '') ?></textarea>
+    <?php
+    $alamat = $row->alamat ?? '';
+    $alamat_in_list = false;
+    ?>
+    <select id="edit_alamat" name="alamat" class="form-control autocomplete" data-placeholder="Pilih kecamatan">
+        <option value="">-- Pilih Kecamatan --</option>
+        <?php foreach ($districts as $d): ?>
+            <?php $dn = $d->district_name ?? ''; ?>
+            <option value="<?= htmlspecialchars($dn) ?>" <?= ($dn === $alamat) ? 'selected' : '' ?>><?= htmlspecialchars($dn) ?></option>
+            <?php if ($dn === $alamat) $alamat_in_list = true; ?>
+        <?php endforeach; ?>
+        <?php if (!empty($alamat) && !$alamat_in_list): ?>
+            <option value="<?= htmlspecialchars($alamat) ?>" selected><?= htmlspecialchars($alamat) ?></option>
+        <?php endif; ?>
+    </select>
 </div>
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 14px;">

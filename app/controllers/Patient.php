@@ -95,7 +95,12 @@ class Patient extends CI_Controller {
      * Load form tambah Patient (via AJAX ke modal)
      */
     public function add() {
-        $this->load->view($this->dir_v.'add');
+        $data['districts'] = $this->db->select('district_name')
+            ->from('ms_district')
+            ->where('city_id', 3)
+            ->order_by('district_name', 'ASC')
+            ->get()->result();
+        $this->load->view($this->dir_v.'add', $data);
     }
 
     /**
@@ -107,6 +112,11 @@ class Patient extends CI_Controller {
         if (!$data['row']) {
             show_404();
         }
+        $data['districts'] = $this->db->select('district_name')
+            ->from('ms_district')
+            ->where('city_id', 3)
+            ->order_by('district_name', 'ASC')
+            ->get()->result();
         $this->load->view($this->dir_v.'edit', $data);
     }
 
@@ -157,7 +167,7 @@ class Patient extends CI_Controller {
             'patient_birth_place' => strtoupper(trim($this->input->post('patient_birth_place') ?? '')),
             'patient_gender'      => $this->input->post('patient_gender'),
             'patient_bod'         => $this->format_date_db($this->input->post('patient_bod')),
-            'patient_address'     => strtoupper(trim($this->input->post('patient_address') ?? '')),
+            'patient_address'     => trim($this->input->post('patient_address') ?? ''),
             'patient_phone'       => trim($this->input->post('patient_phone')),
             'patient_status'      => 1,
             'insert_by'            => $this->session->userdata('sess_id'),
@@ -189,7 +199,7 @@ class Patient extends CI_Controller {
             'patient_birth_place' => strtoupper(trim($this->input->post('patient_birth_place') ?? '')),
             'patient_gender'      => $this->input->post('patient_gender'),
             'patient_bod'         => $this->format_date_db($this->input->post('patient_bod')),
-            'patient_address'     => strtoupper(trim($this->input->post('patient_address') ?? '')),
+            'patient_address'     => trim($this->input->post('patient_address') ?? ''),
             'patient_phone'       => trim($this->input->post('patient_phone')),
             'updateby'            => $this->session->userdata('sess_id'),
             'updatedt'            => date('Y-m-d H:i:s'),

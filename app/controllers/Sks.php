@@ -114,6 +114,11 @@ class Sks extends CI_Controller {
         $dokter = $this->M_sks->get_all_doctor();
         $data['dokter'] = $dokter->result();
         $data['docnumb'] = $this->M_sks->generate_docnumb();
+        $data['districts'] = $this->db->select('district_name')
+            ->from('ms_district')
+            ->where('city_id', 3)
+            ->order_by('district_name', 'ASC')
+            ->get()->result();
         
         $this->load->view($this->dir_v.'add', $data);
     }
@@ -129,6 +134,11 @@ class Sks extends CI_Controller {
         if (!$data['row']) {
             show_404();
         }
+        $data['districts'] = $this->db->select('district_name')
+            ->from('ms_district')
+            ->where('city_id', 3)
+            ->order_by('district_name', 'ASC')
+            ->get()->result();
         $this->load->view($this->dir_v.'edit', $data);
     }
 

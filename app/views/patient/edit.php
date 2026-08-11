@@ -80,6 +80,19 @@
 
 <div class="ds-form-group">
     <label>Alamat <span class="text-danger">*</span></label>
-    <textarea id="edit_patient_address" name="patient_address" class="form-control" rows="2"
-              placeholder="Alamat lengkap pasien" maxlength="200"><?= htmlspecialchars($row->patient_address ?? '') ?></textarea>
+    <?php
+    $addr = $row->patient_address ?? '';
+    $addr_in_list = false;
+    ?>
+    <select id="edit_patient_address" name="patient_address" class="form-control autocomplete" data-placeholder="Pilih kecamatan">
+        <option value="">-- Pilih Kecamatan --</option>
+        <?php foreach ($districts as $d): ?>
+            <?php $dn = $d->district_name ?? ''; ?>
+            <option value="<?= htmlspecialchars($dn) ?>" <?= ($dn === $addr) ? 'selected' : '' ?>><?= htmlspecialchars($dn) ?></option>
+            <?php if ($dn === $addr) $addr_in_list = true; ?>
+        <?php endforeach; ?>
+        <?php if (!empty($addr) && !$addr_in_list): ?>
+            <option value="<?= htmlspecialchars($addr) ?>" selected><?= htmlspecialchars($addr) ?></option>
+        <?php endif; ?>
+    </select>
 </div>

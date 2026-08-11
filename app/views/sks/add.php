@@ -79,8 +79,12 @@
 
 <div class="ds-form-group">
     <label>Alamat <span class="text-danger">*</span></label>
-    <textarea id="alamat" name="alamat" class="form-control" rows="2"
-              placeholder="Alamat lengkap pasien"></textarea>
+    <select id="alamat" name="alamat" class="form-control autocomplete" data-placeholder="Pilih kecamatan">
+        <option value="">-- Pilih Kecamatan --</option>
+        <?php foreach ($districts as $d): ?>
+            <option value="<?= htmlspecialchars($d->district_name ?? '') ?>"><?= htmlspecialchars($d->district_name ?? '') ?></option>
+        <?php endforeach; ?>
+    </select>
 </div>
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 14px;">
