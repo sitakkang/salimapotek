@@ -14,7 +14,7 @@ class M_skmb extends CI_Model {
     public function get_all() {
         return $this->db->query(
             'SELECT id, patient_name, nik, bagian, company_name, pengantar, nik_pengantar,
-                    company_pengantar, hubungan, tgl_datang, jam,
+                    pekerjaan_pengantar, hubungan, tgl_datang, jam,
                     docdate, doct_by_name, docnumb, insertby, insertdt
              FROM skmb
              ORDER BY insertdt DESC'
@@ -42,7 +42,7 @@ class M_skmb extends CI_Model {
      */
     public function get_datatables($search, $order_col = '', $order_dir = 'ASC', $start = 0, $length = 10) {
         $this->db->select('id, patient_name, nik, bagian, company_name, pengantar, nik_pengantar,
-                           company_pengantar, hubungan, tgl_datang, jam,
+                           pekerjaan_pengantar, hubungan, tgl_datang, jam,
                            docdate, doct_by_name, docnumb, insertby, insertdt');
         $this->db->from($this->table);
         $this->apply_search($search);

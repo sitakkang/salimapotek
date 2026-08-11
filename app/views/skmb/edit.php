@@ -25,9 +25,9 @@
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Perusahaan Pengantar</label>
-            <input type="text" id="edit_company_pengantar" name="company_pengantar" class="form-control"
-                   value="<?= htmlspecialchars($row->company_pengantar ?? '') ?>" maxlength="20" autocomplete="off">
+            <label>Pekerjaan Pengantar</label>
+            <input type="text" id="edit_pekerjaan_pengantar" name="pekerjaan_pengantar" class="form-control"
+                   value="<?= htmlspecialchars($row->pekerjaan_pengantar ?? '') ?>" maxlength="20" autocomplete="off">
         </div>
     </div>
 </div>

@@ -800,7 +800,7 @@ class Dokter extends CI_Controller {
             'company_name'      => strtoupper(trim($this->input->post('company_name') ?? '')),
             'pengantar'         => strtoupper(trim($this->input->post('pengantar') ?? '')),
             'nik_pengantar'     => trim($this->input->post('nik_pengantar')),
-            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar') ?? '')),
+            'pekerjaan_pengantar' => strtoupper(trim($this->input->post('pekerjaan_pengantar') ?? '')),
             'hubungan'          => $this->input->post('hubungan'),
             'tgl_datang'        => $this->format_date_db($this->input->post('tgl_datang')),
             'jam'               => trim($this->input->post('jam')),

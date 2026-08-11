@@ -311,7 +311,7 @@ $(document).ready(function () {
             company_name:     $('#skmb_company_name').val(),
             pengantar:        $('#skmb_pengantar').val(),
             nik_pengantar:    $('#skmb_nik_pengantar').val(),
-            company_pengantar: $('#skmb_company_pengantar').val(),
+            pekerjaan_pengantar: $('#skmb_pekerjaan_pengantar').val(),
             hubungan:         $('#skmb_hubungan').val(),
             tgl_datang:       $('#skmb_tgl_datang').val(),
             jam:              $('#skmb_jam').val(),

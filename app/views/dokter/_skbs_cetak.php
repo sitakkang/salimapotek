@@ -54,21 +54,21 @@
 
     <div class="header">
         <hr style="border:1px solid #2d6a4f;margin:0 0 4px;">
-        <div style="font-size:14px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
-        <div style="font-size:11px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
+        <div style="font-size:16px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
+        <div style="font-size:13px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
         
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             SIP : MR72062607007791 &nbsp;|&nbsp; STR : WN00001241279556
         </div>
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             Alamat : Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
         </div>
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             Telp/WA : 0821-5277-0277
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
-        <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN BERBADAN SEHAT (SKBS)</h2>
-        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($docnumb ?? '') ?></p>
+        <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN BERBADAN SEHAT (SKBS)</h2>
+        <p style="font-size:11px;margin:0;">No. Dokumen: <?= htmlspecialchars($docnumb ?? '') ?></p>
     </div>
 
     <div class="section">
@@ -77,7 +77,7 @@
             <tr><td>Nama</td><td class="lbl">:</td><td><strong><?= htmlspecialchars($row->skbs_patient_name ?? '') ?></strong></td></tr>
             <tr><td>Tempat dan Tanggal Lahir</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_birth_place ?: '-') ?> / <?= !empty($row->skbs_bod) ? date('d-m-Y', strtotime($row->skbs_bod)) : '-' ?></td></tr>
             <tr><td>Umur / Jenis Kelamin</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun / <?= strtoupper($row->skbs_gender ?? '') == 'L' ? 'Laki-laki' : (strtoupper($row->skbs_gender ?? '') == 'P' ? 'Perempuan' : '-') ?></td></tr>
-            <tr><td>Alamat</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_address ?: '-') ?></td></tr>
+            <tr><td>Alamat</td><td class="lbl">:</td><td><?= htmlspecialchars(ucwords(strtolower($row->skbs_address ?: '-'))) ?></td></tr>
         </table>
     </div>
 

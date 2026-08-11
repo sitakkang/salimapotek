@@ -43,53 +43,54 @@
 
     <div class="header">
         <hr style="border:1px solid #2d6a4f;margin:0 0 4px;">
-        <div style="font-size:14px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
-        <div style="font-size:11px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
+        <div style="font-size:16px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
+        <div style="font-size:13px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
         
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             SIP : MR72062607007791 &nbsp;|&nbsp; STR : WN00001241279556
         </div>
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             Alamat : Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
         </div>
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             Telp/WA : 0821-5277-0277
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
-        <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
+        <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
+        <p style="font-size:11px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
+        <div class="section-title">Yang bertanda tangan dibawah ini, yang memeriksa menerangkan bahwa :</div>
         <div class="section-title">Identitas Pasien</div>
         <table>
             <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
             <tr><td>No. ID Card</td><td>:</td><td><?= !empty($row->sks_nik) ? htmlspecialchars($row->sks_nik) : '-' ?></td></tr>
             <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>
-            <tr><td>Pekerjaan</td><td>:</td><td><?= !empty($row->patient_job) ? htmlspecialchars($row->patient_job) : '-' ?></td></tr>
+            <tr><td>Pekerjaan</td><td>:</td><td><?= !empty($row->patient_job) ? htmlspecialchars(ucwords(strtolower($row->patient_job))) : '-' ?></td></tr>
         </table>
     </div>
 
     <div class="section">
-        <div class="section-title">Alamat</div>
+        <!-- <div class="section-title">Alamat</div> -->
         <table>
             <tr>
                 <td>Alamat</td><td>:</td>
-                <td><?= !empty($row->alamat) ? nl2br(htmlspecialchars($row->alamat)) : '-' ?></td>
+                <td><?= !empty($row->alamat) ? nl2br(htmlspecialchars(ucwords(strtolower($row->alamat)))) : '-' ?></td>
             </tr>
         </table>
     </div>
 
     <div class="section">
-        <div class="section-title">Diagnosa</div>
+        <!-- <div class="section-title">Diagnosa</div> -->
         <table>
             <tr><td>Diagnosa</td><td>:</td><td><?= nl2br(htmlspecialchars($row->diagnosa ?? '')) ?></td></tr>
         </table>
     </div>
 
     <div class="section">
-        <div class="section-title">Terapi</div>
+        <!-- <div class="section-title">Terapi</div> -->
         <table>
             <tr><td>Terapi</td><td>:</td><td><?= nl2br(htmlspecialchars($row->terapi ?? '')) ?></td></tr>
         </table>

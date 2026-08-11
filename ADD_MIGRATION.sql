@@ -30,3 +30,9 @@ ADD skbs_gender VARCHAR(10) NULL;
 ALTER TABLE ms_patient
 ADD patient_birth_place VARCHAR(225) NULL;
 
+
+----------------------------------------
+
+ALTER TABLE skmb
+ADD pekerjaan_pengantar VARCHAR(100) NULL;
+

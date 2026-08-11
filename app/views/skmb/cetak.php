@@ -45,21 +45,21 @@
 
     <div class="header">
         <hr style="border:1px solid #2d6a4f;margin:0 0 4px;">
-        <div style="font-size:14px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
-        <div style="font-size:11px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
+        <div style="font-size:16px;font-weight:700;color:#2d6a4f;">PRAKTEK DOKTER UMUM</div>
+        <div style="font-size:13px;color:#555;font-weight:600;">dr. Mutmainnah Hasanuddin</div>
         
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             SIP : MR72062607007791 &nbsp;|&nbsp; STR : WN00001241279556
         </div>
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             Alamat : Jl. Trans Sulawesi, Desa Keurea, Kec. Bahodopi, Morowali
         </div>
-        <div style="font-size:9px;color:#888;margin-top:1px;">
+        <div style="font-size:12px;color:#888;margin-top:1px;">
             Telp/WA : 0821-5277-0277
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
-        <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
+        <h2 style="font-size:17px;margin:0;">SURAT KETERANGAN MEMBAWA BEROBAT (SKMB)</h2>
+        <p style="font-size:11px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
@@ -71,7 +71,7 @@
         <table>
             <tr><td>Nama Pengantar</td><td>:</td><td><?= !empty($row->pengantar) ? htmlspecialchars($row->pengantar) : '-' ?></td></tr>
             <tr><td>No. ID Card Pengantar</td><td>:</td><td><?= !empty($row->nik_pengantar) ? htmlspecialchars($row->nik_pengantar) : '-' ?></td></tr>
-            <tr><td>Perusahaan</td><td>:</td><td><?= !empty($row->company_pengantar) ? htmlspecialchars($row->company_pengantar) : '-' ?></td></tr>
+            <tr><td>Pekerjaan</td><td>:</td><td><?= !empty($row->pekerjaan_pengantar) ? htmlspecialchars(ucwords(strtolower($row->pekerjaan_pengantar))) : '-' ?></td></tr>
         </table>
     </div>
 

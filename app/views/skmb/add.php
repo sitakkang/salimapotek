@@ -23,9 +23,9 @@
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Perusahaan Pengantar</label>
-            <input type="text" id="company_pengantar" name="company_pengantar" class="form-control"
-                   placeholder="Perusahaan pengantar" maxlength="20" autocomplete="off">
+            <label>Pekerjaan Pengantar</label>
+            <input type="text" id="pekerjaan_pengantar" name="pekerjaan_pengantar" class="form-control"
+                   placeholder="Pekerjaan pengantar" maxlength="20" autocomplete="off">
         </div>
     </div>
 </div>

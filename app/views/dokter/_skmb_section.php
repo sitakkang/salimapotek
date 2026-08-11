@@ -34,10 +34,10 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Perusahaan Pengantar</label>
-            <input type="text" id="skmb_company_pengantar" class="form-control"
-                   placeholder="Perusahaan pengantar" maxlength="20" autocomplete="off"
-                   value="<?= $skmb ? htmlspecialchars($skmb->company_pengantar ?? '') : '' ?>">
+            <label>Pekerjaan Pengantar</label>
+            <input type="text" id="skmb_pekerjaan_pengantar" class="form-control"
+                   placeholder="Pekerjaan pengantar" maxlength="20" autocomplete="off"
+                   value="<?= $skmb ? htmlspecialchars($skmb->pekerjaan_pengantar ?? '') : htmlspecialchars($row->patient_job ?? '') ?>">
         </div>
     </div>
 </div>

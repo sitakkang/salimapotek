@@ -80,8 +80,8 @@
                     <span class="ds-detail-value"><?= htmlspecialchars($row->nik_pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
-                    <span class="ds-detail-label">Perusahaan Pengantar</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->company_pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-label">Pekerjaan Pengantar</span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->pekerjaan_pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
                     <span class="ds-detail-label">Dokter Pemeriksa</span>
