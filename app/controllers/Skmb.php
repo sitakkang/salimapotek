@@ -65,7 +65,7 @@ class Skmb extends CI_Controller {
         $order = $this->input->get('order');
         if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
             $order_col = $col_map[$order[0]['column']];
-            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+            $order_dir = (strtoupper($order[0]['dir'] ?? '') === 'DESC') ? 'DESC' : 'ASC';
         }
 
         $records_total    = $this->M_skmb->count_all();
@@ -80,13 +80,13 @@ class Skmb extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->patient_name),
-                '2'         => htmlspecialchars($row->nik),
-                '3'         => htmlspecialchars($row->company_name),
-                '4'         => htmlspecialchars($row->pengantar),
+                '1'         => htmlspecialchars($row->patient_name ?? ''),
+                '2'         => htmlspecialchars($row->nik ?? ''),
+                '3'         => htmlspecialchars($row->company_name ?? ''),
+                '4'         => htmlspecialchars($row->pengantar ?? ''),
                 '5'         => !empty($row->tgl_datang) ? date('d/m/Y', strtotime($row->tgl_datang)) : '-',
-                '6'         => htmlspecialchars($row->jam),
-                '7'         => htmlspecialchars($row->docnumb),
+                '6'         => htmlspecialchars($row->jam ?? ''),
+                '7'         => htmlspecialchars($row->docnumb ?? ''),
                 '8'         => !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '-',
             );
         }
@@ -146,18 +146,18 @@ class Skmb extends CI_Controller {
         $doct = $this->db->get_where('conf_users', array('id_user' => $doct_by_id))->row();
 
         // Nomor dokumen SKMB (default jika kosong)
-        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_skmb->generate_docnumb();
         }
 
         $data = array(
-            'patient_name'    => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'    => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'nik'             => trim($this->input->post('nik')),
-            'company_name'    => strtoupper(trim($this->input->post('company_name'))),
-            'pengantar'       => strtoupper(trim($this->input->post('pengantar'))),
+            'company_name'    => strtoupper(trim($this->input->post('company_name') ?? '')),
+            'pengantar'       => strtoupper(trim($this->input->post('pengantar') ?? '')),
             'nik_pengantar'   => trim($this->input->post('nik_pengantar')),
-            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar'))),
+            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar') ?? '')),
             'hubungan'        => $this->input->post('hubungan'),
             'tgl_datang'      => $this->format_date_db($this->input->post('tgl_datang')),
             'jam'             => trim($this->input->post('jam')),
@@ -186,18 +186,18 @@ class Skmb extends CI_Controller {
         $doct = $this->db->get_where('conf_users', array('id_user' => $doct_by_id))->row();
 
         // Nomor dokumen SKMB (default jika kosong)
-        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_skmb->generate_docnumb();
         }
 
         $data = array(
-            'patient_name'    => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'    => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'nik'             => trim($this->input->post('nik')),
-            'company_name'    => strtoupper(trim($this->input->post('company_name'))),
-            'pengantar'       => strtoupper(trim($this->input->post('pengantar'))),
+            'company_name'    => strtoupper(trim($this->input->post('company_name') ?? '')),
+            'pengantar'       => strtoupper(trim($this->input->post('pengantar') ?? '')),
             'nik_pengantar'   => trim($this->input->post('nik_pengantar')),
-            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar'))),
+            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar') ?? '')),
             'hubungan'        => $this->input->post('hubungan'),
             'tgl_datang'      => $this->format_date_db($this->input->post('tgl_datang')),
             'jam'             => trim($this->input->post('jam')),
@@ -233,7 +233,7 @@ class Skmb extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'SKMB ' . htmlspecialchars($row->patient_name) . ' berhasil dihapus!',
+            'notif'  => 'SKMB ' . htmlspecialchars($row->patient_name ?? '') . ' berhasil dihapus!',
         ));
     }
 

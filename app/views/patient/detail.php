@@ -12,19 +12,19 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">No.RM</span>
-                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->patient_code) ?: '-' ?></span>
+                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->patient_code ?? '') ?: '-' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Nama Pasien</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name) ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">NIK</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_nik) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_nik ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">No. KTP</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_ktp) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_ktp ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Jenis Kelamin</span>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">No. Telepon</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_phone) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_phone ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                 </div>
             </div>
@@ -52,11 +52,11 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Perusahaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_company) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_company ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Pekerjaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Status</span>
@@ -93,7 +93,7 @@
         <div class="ds-detail-audit-bd">
             <div class="ds-detail-audit-item">
                 <span class="ds-audit-icon"><i class="fa fa-plus-circle"></i></span>
-                <span class="ds-audit-text">Dibuat oleh <strong><?= htmlspecialchars($row->insert_name) ?: '-' ?></strong> pada <strong><?= !empty($row->insert_dt) ? date('d/m/Y H:i', strtotime($row->insert_dt)) : '-' ?></strong></span>
+                <span class="ds-audit-text">Dibuat oleh <strong><?= htmlspecialchars($row->insert_name ?? '') ?: '-' ?></strong> pada <strong><?= !empty($row->insert_dt) ? date('d/m/Y H:i', strtotime($row->insert_dt)) : '-' ?></strong></span>
             </div>
             <?php if (!empty($row->updateby)): ?>
             <div class="ds-detail-audit-item">

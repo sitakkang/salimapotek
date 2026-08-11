@@ -51,7 +51,7 @@ class Obat extends CI_Controller {
         $order = $this->input->get('order');
         if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
             $order_col = $col_map[$order[0]['column']];
-            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+            $order_dir = (strtoupper($order[0]['dir'] ?? '') === 'DESC') ? 'DESC' : 'ASC';
         }
 
         $records_total    = $this->M_obat->count_all();
@@ -70,8 +70,8 @@ class Obat extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id_obat,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->obat_name),
-                '2'         => htmlspecialchars($row->obat_satuan),
+                '1'         => htmlspecialchars($row->obat_name ?? ''),
+                '2'         => htmlspecialchars($row->obat_satuan ?? ''),
                 '3'         => 'Rp ' . number_format($row->obat_price, 0, ',', '.'),
                 '4'         => $status,
             );
@@ -101,8 +101,8 @@ class Obat extends CI_Controller {
 
     public function act_add() {
         $data = array(
-            'obat_name'   => strtoupper(trim($this->input->post('obat_name'))),
-            'obat_satuan' => strtoupper(trim($this->input->post('obat_satuan'))),
+            'obat_name'   => strtoupper(trim($this->input->post('obat_name') ?? '')),
+            'obat_satuan' => strtoupper(trim($this->input->post('obat_satuan') ?? '')),
             'obat_price'  => str_replace(array(',', '.'), '', trim($this->input->post('obat_price'))),
             'obat_status' => 1,
         );
@@ -119,8 +119,8 @@ class Obat extends CI_Controller {
         $id = intval($this->input->post('id'));
 
         $data = array(
-            'obat_name'   => strtoupper(trim($this->input->post('obat_name'))),
-            'obat_satuan' => strtoupper(trim($this->input->post('obat_satuan'))),
+            'obat_name'   => strtoupper(trim($this->input->post('obat_name') ?? '')),
+            'obat_satuan' => strtoupper(trim($this->input->post('obat_satuan') ?? '')),
             'obat_price'  => str_replace(array(',', '.'), '', trim($this->input->post('obat_price'))),
         );
 
@@ -145,7 +145,7 @@ class Obat extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'Obat ' . htmlspecialchars($row->obat_name) . ' berhasil dihapus!',
+            'notif'  => 'Obat ' . htmlspecialchars($row->obat_name ?? '') . ' berhasil dihapus!',
         ));
     }
 }

@@ -11,19 +11,19 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">NO. RM</span>
-                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->patient_code) ?></span>
+                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->patient_code ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Nama Pasien</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name) ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Perusahaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_company) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_company ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Telepon</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_phone) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_phone ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                 </div>
             </div>

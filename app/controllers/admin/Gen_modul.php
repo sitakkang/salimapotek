@@ -20,7 +20,7 @@ class Gen_modul extends CI_Controller {
     {
     	$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data ?? '');
         return preg_replace("/[^a-zA-Z0-9_]/", "", $data);
     }
 

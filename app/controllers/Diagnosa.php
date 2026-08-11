@@ -49,7 +49,7 @@ class Diagnosa extends CI_Controller {
         $order = $this->input->get('order');
         if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
             $order_col = $col_map[$order[0]['column']];
-            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+            $order_dir = (strtoupper($order[0]['dir'] ?? '') === 'DESC') ? 'DESC' : 'ASC';
         }
 
         $records_total    = $this->M_diagnosa->count_all();
@@ -69,7 +69,7 @@ class Diagnosa extends CI_Controller {
                 'DT_RowId'  => $row->id_diagnosa,
                 '0'         => $i++,
                 '1'         => htmlspecialchars($row->dgn_cat ?: '-'),
-                '2'         => htmlspecialchars($row->dgn_name),
+                '2'         => htmlspecialchars($row->dgn_name ?? ''),
                 '3'         => $status,
             );
         }
@@ -98,8 +98,8 @@ class Diagnosa extends CI_Controller {
 
     public function act_add() {
         $data = array(
-            'dgn_name'     => strtoupper(trim($this->input->post('dgn_name'))),
-            'dgn_cat'      => strtoupper(trim($this->input->post('dgn_cat'))),
+            'dgn_name'     => strtoupper(trim($this->input->post('dgn_name') ?? '')),
+            'dgn_cat'      => strtoupper(trim($this->input->post('dgn_cat') ?? '')),
             'dgn_status'   => 1,
             'dgn_insert_dt' => date('Y-m-d H:i:s'),
             'dgn_insert_by' => $this->session->userdata('sess_id'),
@@ -117,8 +117,8 @@ class Diagnosa extends CI_Controller {
         $id = intval($this->input->post('id'));
 
         $data = array(
-            'dgn_name' => strtoupper(trim($this->input->post('dgn_name'))),
-            'dgn_cat'  => strtoupper(trim($this->input->post('dgn_cat'))),
+            'dgn_name' => strtoupper(trim($this->input->post('dgn_name') ?? '')),
+            'dgn_cat'  => strtoupper(trim($this->input->post('dgn_cat') ?? '')),
         );
 
         $this->M_diagnosa->update($id, $data);
@@ -142,7 +142,7 @@ class Diagnosa extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'Diagnosa ' . htmlspecialchars($row->dgn_name) . ' berhasil dihapus!',
+            'notif'  => 'Diagnosa ' . htmlspecialchars($row->dgn_name ?? '') . ' berhasil dihapus!',
         ));
     }
 }

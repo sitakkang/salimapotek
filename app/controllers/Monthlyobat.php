@@ -54,9 +54,9 @@ class Monthlyobat extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $i,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->periode),
-                '2'         => htmlspecialchars($row->trans_obat_name),
-                '3'         => htmlspecialchars($row->trans_obat_satuan),
+                '1'         => htmlspecialchars($row->periode ?? ''),
+                '2'         => htmlspecialchars($row->trans_obat_name ?? ''),
+                '3'         => htmlspecialchars($row->trans_obat_satuan ?? ''),
                 '4'         => intval($row->total_qty),
                 '5'         => 'Rp ' . number_format($row->total_price, 0, ',', '.'),
             );
@@ -117,9 +117,9 @@ class Monthlyobat extends CI_Controller {
             $grand_total += intval($row->total_price);
             echo '<tr>';
             echo '<td align="center">' . $no++ . '</td>';
-            echo '<td>' . htmlspecialchars($row->periode) . '</td>';
-            echo '<td>' . htmlspecialchars($row->trans_obat_name) . '</td>';
-            echo '<td align="center">' . htmlspecialchars($row->trans_obat_satuan) . '</td>';
+            echo '<td>' . htmlspecialchars($row->periode ?? '') . '</td>';
+            echo '<td>' . htmlspecialchars($row->trans_obat_name ?? '') . '</td>';
+            echo '<td align="center">' . htmlspecialchars($row->trans_obat_satuan ?? '') . '</td>';
             echo '<td align="center">' . intval($row->total_qty) . '</td>';
             echo '<td align="right">' . number_format($row->total_price, 0, ',', '.') . '</td>';
             echo '</tr>';

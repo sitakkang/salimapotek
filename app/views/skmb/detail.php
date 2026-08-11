@@ -12,23 +12,23 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Nama Diantar</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name) ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">NIK Diantar</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->nik) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->nik ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Perusahaan Diantar</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->company_name) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->company_name ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Bagian</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->bagian) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->bagian ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Hubungan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->hubungan) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->hubungan ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">No. Dokumen</span>
-                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->docnumb) ?: '-' ?></span>
+                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->docnumb ?? '') ?: '-' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Tgl. Dokumen</span>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Jam</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->jam) ?: '<span class="text-muted">-</span>' ?> WITA</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->jam ?? '') ?: '<span class="text-muted">-</span>' ?> WITA</span>
                     </div>
                 </div>
             </div>
@@ -73,19 +73,19 @@
             <div class="ds-detail-grid-2col">
                 <div class="ds-detail-field">
                     <span class="ds-detail-label">Pengantar</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->pengantar) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
                     <span class="ds-detail-label">NIK Pengantar</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->nik_pengantar) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->nik_pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
                     <span class="ds-detail-label">Perusahaan Pengantar</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->company_pengantar) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->company_pengantar ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field">
                     <span class="ds-detail-label">Dokter Pemeriksa</span>
-                    <span class="ds-detail-value"><?= htmlspecialchars($row->doct_name) ?: htmlspecialchars($row->doct_by_name) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-value"><?= htmlspecialchars($row->doct_name ?? '') ?: htmlspecialchars($row->doct_by_name ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
         <div class="ds-detail-audit-bd">
             <div class="ds-detail-audit-item">
                 <span class="ds-audit-icon"><i class="fa fa-plus-circle"></i></span>
-                <span class="ds-audit-text">Dibuat oleh <strong><?= htmlspecialchars($row->insert_name) ?: '-' ?></strong> pada <strong><?= !empty($row->insertdt) ? date('d/m/Y H:i', strtotime($row->insertdt)) : '-' ?></strong></span>
+                <span class="ds-audit-text">Dibuat oleh <strong><?= htmlspecialchars($row->insert_name ?? '') ?: '-' ?></strong> pada <strong><?= !empty($row->insertdt) ? date('d/m/Y H:i', strtotime($row->insertdt)) : '-' ?></strong></span>
             </div>
             <?php if (!empty($row->update_name)): ?>
             <div class="ds-detail-audit-item">

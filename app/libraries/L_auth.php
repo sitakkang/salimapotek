@@ -39,7 +39,7 @@ class L_auth {
     {
     	$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data ?? '');
         return preg_replace("/[^0-9 ]/", "", $data);
     }
 
@@ -47,7 +47,7 @@ class L_auth {
     {
     	$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data ?? '');
         return preg_replace("/[^a-zA-Z ]/", "", $data);
     }
 
@@ -55,21 +55,21 @@ class L_auth {
     {
     	$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data ?? '');
         return preg_replace("/[^a-zA-Z0-9]/", "", $data);
     }
 
 	function filter_text_random($data) {
 		$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data ?? '');
 		return preg_replace("/[^a-zA-Z0-9.-_ ]/", "", $data);
 	}
 
 	function filter_input($data) {
 		$data = trim($data);
 		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
+		$data = htmlspecialchars($data ?? '');
 		return $data;
 	}
 

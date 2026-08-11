@@ -12,23 +12,23 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Nama Pasien</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name) ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Umur</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->age) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->age ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Jenis Kelamin</span>
                         <span class="ds-detail-value"><?php if ($row->gender === 'L'): ?><span class="ds-badge ds-badge-blue">Laki-laki</span><?php elseif ($row->gender === 'P'): ?><span class="ds-badge ds-badge-pink">Perempuan</span><?php else: ?><span class="text-muted">-</span><?php endif; ?></span>
                     </div>
                     <div class="ds-detail-field">
-                        <span class="ds-detail-label">Perusahaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->company_name) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-label">Pekerjaan</span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Pekerjaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_job ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">No. Dokumen</span>
-                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->docnumb) ?: '-' ?></span>
+                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->docnumb ?? '') ?: '-' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Tgl. Dokumen</span>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Dokter / Petugas</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->fullname) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->fullname ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                 </div>
             </div>
@@ -73,11 +73,11 @@
             <div class="ds-detail-grid-2col">
                 <div class="ds-detail-field ds-detail-field-full">
                     <span class="ds-detail-label">Diagnosa</span>
-                    <span class="ds-detail-value ds-detail-diagnosa"><?= nl2br(htmlspecialchars($row->diagnosa)) ?></span>
+                    <span class="ds-detail-value ds-detail-diagnosa"><?= nl2br(htmlspecialchars($row->diagnosa ?? '')) ?></span>
                 </div>
                 <div class="ds-detail-field ds-detail-field-full">
                     <span class="ds-detail-label">Terapi / Obat</span>
-                    <span class="ds-detail-value"><?= nl2br(htmlspecialchars($row->terapi)) ?: '<span class="text-muted">-</span>' ?></span>
+                    <span class="ds-detail-value"><?= nl2br(htmlspecialchars($row->terapi ?? '')) ?: '<span class="text-muted">-</span>' ?></span>
                 </div>
                 <div class="ds-detail-field ds-detail-field-full">
                     <span class="ds-detail-label">Alamat</span>
@@ -97,7 +97,7 @@
         <div class="ds-detail-audit-bd">
             <div class="ds-detail-audit-item">
                 <span class="ds-audit-icon"><i class="fa fa-plus-circle"></i></span>
-                <span class="ds-audit-text">Dibuat oleh <strong><?= htmlspecialchars($row->insert_name) ?: '-' ?></strong> pada <strong><?= !empty($row->insertdt) ? date('d/m/Y H:i', strtotime($row->insertdt)) : '-' ?></strong></span>
+                <span class="ds-audit-text">Dibuat oleh <strong><?= htmlspecialchars($row->insert_name ?? '') ?: '-' ?></strong> pada <strong><?= !empty($row->insertdt) ? date('d/m/Y H:i', strtotime($row->insertdt)) : '-' ?></strong></span>
             </div>
             <?php if (!empty($row->update_name)): ?>
             <div class="ds-detail-audit-item">

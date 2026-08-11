@@ -2,7 +2,7 @@
 
 <div class="ds-form-group">
     <label>Nama Racikan <span class="text-danger">*</span></label>
-    <input type="text" id="edit_pulv_name" class="form-control" value="<?= htmlspecialchars($pulv->pulv_name) ?>" maxlength="255">
+    <input type="text" id="edit_pulv_name" class="form-control" value="<?= htmlspecialchars($pulv->pulv_name ?? '') ?>" maxlength="255">
 </div>
 
 <div class="row" style="margin:0 -6px;">
@@ -15,12 +15,12 @@
     <div class="col-md-6" style="padding:0 6px;">
         <div class="ds-form-group">
             <label>Dosis / Aturan Pakai <span class="text-danger">*</span></label>
-            <input type="text" id="edit_pulv_dosis" class="form-control" value="<?= htmlspecialchars($pulv->pulv_dosis) ?>" maxlength="50">
+            <input type="text" id="edit_pulv_dosis" class="form-control" value="<?= htmlspecialchars($pulv->pulv_dosis ?? '') ?>" maxlength="50">
         </div>
     </div>
 </div>
 
 <div class="ds-form-group">
     <label>Catatan Formula</label>
-    <textarea id="edit_pulv_notes" class="form-control" rows="6"><?= htmlspecialchars($pulv->pulv_notes) ?></textarea>
+    <textarea id="edit_pulv_notes" class="form-control" rows="6"><?= htmlspecialchars($pulv->pulv_notes ?? '') ?></textarea>
 </div>

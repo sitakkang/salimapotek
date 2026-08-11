@@ -27,9 +27,9 @@
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
-            <label>Nama Perusahaan</label>
-            <input type="text" id="company_name" name="company_name" class="form-control"
-                   placeholder="Nama perusahaan (jika ada)" maxlength="200" autocomplete="off">
+            <label>Pekerjaan</label>
+            <input type="text" id="patient_job" name="patient_job" class="form-control"
+                   placeholder="Pekerjaan pasien" maxlength="100" autocomplete="off">
         </div>
     </div>
 </div>
@@ -56,7 +56,7 @@
             <select id="doctby" name="doctby" class="form-control autocomplete" <?= $disabled ?>>
                 <option value="">-- Pilih --</option>
                 <?php foreach ($dokter as $d): ?>
-                    <option value="<?= $d->id_user ?>" <?= ($user_level == 3 && $d->id_user == $sess_id) ? 'selected' : '' ?>><?= htmlspecialchars($d->fullname) ?></option>
+                    <option value="<?= $d->id_user ?>" <?= ($user_level == 3 && $d->id_user == $sess_id) ? 'selected' : '' ?>><?= htmlspecialchars($d->fullname ?? '') ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

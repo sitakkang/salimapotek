@@ -79,7 +79,7 @@ class Tables extends CI_Controller {
         }
 
         $data = array(
-            'no_meja'    => strtoupper(trim($this->input->post('no_meja'))),
+            'no_meja'    => strtoupper(trim($this->input->post('no_meja') ?? '')),
             'kapasitas'  => intval($this->input->post('kapasitas')),
             'status'     => 'AVAILABLE',
             'created_at' => date('Y-m-d H:i:s'),
@@ -108,7 +108,7 @@ class Tables extends CI_Controller {
 
         $check = $this->db->query(
             "SELECT id_table FROM pos_tables WHERE no_meja = ? AND id_table != ?",
-            array(strtoupper(trim($this->input->post('no_meja'))), $id)
+            array(strtoupper(trim($this->input->post('no_meja') ?? '')), $id)
         );
         if ($check->num_rows() > 0) {
             echo json_encode(array('status' => 1, 'notif' => 'Nomor meja sudah digunakan!'));
@@ -116,7 +116,7 @@ class Tables extends CI_Controller {
         }
 
         $data = array(
-            'no_meja'   => strtoupper(trim($this->input->post('no_meja'))),
+            'no_meja'   => strtoupper(trim($this->input->post('no_meja') ?? '')),
             'kapasitas' => intval($this->input->post('kapasitas')),
             'status'    => $this->input->post('status'),
         );

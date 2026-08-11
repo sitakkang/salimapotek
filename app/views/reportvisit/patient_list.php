@@ -1,7 +1,7 @@
 <div class="ds-detail-wrap">
 
     <div style="margin-bottom:12px;">
-        <strong style="font-size:14px;">Tanggal: <?= htmlspecialchars($tgl) ?></strong>
+        <strong style="font-size:14px;">Tanggal: <?= htmlspecialchars($tgl ?? '') ?></strong>
         <span style="font-size:12px;color:#999;margin-left:8px;">
             Total: <?= $rows->num_rows() ?> pasien
         </span>
@@ -25,12 +25,12 @@
                 <?php $no=1; foreach ($rows->result() as $r): ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= htmlspecialchars($r->trans_patient_code) ?></td>
-                    <td><?= htmlspecialchars($r->patient_name) ?></td>
+                    <td><?= htmlspecialchars($r->trans_patient_code ?? '') ?></td>
+                    <td><?= htmlspecialchars($r->patient_name ?? '') ?></td>
                     <td><?= $r->patient_gender === 'L' ? 'Laki-laki' : ($r->patient_gender === 'P' ? 'Perempuan' : '-') ?></td>
-                    <td><?= htmlspecialchars($r->trans_patient_company) ?: '-' ?></td>
-                    <td><?= htmlspecialchars($r->trans_patient_phone) ?: '-' ?></td>
-                    <td><?= htmlspecialchars($r->doct_name) ?: '-' ?></td>
+                    <td><?= htmlspecialchars($r->trans_patient_company ?? '') ?: '-' ?></td>
+                    <td><?= htmlspecialchars($r->trans_patient_phone ?? '') ?: '-' ?></td>
+                    <td><?= htmlspecialchars($r->doct_name ?? '') ?: '-' ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

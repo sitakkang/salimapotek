@@ -67,7 +67,7 @@ class M_sks extends CI_Model {
 
         $this->db->group_start();
         $this->db->like('patient_name', $search);
-        $this->db->or_like('company_name', $search);
+        $this->db->or_like('patient_job', $search);
         $this->db->or_like('gender', $search);
         $this->db->or_like('diagnosa', $search);
         $this->db->or_like('docnumb', $search);

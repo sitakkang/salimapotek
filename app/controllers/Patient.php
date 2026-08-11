@@ -71,13 +71,13 @@ class Patient extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id_patient,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->patient_code),
-                '2'         => htmlspecialchars($row->patient_name),
+                '1'         => htmlspecialchars($row->patient_code ?? ''),
+                '2'         => htmlspecialchars($row->patient_name ?? ''),
                 'jk'        => $row->patient_gender,
-                '3'         => htmlspecialchars($row->patient_ktp),
-                '4'         => htmlspecialchars($row->patient_nik),
-                '5'         => htmlspecialchars($row->patient_company),
-                '6'         => htmlspecialchars($row->patient_phone),
+                '3'         => htmlspecialchars($row->patient_ktp ?? ''),
+                '4'         => htmlspecialchars($row->patient_nik ?? ''),
+                '5'         => htmlspecialchars($row->patient_company ?? ''),
+                '6'         => htmlspecialchars($row->patient_phone ?? ''),
                 '7'         => $status,
             );
         }
@@ -141,7 +141,7 @@ class Patient extends CI_Controller {
                 }
                 echo json_encode(array(
                     'status' => 1,
-                    'notif'  => $field . ' sudah terdaftar atas nama <strong>' . htmlspecialchars($existing->patient_name) . '</strong> (NO. RM: ' . htmlspecialchars($existing->patient_code) . '). Data tidak dapat disimpan.',
+                    'notif'  => $field . ' sudah terdaftar atas nama <strong>' . htmlspecialchars($existing->patient_name ?? '') . '</strong> (NO. RM: ' . htmlspecialchars($existing->patient_code ?? '') . '). Data tidak dapat disimpan.',
                 ));
                 return;
             }
@@ -149,15 +149,15 @@ class Patient extends CI_Controller {
 
         $data = array(
             'patient_code'        => $this->M_patient->generate_patient_code(),
-            'patient_name'        => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'        => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'patient_nik'         => $nik,
-            'patient_company'     => strtoupper(trim($this->input->post('patient_company'))),
-            'patient_job'         => strtoupper(trim($this->input->post('patient_job'))),
+            'patient_company'     => strtoupper(trim($this->input->post('patient_company') ?? '')),
+            'patient_job'         => strtoupper(trim($this->input->post('patient_job') ?? '')),
             'patient_ktp'         => $ktp,
-            'patient_birth_place' => strtoupper(trim($this->input->post('patient_birth_place'))),
+            'patient_birth_place' => strtoupper(trim($this->input->post('patient_birth_place') ?? '')),
             'patient_gender'      => $this->input->post('patient_gender'),
             'patient_bod'         => $this->format_date_db($this->input->post('patient_bod')),
-            'patient_address'     => strtoupper(trim($this->input->post('patient_address'))),
+            'patient_address'     => strtoupper(trim($this->input->post('patient_address') ?? '')),
             'patient_phone'       => trim($this->input->post('patient_phone')),
             'patient_status'      => 1,
             'insert_by'            => $this->session->userdata('sess_id'),
@@ -181,15 +181,15 @@ class Patient extends CI_Controller {
         $id = intval($this->input->post('id'));
 
         $data = array(
-            'patient_name'        => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'        => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'patient_nik'         => trim($this->input->post('patient_nik')),
-            'patient_company'     => strtoupper(trim($this->input->post('patient_company'))),
-            'patient_job'         => strtoupper(trim($this->input->post('patient_job'))),
+            'patient_company'     => strtoupper(trim($this->input->post('patient_company') ?? '')),
+            'patient_job'         => strtoupper(trim($this->input->post('patient_job') ?? '')),
             'patient_ktp'         => trim($this->input->post('patient_ktp')),
-            'patient_birth_place' => strtoupper(trim($this->input->post('patient_birth_place'))),
+            'patient_birth_place' => strtoupper(trim($this->input->post('patient_birth_place') ?? '')),
             'patient_gender'      => $this->input->post('patient_gender'),
             'patient_bod'         => $this->format_date_db($this->input->post('patient_bod')),
-            'patient_address'     => strtoupper(trim($this->input->post('patient_address'))),
+            'patient_address'     => strtoupper(trim($this->input->post('patient_address') ?? '')),
             'patient_phone'       => trim($this->input->post('patient_phone')),
             'updateby'            => $this->session->userdata('sess_id'),
             'updatedt'            => date('Y-m-d H:i:s'),
@@ -219,7 +219,7 @@ class Patient extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'Pasien ' . htmlspecialchars($row->patient_name) . ' berhasil dinonaktifkan!',
+            'notif'  => 'Pasien ' . htmlspecialchars($row->patient_name ?? '') . ' berhasil dinonaktifkan!',
         ));
     }
 
@@ -292,7 +292,7 @@ class Patient extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'Pasien <strong>' . htmlspecialchars($row->patient_name) . '</strong> (NO. RM: ' . htmlspecialchars($row->patient_code) . ') berhasil didaftarkan!',
+            'notif'  => 'Pasien <strong>' . htmlspecialchars($row->patient_name ?? '') . '</strong> (NO. RM: ' . htmlspecialchars($row->patient_code ?? '') . ') berhasil didaftarkan!',
         ));
     }
 

@@ -60,10 +60,10 @@ class Pharmacy extends CI_Controller {
             $data[] = array(
                 'DT_RowId'        => $row->id_visit,
                 '0'               => $i++,
-                '1'               => htmlspecialchars($row->trans_patient_code),
-                '2'               => htmlspecialchars($row->patient_name),
-                '3'               => htmlspecialchars($row->trans_patient_company),
-                '4'               => htmlspecialchars($row->trans_patient_phone),
+                '1'               => htmlspecialchars($row->trans_patient_code ?? ''),
+                '2'               => htmlspecialchars($row->patient_name ?? ''),
+                '3'               => htmlspecialchars($row->trans_patient_company ?? ''),
+                '4'               => htmlspecialchars($row->trans_patient_phone ?? ''),
                 '5'               => !empty($row->trans_doc) ? date('d/m/Y', strtotime($row->trans_doc)) : '-',
                 'id_medical_record' => $row->id_medical_record,
             );

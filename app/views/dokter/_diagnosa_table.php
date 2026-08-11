@@ -10,8 +10,8 @@
     <tbody>
         <?php foreach ($diagnosa_terpilih as $d): ?>
         <tr>
-            <td><?= htmlspecialchars($d->trans_dgn_cat) ?: '-' ?></td>
-            <td><?= htmlspecialchars($d->trans_dgn_name) ?></td>
+            <td><?= htmlspecialchars($d->trans_dgn_cat ?? '') ?: '-' ?></td>
+            <td><?= htmlspecialchars($d->trans_dgn_name ?? '') ?></td>
             <td><?= htmlspecialchars($d->trans_dgn_note ?: '') ?></td>
             <td class="text-center">
                 <button class="ds-act-btn ds-act-delete del-diagnosa-btn" data-id="<?= $d->id_trans_dgn ?>" style="padding:3px 8px;">

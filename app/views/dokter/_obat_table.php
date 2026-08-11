@@ -16,12 +16,12 @@
                 <input type="checkbox" class="check-terapi" data-id="<?= $o->id_trans_obat ?>"
                     <?= !empty($o->trans_obat_pulv_id) ? 'disabled' : '' ?>>
             </td>
-            <td><?= htmlspecialchars($o->trans_obat_name) ?>
+            <td><?= htmlspecialchars($o->trans_obat_name ?? '') ?>
                 <?php if (!empty($o->trans_obat_pulv_id)): ?>
                     <span class="badge badge-success" style="font-size:9px;">Racikan</span>
                 <?php endif; ?>
             </td>
-            <td><?= htmlspecialchars($o->trans_obat_satuan) ?></td>
+            <td><?= htmlspecialchars($o->trans_obat_satuan ?? '') ?></td>
             <td class="text-center"><?= intval($o->trans_obat_qty ?: 0) ?></td>
             <td><?= htmlspecialchars($o->trans_obat_dosis ?: '-') ?></td>
             <td class="text-center">

@@ -2,7 +2,7 @@
 
 <div class="ds-form-group">
     <label>Nama Pengguna</label>
-    <p style="font-size: 14px; font-weight: 600; color: var(--ds-text); margin: 2px 0 0;"><?= htmlspecialchars($row->fullname) ?></p>
+    <p style="font-size: 14px; font-weight: 600; color: var(--ds-text); margin: 2px 0 0;"><?= htmlspecialchars($row->fullname ?? '') ?></p>
 </div>
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 14px;">

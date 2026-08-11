@@ -12,7 +12,7 @@
 <div class="ds-form-group">
     <label>Pengantar <span class="text-danger">*</span></label>
     <input type="text" id="edit_pengantar" name="pengantar" class="form-control"
-           value="<?= htmlspecialchars($row->pengantar) ?>" maxlength="200" autocomplete="off">
+           value="<?= htmlspecialchars($row->pengantar ?? '') ?>" maxlength="200" autocomplete="off">
 </div>
 
 <div class="row" style="margin: 0 -6px;">
@@ -20,14 +20,14 @@
         <div class="ds-form-group">
             <label>NIK Pengantar</label>
             <input type="text" id="edit_nik_pengantar" name="nik_pengantar" class="form-control"
-                   value="<?= htmlspecialchars($row->nik_pengantar) ?>" maxlength="20" autocomplete="off">
+                   value="<?= htmlspecialchars($row->nik_pengantar ?? '') ?>" maxlength="20" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Perusahaan Pengantar</label>
             <input type="text" id="edit_company_pengantar" name="company_pengantar" class="form-control"
-                   value="<?= htmlspecialchars($row->company_pengantar) ?>" maxlength="20" autocomplete="off">
+                   value="<?= htmlspecialchars($row->company_pengantar ?? '') ?>" maxlength="20" autocomplete="off">
         </div>
     </div>
 </div>
@@ -36,7 +36,7 @@
 <div class="ds-form-group">
     <label>Nama Diantar <span class="text-danger">*</span></label>
     <input type="text" id="edit_patient_name" name="patient_name" class="form-control"
-           value="<?= htmlspecialchars($row->patient_name) ?>" maxlength="200" autocomplete="off">
+           value="<?= htmlspecialchars($row->patient_name ?? '') ?>" maxlength="200" autocomplete="off">
 </div>
 
 <div class="row" style="margin: 0 -6px;">
@@ -44,14 +44,14 @@
         <div class="ds-form-group">
             <label>NIK Diantar</label>
             <input type="text" id="edit_nik" name="nik" class="form-control"
-                   value="<?= htmlspecialchars($row->nik) ?>" maxlength="50" autocomplete="off">
+                   value="<?= htmlspecialchars($row->nik ?? '') ?>" maxlength="50" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Perusahaan Diantar</label>
             <input type="text" id="edit_company_name" name="company_name" class="form-control"
-                   value="<?= htmlspecialchars($row->company_name) ?>" placeholder="Nama perusahaan" maxlength="200" autocomplete="off">
+                   value="<?= htmlspecialchars($row->company_name ?? '') ?>" placeholder="Nama perusahaan" maxlength="200" autocomplete="off">
         </div>
     </div>
 </div>
@@ -72,7 +72,7 @@
         <div class="ds-form-group">
             <label>Jam <span class="text-danger">*</span></label>
             <input type="text" id="edit_jam" name="jam" class="form-control clockpicker"
-                   value="<?= htmlspecialchars($row->jam) ?>"
+                   value="<?= htmlspecialchars($row->jam ?? '') ?>"
                    placeholder="--:--" autocomplete="off" readonly>
         </div>
     </div>
@@ -109,7 +109,7 @@
             if ($user_level == 3) {
                 $selected = ($d->id_user == $sess_id) ? 'selected' : '';
             }
-            echo '<option value="'.$d->id_user.'" '.$selected.'>'.htmlspecialchars($d->fullname).'</option>';
+            echo '<option value="'.$d->id_user.'" '.$selected.'>'.htmlspecialchars($d->fullname ?? '').'</option>';
             ?>
         <?php endforeach; ?>
     </select>

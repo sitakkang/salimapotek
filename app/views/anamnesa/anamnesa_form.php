@@ -12,19 +12,19 @@
                 <div class="ds-detail-grid-2col">
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">NO. RM</span>
-                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->trans_patient_code) ?></span>
+                        <span class="ds-detail-value ds-detail-code"><?= htmlspecialchars($row->trans_patient_code ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Nama Pasien</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name) ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_name ?? '') ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Perusahaan</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->trans_patient_company) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->trans_patient_company ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                     <div class="ds-detail-field">
                         <span class="ds-detail-label">Telepon</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->trans_patient_phone) ?: '<span class="text-muted">-</span>' ?></span>
+                        <span class="ds-detail-value"><?= htmlspecialchars($row->trans_patient_phone ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <label>Suhu Tubuh (Temperature)</label>
             <input type="text" id="anm_temp" name="anm_temp" class="form-control"
                    placeholder="Cth: 36.5" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_temp) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_temp ?? '') : '' ?>">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
@@ -48,7 +48,7 @@
             <label>Nadi (Pulse)</label>
             <input type="text" id="anm_pulse" name="anm_pulse" class="form-control"
                    placeholder="Cth: 80" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_pulse) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_pulse ?? '') : '' ?>">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
@@ -56,7 +56,7 @@
             <label>Pernapasan (Respirasi)</label>
             <input type="text" id="anm_respirasi" name="anm_respirasi" class="form-control"
                    placeholder="Cth: 20" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_respirasi) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_respirasi ?? '') : '' ?>">
         </div>
     </div>
 </div>
@@ -67,7 +67,7 @@
             <label>Tekanan Darah (Blood Press)</label>
             <input type="text" id="anm_blood_press" name="anm_blood_press" class="form-control"
                    placeholder="Cth: 120/80" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_blood_press) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_blood_press ?? '') : '' ?>">
         </div>
     </div>
     <div class="col-md-3" style="padding: 0 6px;">
@@ -75,7 +75,7 @@
             <label>Tinggi Badan (Height)</label>
             <input type="text" id="anm_height" name="anm_height" class="form-control"
                    placeholder="Cth: 165" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_height) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_height ?? '') : '' ?>">
         </div>
     </div>
     <div class="col-md-3" style="padding: 0 6px;">
@@ -83,7 +83,7 @@
             <label>Berat Badan (Weight)</label>
             <input type="text" id="anm_weight" name="anm_weight" class="form-control"
                    placeholder="Cth: 65" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_weight) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_weight ?? '') : '' ?>">
         </div>
     </div>
     <div class="col-md-3" style="padding: 0 6px;">
@@ -91,7 +91,7 @@
             <label>Lingkar Perut (Stomatch)</label>
             <input type="text" id="anm_stomatch_wide" name="anm_stomatch_wide" class="form-control"
                    placeholder="Cth: 90" maxlength="10" autocomplete="off"
-                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_stomatch_wide) : '' ?>">
+                   value="<?= $anamnesa ? htmlspecialchars($anamnesa->anm_stomatch_wide ?? '') : '' ?>">
         </div>
     </div>
 </div>
@@ -99,5 +99,5 @@
 <div class="ds-form-group">
     <label>Catatan (Anamnesa)</label>
     <textarea id="anm_note" name="anm_note" class="form-control" rows="3"
-              placeholder="Catatan anamnesa / keluhan pasien" maxlength="225"><?= $anamnesa ? htmlspecialchars($anamnesa->anm_note) : '' ?></textarea>
+              placeholder="Catatan anamnesa / keluhan pasien" maxlength="225"><?= $anamnesa ? htmlspecialchars($anamnesa->anm_note ?? '') : '' ?></textarea>
 </div>

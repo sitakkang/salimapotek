@@ -68,13 +68,13 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($docnumb) ?></p>
+        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($docnumb ?? '') ?></p>
     </div>
 
     <div class="section">
         <div class="section-title">Identitas Pasien</div>
         <table>
-            <tr><td>Nama</td><td class="lbl">:</td><td><strong><?= htmlspecialchars($row->skbs_patient_name) ?></strong></td></tr>
+            <tr><td>Nama</td><td class="lbl">:</td><td><strong><?= htmlspecialchars($row->skbs_patient_name ?? '') ?></strong></td></tr>
             <tr><td>Tempat dan Tanggal Lahir</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_birth_place ?: '-') ?> / <?= !empty($row->skbs_bod) ? date('d-m-Y', strtotime($row->skbs_bod)) : '-' ?></td></tr>
             <tr><td>Umur / Jenis Kelamin</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun / <?= strtoupper($row->skbs_gender ?? '') == 'L' ? 'Laki-laki' : (strtoupper($row->skbs_gender ?? '') == 'P' ? 'Perempuan' : '-') ?></td></tr>
             <tr><td>Alamat</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_address ?: '-') ?></td></tr>
@@ -88,9 +88,9 @@
             <span class="hasil-item"><input type="checkbox" <?= $row->skbs_result_name == 'FIT DENGAN CATATAN' ? 'checked' : '' ?> disabled> Fit dengan Catatan</span>
             <span class="hasil-item"><input type="checkbox" <?= $row->skbs_result_name == 'UNFIT' ? 'checked' : '' ?> disabled> Unfit</span>
         </div>
-        <?php if (strtoupper($row->skbs_result_name) == 'FIT DENGAN CATATAN' && !empty($row->skbs_note)): ?>
+        <?php if (strtoupper($row->skbs_result_name ?? '') == 'FIT DENGAN CATATAN' && !empty($row->skbs_note)): ?>
             <p style="font-size:13px;margin:6px 0 0;font-style:italic;">Catatan: <?= htmlspecialchars($row->skbs_note) ?></p>
-        <?php elseif (strtoupper($row->skbs_result_name) == 'KETERANGAN' && !empty($row->skbs_desc)): ?>
+        <?php elseif (strtoupper($row->skbs_result_name ?? '') == 'KETERANGAN' && !empty($row->skbs_desc)): ?>
             <p style="font-size:13px;margin:6px 0 0;font-style:italic;">Keterangan: <?= htmlspecialchars($row->skbs_desc) ?></p>
         <?php endif; ?>
     </div>

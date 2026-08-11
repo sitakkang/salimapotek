@@ -28,7 +28,7 @@
                             <th width="40">No</th>
                             <th>Nama Pasien</th>
                             <th width="90">Jenis Kelamin</th>
-                            <th width="180">Perusahaan</th>
+                            <th width="180">Pekerjaan</th>
                             <th>Diagnosa</th>
                             <th width="100">No. Dokumen</th>
                             <th width="90">Tgl. Dokumen</th>

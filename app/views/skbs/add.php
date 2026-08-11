@@ -200,7 +200,7 @@
             <select id="doctby" name="doctby" class="form-control autocomplete" <?= $disabled ?>>
                 <option value="">-- Pilih --</option>
                 <?php foreach ($dokter as $d): ?>
-                    <option value="<?= $d->id_user ?>" <?= ($user_level == 3 && $d->id_user == $sess_id) ? 'selected' : '' ?>><?= htmlspecialchars($d->fullname) ?></option>
+                    <option value="<?= $d->id_user ?>" <?= ($user_level == 3 && $d->id_user == $sess_id) ? 'selected' : '' ?>><?= htmlspecialchars($d->fullname ?? '') ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

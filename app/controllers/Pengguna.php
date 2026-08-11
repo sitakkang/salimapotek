@@ -49,10 +49,10 @@ class Pengguna extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id_user,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->fullname),
-                '2'         => htmlspecialchars($row->username),
+                '1'         => htmlspecialchars($row->fullname ?? ''),
+                '2'         => htmlspecialchars($row->username ?? ''),
                 '3'         => htmlspecialchars($row->nip ?: '-'),
-                '4'         => htmlspecialchars($row->name),
+                '4'         => htmlspecialchars($row->name ?? ''),
                 '5'         => $row->last_login ? date('d/m/Y H:i', strtotime($row->last_login)) : '-',
                 '6'         => $status_badge,
             );
@@ -196,7 +196,7 @@ class Pengguna extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'Pengguna ' . htmlspecialchars($row->fullname) . ' berhasil dinonaktifkan!',
+            'notif'  => 'Pengguna ' . htmlspecialchars($row->fullname ?? '') . ' berhasil dinonaktifkan!',
         ));
     }
 
@@ -229,7 +229,7 @@ class Pengguna extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'Password ' . htmlspecialchars($row->fullname) . ' berhasil direset!',
+            'notif'  => 'Password ' . htmlspecialchars($row->fullname ?? '') . ' berhasil direset!',
         ));
     }
 }

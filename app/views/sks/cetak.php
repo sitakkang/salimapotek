@@ -63,7 +63,7 @@
     <div class="section">
         <div class="section-title">Identitas Pasien</div>
         <table>
-            <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
+            <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
             <tr><td>NIK / No. ID Card</td><td>:</td><td><?= !empty($row->sks_nik) ? htmlspecialchars($row->sks_nik) : '-' ?></td></tr>
             <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>

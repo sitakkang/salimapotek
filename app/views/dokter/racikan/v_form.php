@@ -8,7 +8,7 @@
         <?php if (!empty($pulv_list)): ?>
         <optgroup label="Racikan yang sudah ada">
             <?php foreach ($pulv_list as $p): ?>
-            <option value="<?= $p->id_pulv ?>"><?= htmlspecialchars($p->pulv_name) ?></option>
+            <option value="<?= $p->id_pulv ?>"><?= htmlspecialchars($p->pulv_name ?? '') ?></option>
             <?php endforeach; ?>
         </optgroup>
         <?php endif; ?>

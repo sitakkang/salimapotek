@@ -62,7 +62,7 @@ class Skkb extends CI_Controller {
         $order = $this->input->get('order');
         if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
             $order_col = $col_map[$order[0]['column']];
-            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+            $order_dir = (strtoupper($order[0]['dir'] ?? '') === 'DESC') ? 'DESC' : 'ASC';
         }
 
         $records_total    = $this->M_skkb->count_all();
@@ -77,12 +77,12 @@ class Skkb extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->patient_name),
-                '2'         => htmlspecialchars($row->nik),
-                '3'         => htmlspecialchars($row->company_name),
-                '4'         => htmlspecialchars($row->bagian),
-                '5'         => htmlspecialchars($row->jabatan),
-                '6'         => htmlspecialchars($row->docnumb),
+                '1'         => htmlspecialchars($row->patient_name ?? ''),
+                '2'         => htmlspecialchars($row->nik ?? ''),
+                '3'         => htmlspecialchars($row->company_name ?? ''),
+                '4'         => htmlspecialchars($row->bagian ?? ''),
+                '5'         => htmlspecialchars($row->jabatan ?? ''),
+                '6'         => htmlspecialchars($row->docnumb ?? ''),
                 '7'         => !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '-',
             );
         }
@@ -137,15 +137,15 @@ class Skkb extends CI_Controller {
      */
     public function act_add() {
         $data = array(
-            'patient_name'    => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'    => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'age'             => trim($this->input->post('age')),
             'nik'             => trim($this->input->post('nik')),
-            'company_name'    => strtoupper(trim($this->input->post('company_name'))),
-            'bagian'          => strtoupper(trim($this->input->post('bagian'))),
-            'jabatan'         => strtoupper(trim($this->input->post('jabatan'))),
+            'company_name'    => strtoupper(trim($this->input->post('company_name') ?? '')),
+            'bagian'          => strtoupper(trim($this->input->post('bagian') ?? '')),
+            'jabatan'         => strtoupper(trim($this->input->post('jabatan') ?? '')),
             'catatan'         => trim($this->input->post('catatan')),
             'docdate'         => $this->format_date_db($this->input->post('docdate')),
-            'doctby'          => strtoupper(trim($this->input->post('doctby'))),
+            'doctby'          => strtoupper(trim($this->input->post('doctby') ?? '')),
             'docnumb'         => $this->M_skkb->generate_docnumb(),
             'insertby'        => $this->session->userdata('sess_id'),
             'insertdt'        => date('Y-m-d H:i:s'),
@@ -166,15 +166,15 @@ class Skkb extends CI_Controller {
         $id = intval($this->input->post('id'));
 
         $data = array(
-            'patient_name'    => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'    => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'age'             => trim($this->input->post('age')),
             'nik'             => trim($this->input->post('nik')),
-            'company_name'    => strtoupper(trim($this->input->post('company_name'))),
-            'bagian'          => strtoupper(trim($this->input->post('bagian'))),
-            'jabatan'         => strtoupper(trim($this->input->post('jabatan'))),
+            'company_name'    => strtoupper(trim($this->input->post('company_name') ?? '')),
+            'bagian'          => strtoupper(trim($this->input->post('bagian') ?? '')),
+            'jabatan'         => strtoupper(trim($this->input->post('jabatan') ?? '')),
             'catatan'         => trim($this->input->post('catatan')),
             'docdate'         => $this->format_date_db($this->input->post('docdate')),
-            'doctby'          => strtoupper(trim($this->input->post('doctby'))),
+            'doctby'          => strtoupper(trim($this->input->post('doctby') ?? '')),
             'updateby'        => $this->session->userdata('sess_id'),
             'updatedt'        => date('Y-m-d H:i:s'),
         );
@@ -203,7 +203,7 @@ class Skkb extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'SKKB ' . htmlspecialchars($row->patient_name) . ' berhasil dihapus!',
+            'notif'  => 'SKKB ' . htmlspecialchars($row->patient_name ?? '') . ' berhasil dihapus!',
         ));
     }
 

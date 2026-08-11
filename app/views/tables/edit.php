@@ -2,7 +2,7 @@
 <div class="form-group">
     <label>Nomor Meja <span class="text-danger">*</span></label>
     <input type="text" id="edit_no_meja" name="no_meja" class="form-control"
-           value="<?= htmlspecialchars($row->no_meja) ?>" maxlength="10" autocomplete="off">
+           value="<?= htmlspecialchars($row->no_meja ?? '') ?>" maxlength="10" autocomplete="off">
 </div>
 <div class="form-group">
     <label>Kapasitas (orang) <span class="text-danger">*</span></label>

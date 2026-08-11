@@ -6,9 +6,9 @@
             <i class="fa fa-mortar-pestle"></i>
         </div>
         <div style="flex:1;">
-            <strong style="font-size:14px;color:#1b5e20;"><?= htmlspecialchars($p->pulv_name) ?></strong>
+            <strong style="font-size:14px;color:#1b5e20;"><?= htmlspecialchars($p->pulv_name ?? '') ?></strong>
             <span style="font-size:11px;color:#666;margin-left:10px;">
-                Dosis: <?= htmlspecialchars($p->pulv_dosis) ?> &bull; Jml: <?= intval($p->pulv_qty) ?> bks
+                Dosis: <?= htmlspecialchars($p->pulv_dosis ?? '') ?> &bull; Jml: <?= intval($p->pulv_qty) ?> bks
             </span>
         </div>
         <div style="display:flex;gap:4px;">
@@ -39,9 +39,9 @@
                 ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= htmlspecialchars($o->trans_obat_name) ?></td>
+                    <td><?= htmlspecialchars($o->trans_obat_name ?? '') ?></td>
                     <td class="text-center"><?= intval($o->trans_obat_qty) ?></td>
-                    <td><?= htmlspecialchars($o->trans_obat_satuan) ?></td>
+                    <td><?= htmlspecialchars($o->trans_obat_satuan ?? '') ?></td>
                     <td><?= htmlspecialchars($o->trans_obat_dosis ?: '-') ?></td>
                 </tr>
                 <?php endforeach; ?>

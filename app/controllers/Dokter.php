@@ -61,12 +61,12 @@ class Dokter extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id_visit,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->trans_patient_code),
-                '2'         => htmlspecialchars($row->patient_name),
-                '3'         => htmlspecialchars($row->trans_patient_company),
-                '4'         => htmlspecialchars($row->trans_patient_phone),
+                '1'         => htmlspecialchars($row->trans_patient_code ?? ''),
+                '2'         => htmlspecialchars($row->patient_name ?? ''),
+                '3'         => htmlspecialchars($row->trans_patient_company ?? ''),
+                '4'         => htmlspecialchars($row->trans_patient_phone ?? ''),
                 '5'         => !empty($row->trans_doc) ? date('d/m/Y', strtotime($row->trans_doc)) : '-',
-                'patient_name_raw' => htmlspecialchars($row->patient_name),
+                'patient_name_raw' => htmlspecialchars($row->patient_name ?? ''),
             );
         }
 
@@ -453,27 +453,27 @@ class Dokter extends CI_Controller {
         $gender = !empty($row->patient_gender) ? $row->patient_gender : ($existing->gender ?? '');
 
         // Nomor dokumen SKS: diisi manual, default 00000/SKS/PMDMH-SAC/BULAN/TAHUN
-        $docnumb = strtoupper(trim($this->input->post('docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_dokter->generate_docnumb_sks();
         }
 
         $data = array(
             'visit_id'     => $visit_id,
-            'patient_name' => strtoupper(trim($row->patient_name)),
+            'patient_name' => strtoupper(trim($row->patient_name ?? '')),
             'sks_nik'      => trim($this->input->post('sks_nik')),
-            'company_name' => strtoupper(trim($row->trans_patient_company)),
-            'patient_job'  => strtoupper(trim($row->patient_job)),
+            'company_name' => strtoupper(trim($row->trans_patient_company ?? '')),
+            'patient_job'  => strtoupper(trim($row->patient_job ?? '')),
             'age'          => $age,
             'gender'       => $gender,
-            'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
+            'diagnosa'     => strtoupper(trim($this->input->post('diagnosa') ?? '')),
             'terapi'       => trim($this->input->post('terapi')),
             'docnumb'      => $docnumb,
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),
             'doctby'       => $doct_by,
-            'alamat'         => strtoupper(trim($row->patient_address)),
+            'alamat'         => strtoupper(trim($row->patient_address ?? '')),
         );
 
         if ($existing) {
@@ -512,7 +512,7 @@ class Dokter extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'SKS ' . htmlspecialchars($row->docnumb) . ' berhasil dihapus!',
+            'notif'  => 'SKS ' . htmlspecialchars($row->docnumb ?? '') . ' berhasil dihapus!',
         ));
     }
 
@@ -644,23 +644,23 @@ class Dokter extends CI_Controller {
         $doct_by = $this->M_dokter->get_doct_by($insert_by)->fullname;
 
         // Nomor dokumen SKBS (default jika kosong)
-        $docnumb = strtoupper(trim($this->input->post('skbs_docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('skbs_docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_dokter->generate_docnumb_skbs();
         }
 
         $data = array(
             'visit_id'             => $visit_id,
-            'skbs_patient_name'    => strtoupper(trim($row->patient_name)),
+            'skbs_patient_name'    => strtoupper(trim($row->patient_name ?? '')),
             'skbs_patient_nik'     => $row->patient_nik,
             'skbs_patient_ktp'     => $row->patient_ktp,
             'skbs_patient_age'     => !empty($row->patient_bod) ? date_diff(date_create($row->patient_bod), date_create('now'))->y : '0',
             'skbs_address'         => trim($row->patient_address),
-            'skbs_birth_place'     => strtoupper(trim($row->patient_birth_place)),
+            'skbs_birth_place'     => strtoupper(trim($row->patient_birth_place ?? '')),
             'skbs_bod'             => !empty($row->patient_bod) ? $row->patient_bod : null,
             'skbs_gender'          => trim($row->patient_gender),
             'skbs_result_id'       => null,
-            'skbs_result_name'     => strtoupper(trim($this->input->post('skbs_result'))),
+            'skbs_result_name'     => strtoupper(trim($this->input->post('skbs_result') ?? '')),
             'skbs_desc'            => trim($this->input->post('skbs_desc')),
             'skbs_note'            => trim($this->input->post('skbs_note')),
             'skbs_blood_press'     => trim($this->input->post('skbs_blood_press')),
@@ -788,19 +788,19 @@ class Dokter extends CI_Controller {
         $doct = $this->M_dokter->get_doct_by($insert_by);
 
         // Nomor dokumen SKMB (default jika kosong)
-        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('skmb_docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_dokter->generate_docnumb_skmb();
         }
 
         $data = array(
             'visit_id'          => $visit_id,
-            'patient_name'      => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name'      => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'nik'               => trim($this->input->post('nik')),
-            'company_name'      => strtoupper(trim($this->input->post('company_name'))),
-            'pengantar'         => strtoupper(trim($this->input->post('pengantar'))),
+            'company_name'      => strtoupper(trim($this->input->post('company_name') ?? '')),
+            'pengantar'         => strtoupper(trim($this->input->post('pengantar') ?? '')),
             'nik_pengantar'     => trim($this->input->post('nik_pengantar')),
-            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar'))),
+            'company_pengantar' => strtoupper(trim($this->input->post('company_pengantar') ?? '')),
             'hubungan'          => $this->input->post('hubungan'),
             'tgl_datang'        => $this->format_date_db($this->input->post('tgl_datang')),
             'jam'               => trim($this->input->post('jam')),

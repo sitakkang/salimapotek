@@ -121,7 +121,7 @@ $(document).ready(function () {
         var payload = {
             patient_name: $('#patient_name').val(),
             sks_nik:      $('#sks_nik').val(),
-            company_name: $('#company_name').val(),
+            patient_job:  $('#patient_job').val(),
             age:          $('#age').val(),
             gender:       $('#gender').val(),
             alamat:       $('#alamat').val(),
@@ -208,7 +208,7 @@ $(document).ready(function () {
             id:           $('#edit_id').val(),
             patient_name: $('#edit_patient_name').val(),
             sks_nik:      $('#edit_sks_nik').val(),
-            company_name: $('#edit_company_name').val(),
+            patient_job:  $('#edit_patient_job').val(),
             age:          $('#edit_age').val(),
             gender:       $('#edit_gender').val(),
             alamat:       $('#edit_alamat').val(),

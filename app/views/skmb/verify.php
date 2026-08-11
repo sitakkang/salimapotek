@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi SKMB — <?= htmlspecialchars($row->patient_name) ?></title>
+    <title>Verifikasi SKMB — <?= htmlspecialchars($row->patient_name ?? '') ?></title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -167,7 +167,7 @@
                 <span>Terverifikasi</span>
             </div>
             <h1>Surat Keterangan Mengantar Berobat</h1>
-            <div class="v-docnum"><?= htmlspecialchars($row->docnumb) ?></div>
+            <div class="v-docnum"><?= htmlspecialchars($row->docnumb ?? '') ?></div>
         </div>
 
         <!-- Body -->
@@ -178,33 +178,33 @@
                 <div class="v-section-title">Data Diantar</div>
                 <div class="v-row">
                     <div class="v-label">Nama</div>
-                    <div class="v-value"><?= htmlspecialchars($row->patient_name) ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->patient_name ?? '') ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">NIK</div>
-                    <div class="v-value"><?= htmlspecialchars($row->nik) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->nik ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Perusahaan</div>
-                    <div class="v-value"><?= htmlspecialchars($row->company_name) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->company_name ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Hubungan</div>
-                    <div class="v-value"><?= htmlspecialchars($row->hubungan) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->hubungan ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
 
                 <div class="v-section-title">Data Pengantar</div>
                 <div class="v-row">
                     <div class="v-label">Pengantar</div>
-                    <div class="v-value"><?= htmlspecialchars($row->pengantar) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->pengantar ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">NIK Pengantar</div>
-                    <div class="v-value"><?= htmlspecialchars($row->nik_pengantar) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->nik_pengantar ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Perush. Pengantar</div>
-                    <div class="v-value"><?= htmlspecialchars($row->company_pengantar) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->company_pengantar ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
             </div>
 
@@ -215,11 +215,11 @@
             <div class="v-grid">
                 <div class="v-row">
                     <div class="v-label">Tanggal</div>
-                    <div class="v-value"><?= !empty($row->tgl_datang) ? date('d-m-Y', strtotime($row->tgl_datang)) : '<span style="color:#b7d5c4">—</span>' ?> &nbsp; <strong><?= htmlspecialchars($row->jam) ?: '' ?></strong></div>
+                    <div class="v-value"><?= !empty($row->tgl_datang) ? date('d-m-Y', strtotime($row->tgl_datang)) : '<span style="color:#b7d5c4">—</span>' ?> &nbsp; <strong><?= htmlspecialchars($row->jam ?? '') ?: '' ?></strong></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Dokter</div>
-                    <div class="v-value"><?= htmlspecialchars($row->fullname) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->fullname ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
             </div>
         </div>

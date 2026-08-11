@@ -40,7 +40,7 @@
             <select id="level" name="level" class="form-control">
                 <option value="">-- Pilih Level --</option>
                 <?php foreach ($level as $l): ?>
-                    <option value="<?= $l->id_level ?>"><?= htmlspecialchars($l->name) ?></option>
+                    <option value="<?= $l->id_level ?>"><?= htmlspecialchars($l->name ?? '') ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

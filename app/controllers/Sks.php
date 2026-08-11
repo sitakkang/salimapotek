@@ -50,7 +50,7 @@ class Sks extends CI_Controller {
         $col_map = array(
             1 => 'patient_name',
             2 => 'gender',
-            3 => 'company_name',
+            3 => 'patient_job',
             4 => 'diagnosa',
             5 => 'docnumb',
             6 => 'docdate',
@@ -63,7 +63,7 @@ class Sks extends CI_Controller {
         $order = $this->input->get('order');
         if (isset($order[0]) && isset($col_map[$order[0]['column']])) {
             $order_col = $col_map[$order[0]['column']];
-            $order_dir = (strtoupper($order[0]['dir']) === 'DESC') ? 'DESC' : 'ASC';
+            $order_dir = (strtoupper($order[0]['dir'] ?? '') === 'DESC') ? 'DESC' : 'ASC';
         }
 
         $records_total    = $this->M_sks->count_all();
@@ -87,11 +87,11 @@ class Sks extends CI_Controller {
             $data[] = array(
                 'DT_RowId'  => $row->id,
                 '0'         => $i++,
-                '1'         => htmlspecialchars($row->patient_name),
+                '1'         => htmlspecialchars($row->patient_name ?? ''),
                 '2'         => $gender,
-                '3'         => htmlspecialchars($row->company_name),
-                '4'         => htmlspecialchars($row->diagnosa),
-                '5'         => htmlspecialchars($row->docnumb),
+                '3'         => htmlspecialchars($row->patient_job ?? ''),
+                '4'         => htmlspecialchars($row->diagnosa ?? ''),
+                '5'         => htmlspecialchars($row->docnumb ?? ''),
                 '6'         => !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '-',
                 '7'         => !empty($row->datefrom) ? date('d/m/Y', strtotime($row->datefrom)) : '-',
                 '8'         => !empty($row->dateto) ? date('d/m/Y', strtotime($row->dateto)) : '-',
@@ -154,11 +154,8 @@ class Sks extends CI_Controller {
             return;
         }
 
-        // Ambil patient_job dari ms_patient berdasarkan nama pasien
-        $patient_job = $this->M_sks->get_patient_job_by_name($this->input->post('patient_name'));
-
         // Nomor dokumen: boleh diisi manual, jika kosong di-generate otomatis
-        $docnumb = strtoupper(trim($this->input->post('docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_sks->generate_docnumb();
         } elseif (!$this->M_sks->is_docnumb_unique($docnumb)) {
@@ -167,20 +164,19 @@ class Sks extends CI_Controller {
         }
 
         $data = array(
-            'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name' => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'sks_nik'      => trim($this->input->post('sks_nik')),
-            'company_name' => strtoupper(trim($this->input->post('company_name'))),
-            'patient_job'  => $patient_job ?: 'KARYAWAN',
+            'patient_job'  => strtoupper(trim($this->input->post('patient_job') ?? '')) ?: 'KARYAWAN',
             'age'          => trim($this->input->post('age')),
             'gender'       => $this->input->post('gender'),
             'alamat'       => trim($this->input->post('alamat')),
-            'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
+            'diagnosa'     => strtoupper(trim($this->input->post('diagnosa') ?? '')),
             'terapi'       => trim($this->input->post('terapi')),
             'docnumb'      => $docnumb,
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),
-            'doctby'       => strtoupper(trim($this->input->post('doctby'))),
+            'doctby'       => strtoupper(trim($this->input->post('doctby') ?? '')),
             'insertby'     => $this->session->userdata('sess_id'),
             'insertdt'     => date('Y-m-d H:i:s'),
         );
@@ -204,11 +200,8 @@ class Sks extends CI_Controller {
             return;
         }
 
-        // Ambil patient_job dari ms_patient berdasarkan nama pasien
-        $patient_job = $this->M_sks->get_patient_job_by_name($this->input->post('patient_name'));
-
         // Nomor dokumen wajib diisi & harus unik (kecuali record ini sendiri)
-        $docnumb = strtoupper(trim($this->input->post('docnumb')));
+        $docnumb = strtoupper(trim($this->input->post('docnumb') ?? ''));
         if (empty($docnumb)) {
             echo json_encode(array('status' => 1, 'notif' => 'Nomor dokumen wajib diisi!'));
             return;
@@ -219,20 +212,19 @@ class Sks extends CI_Controller {
         }
 
         $data = array(
-            'patient_name' => strtoupper(trim($this->input->post('patient_name'))),
+            'patient_name' => strtoupper(trim($this->input->post('patient_name') ?? '')),
             'sks_nik'      => trim($this->input->post('sks_nik')),
-            'company_name' => strtoupper(trim($this->input->post('company_name'))),
-            'patient_job'  => $patient_job ?: 'KARYAWAN',
+            'patient_job'  => strtoupper(trim($this->input->post('patient_job') ?? '')) ?: 'KARYAWAN',
             'age'          => trim($this->input->post('age')),
             'gender'       => $this->input->post('gender'),
             'alamat'       => trim($this->input->post('alamat')),
-            'diagnosa'     => strtoupper(trim($this->input->post('diagnosa'))),
+            'diagnosa'     => strtoupper(trim($this->input->post('diagnosa') ?? '')),
             'terapi'       => trim($this->input->post('terapi')),
             'docnumb'      => $docnumb,
             'datefrom'     => $this->format_date_db($this->input->post('datefrom')),
             'dateto'       => $this->format_date_db($this->input->post('dateto')),
             'docdate'      => $this->format_date_db($this->input->post('docdate')),
-            'doctby'       => strtoupper(trim($this->input->post('doctby'))),
+            'doctby'       => strtoupper(trim($this->input->post('doctby') ?? '')),
             'updateby'     => $this->session->userdata('sess_id'),
             'updatedt'     => date('Y-m-d H:i:s'),
         );
@@ -261,7 +253,7 @@ class Sks extends CI_Controller {
 
         echo json_encode(array(
             'status' => 2,
-            'notif'  => 'SKS ' . htmlspecialchars($row->patient_name) . ' berhasil dihapus!',
+            'notif'  => 'SKS ' . htmlspecialchars($row->patient_name ?? '') . ' berhasil dihapus!',
         ));
     }
 

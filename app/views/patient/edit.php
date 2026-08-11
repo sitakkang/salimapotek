@@ -3,7 +3,7 @@
 <div class="ds-form-group">
     <label>Nama Pasien <span class="text-danger">*</span></label>
     <input type="text" id="edit_patient_name" name="patient_name" class="form-control"
-           value="<?= htmlspecialchars($row->patient_name) ?>" maxlength="100" autocomplete="off">
+           value="<?= htmlspecialchars($row->patient_name ?? '') ?>" maxlength="100" autocomplete="off">
 </div>
 
 <div class="row" style="margin: 0 -6px;">
@@ -11,14 +11,14 @@
         <div class="ds-form-group">
             <label>NIK</label>
             <input type="text" id="edit_patient_nik" name="patient_nik" class="form-control"
-                   value="<?= htmlspecialchars($row->patient_nik) ?>" maxlength="10" autocomplete="off">
+                   value="<?= htmlspecialchars($row->patient_nik ?? '') ?>" maxlength="10" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>No. KTP</label>
             <input type="text" id="edit_patient_ktp" name="patient_ktp" class="form-control"
-                   value="<?= htmlspecialchars($row->patient_ktp) ?>" placeholder="Nomor KTP" maxlength="20" autocomplete="off">
+                   value="<?= htmlspecialchars($row->patient_ktp ?? '') ?>" placeholder="Nomor KTP" maxlength="20" autocomplete="off">
         </div>
     </div>
 </div>
@@ -28,14 +28,14 @@
         <div class="ds-form-group">
             <label>Perusahaan</label>
             <input type="text" id="edit_patient_company" name="patient_company" class="form-control"
-                   value="<?= htmlspecialchars($row->patient_company) ?>" placeholder="Nama perusahaan" maxlength="100" autocomplete="off">
+                   value="<?= htmlspecialchars($row->patient_company ?? '') ?>" placeholder="Nama perusahaan" maxlength="100" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Pekerjaan</label>
             <input type="text" id="edit_patient_job" name="patient_job" class="form-control"
-                   value="<?= htmlspecialchars($row->patient_job) ?>" placeholder="Pekerjaan pasien" maxlength="100" autocomplete="off">
+                   value="<?= htmlspecialchars($row->patient_job ?? '') ?>" placeholder="Pekerjaan pasien" maxlength="100" autocomplete="off">
         </div>
     </div>
 </div>
@@ -45,7 +45,7 @@
         <div class="ds-form-group">
             <label>Tempat Lahir</label>
             <input type="text" id="edit_patient_birth_place" name="patient_birth_place" class="form-control"
-                   value="<?= htmlspecialchars($row->patient_birth_place) ?>" placeholder="Tempat lahir" maxlength="225" autocomplete="off">
+                   value="<?= htmlspecialchars($row->patient_birth_place ?? '') ?>" placeholder="Tempat lahir" maxlength="225" autocomplete="off">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
@@ -73,7 +73,7 @@
         <div class="ds-form-group">
             <label>No. Telepon <span class="text-danger">*</span></label>
             <input type="text" id="edit_patient_phone" name="patient_phone" class="form-control"
-                   value="<?= htmlspecialchars($row->patient_phone) ?>" placeholder="Nomor telepon / HP" maxlength="25" autocomplete="off">
+                   value="<?= htmlspecialchars($row->patient_phone ?? '') ?>" placeholder="Nomor telepon / HP" maxlength="25" autocomplete="off">
         </div>
     </div>
 </div>
@@ -81,5 +81,5 @@
 <div class="ds-form-group">
     <label>Alamat <span class="text-danger">*</span></label>
     <textarea id="edit_patient_address" name="patient_address" class="form-control" rows="2"
-              placeholder="Alamat lengkap pasien" maxlength="200"><?= htmlspecialchars($row->patient_address) ?></textarea>
+              placeholder="Alamat lengkap pasien" maxlength="200"><?= htmlspecialchars($row->patient_address ?? '') ?></textarea>
 </div>

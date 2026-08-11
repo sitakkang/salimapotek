@@ -43,11 +43,11 @@ if (!empty($row->patient_bod)) {
                     <table style="width:100%;border-collapse:collapse;">
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;width:110px;">No.RM</td>
-                            <td style="padding:5px 0;font-weight:600;color:#333;"><?= htmlspecialchars($row->trans_patient_code) ?></td>
+                            <td style="padding:5px 0;font-weight:600;color:#333;"><?= htmlspecialchars($row->trans_patient_code ?? '') ?></td>
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Nama</td>
-                            <td style="padding:5px 0;font-weight:600;color:#333;"><?= htmlspecialchars($row->patient_name) ?></td>
+                            <td style="padding:5px 0;font-weight:600;color:#333;"><?= htmlspecialchars($row->patient_name ?? '') ?></td>
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Tgl Lahir</td>
@@ -59,19 +59,19 @@ if (!empty($row->patient_bod)) {
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Perusahaan</td>
-                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->trans_patient_company) ?: '-' ?></td>
+                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->trans_patient_company ?? '') ?: '-' ?></td>
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Departemen</td>
-                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->trans_patient_department) ?: '-' ?></td>
+                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->trans_patient_department ?? '') ?: '-' ?></td>
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Telepon</td>
-                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->trans_patient_phone) ?: '-' ?></td>
+                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->trans_patient_phone ?? '') ?: '-' ?></td>
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Alamat</td>
-                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->patient_address) ?: '-' ?></td>
+                            <td style="padding:5px 0;color:#333;"><?= htmlspecialchars($row->patient_address ?? '') ?: '-' ?></td>
                         </tr>
                         <tr>
                             <td style="padding:5px 8px 5px 0;color:#6c757d;font-size:12px;white-space:nowrap;vertical-align:top;">Tgl Periksa</td>
@@ -117,7 +117,7 @@ if (!empty($row->patient_bod)) {
                         </div>
                         <div>
                             <div style="font-size:14px;font-weight:600;color:#333;" id="doctor_name_display">
-                                <?= htmlspecialchars($row->mrd_doct_name) ?: '<span class="text-muted">Belum ditentukan</span>' ?>
+                                <?= htmlspecialchars($row->mrd_doct_name ?? '') ?: '<span class="text-muted">Belum ditentukan</span>' ?>
                             </div>
                             <div style="font-size:11px;color:#999;">Klik untuk mengganti dokter</div>
                         </div>
@@ -176,8 +176,8 @@ if (!empty($row->patient_bod)) {
                                     <select id="select_diagnosa" class="form-control autocomplete" data-placeholder="Cari & pilih diagnosa...">
                                         <option value=""></option>
                                         <?php foreach ($diagnosa_list as $d): ?>
-                                            <option value="<?= $d->id_diagnosa ?>" data-cat="<?= htmlspecialchars($d->dgn_cat) ?>">
-                                                <?= htmlspecialchars($d->dgn_cat ? '['.$d->dgn_cat.'] ' : '') . htmlspecialchars($d->dgn_name) ?>
+                                            <option value="<?= $d->id_diagnosa ?>" data-cat="<?= htmlspecialchars($d->dgn_cat ?? '') ?>">
+                                                <?= htmlspecialchars($d->dgn_cat ? '['.$d->dgn_cat.'] ' : '') . htmlspecialchars($d->dgn_name ?? '') ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
@@ -211,7 +211,7 @@ if (!empty($row->patient_bod)) {
                                         <option value=""></option>
                                         <?php foreach ($obat_list as $o): ?>
                                             <option value="<?= $o->id_obat ?>" data-price="<?= $o->obat_price ?>">
-                                                <?= htmlspecialchars($o->obat_name) ?> — <?= htmlspecialchars($o->obat_satuan) ?> (Rp <?= number_format($o->obat_price, 0, ',', '.') ?>)
+                                                <?= htmlspecialchars($o->obat_name ?? '') ?> — <?= htmlspecialchars($o->obat_satuan ?? '') ?> (Rp <?= number_format($o->obat_price, 0, ',', '.') ?>)
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
@@ -253,8 +253,8 @@ if (!empty($row->patient_bod)) {
                         <!-- ============================================ -->
                         <div class="tab-pane fade" id="tab-sks" role="tabpanel">
                             <input type="hidden" id="visit_id_sks" value="<?= $row->id_visit ?>">
-                            <input type="hidden" id="sks_patient_name" value="<?= htmlspecialchars($row->patient_name) ?>">
-                            <input type="hidden" id="sks_company_name" value="<?= htmlspecialchars($row->trans_patient_company) ?>">
+                            <input type="hidden" id="sks_patient_name" value="<?= htmlspecialchars($row->patient_name ?? '') ?>">
+                            <input type="hidden" id="sks_company_name" value="<?= htmlspecialchars($row->trans_patient_company ?? '') ?>">
 
                             <div id="sks-section-wrap" data-visit-id="<?= $row->id_visit ?>">
                                 <?php $this->load->view('dokter/_sks_section', array(
@@ -320,13 +320,13 @@ if (!empty($row->patient_bod)) {
                     <?php foreach ($dokter_level6 as $d): ?>
                     <a href="javascript:;" class="list-group-item list-group-item-action pilih-dokter-item"
                        data-id="<?= $d->id_user ?>"
-                       data-name="<?= htmlspecialchars($d->fullname) ?>"
+                       data-name="<?= htmlspecialchars($d->fullname ?? '') ?>"
                        style="border-left:0;border-right:0;padding:12px 16px;display:flex;align-items:center;gap:10px;">
                         <div style="width:34px;height:34px;border-radius:50%;background:var(--ds-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;">
-                            <?= strtoupper(substr($d->fullname, 0, 1)) ?>
+                            <?= strtoupper(substr($d->fullname ?? '', 0, 1)) ?>
                         </div>
                         <div>
-                            <div style="font-weight:600;color:#333;font-size:13px;"><?= htmlspecialchars($d->fullname) ?></div>
+                            <div style="font-weight:600;color:#333;font-size:13px;"><?= htmlspecialchars($d->fullname ?? '') ?></div>
                             <div style="font-size:11px;color:#999;">Dokter Pemeriksa</div>
                         </div>
                         <div class="ml-auto">

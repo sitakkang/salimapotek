@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi SKBS — <?= htmlspecialchars($row->skbs_patient_name) ?></title>
+    <title>Verifikasi SKBS — <?= htmlspecialchars($row->skbs_patient_name ?? '') ?></title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -186,17 +186,17 @@
             <div class="v-grid">
                 <div class="v-row">
                     <div class="v-label">Pasien</div>
-                    <div class="v-value"><?= htmlspecialchars($row->skbs_patient_name) ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->skbs_patient_name ?? '') ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Umur</div>
-                    <div class="v-value"><?= htmlspecialchars($row->skbs_patient_age) ?: '<span style="color:#b7d5c4">—</span>' ?> Tahun</div>
+                    <div class="v-value"><?= htmlspecialchars($row->skbs_patient_age ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?> Tahun</div>
                 </div>
                 <div class="v-row" style="border-bottom:none;">
                     <div class="v-label">Hasil</div>
                     <div class="v-value">
                         <?php
-                        $result = strtoupper($row->skbs_result_name);
+                        $result = strtoupper($row->skbs_result_name ?? '');
                         $class = 'v-result-fit';
                         if ($result == 'FIT DENGAN CATATAN') $class = 'v-result-catatan';
                         elseif ($result == 'UNFIT') $class = 'v-result-unfit';
@@ -220,7 +220,7 @@
                 </div>
                 <div class="v-row">
                     <div class="v-label">Dokter</div>
-                    <div class="v-value"><?= htmlspecialchars($row->skbs_doct_name) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->skbs_doct_name ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
             </div>
         </div>

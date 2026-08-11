@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikasi SKS — <?= htmlspecialchars($row->patient_name) ?></title>
+    <title>Verifikasi SKS — <?= htmlspecialchars($row->patient_name ?? '') ?></title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -229,7 +229,7 @@
                 <span>Terverifikasi</span>
             </div>
             <h1>Surat Keterangan Sakit</h1>
-            <div class="v-docnum"><?= htmlspecialchars($row->docnumb) ?></div>
+            <div class="v-docnum"><?= htmlspecialchars($row->docnumb ?? '') ?></div>
         </div>
 
         <!-- Body -->
@@ -240,15 +240,15 @@
             <div class="v-grid">
                 <div class="v-row">
                     <div class="v-label">Pasien</div>
-                    <div class="v-value"><?= htmlspecialchars($row->patient_name) ?></div>
+                    <div class="v-value"><?= htmlspecialchars($row->patient_name ?? '') ?></div>
                 </div>
                 <div class="v-row">
-                    <div class="v-label">Perusahaan</div>
-                    <div class="v-value"><?= htmlspecialchars($row->company_name) ?: '<span style="color:#b7d5c4">—</span>' ?></div>
+                    <div class="v-label">Pekerjaan</div>
+                    <div class="v-value"><?= htmlspecialchars($row->patient_job ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?></div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Umur</div>
-                    <div class="v-value"><?= htmlspecialchars($row->age) ?: '<span style="color:#b7d5c4">—</span>' ?> Tahun</div>
+                    <div class="v-value"><?= htmlspecialchars($row->age ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?> Tahun</div>
                 </div>
                 <div class="v-row">
                     <div class="v-label">Jenis Kelamin</div>
@@ -265,7 +265,7 @@
                 <div class="v-row" style="border-bottom:none;">
                     <div class="v-label">Diagnosa</div>
                     <div class="v-value">
-                        <?= nl2br(htmlspecialchars($row->diagnosa)) ?>
+                        <?= nl2br(htmlspecialchars($row->diagnosa ?? '')) ?>
                     </div>
                 </div>
             </div>
@@ -288,7 +288,7 @@
                 <div class="v-row">
                     <div class="v-label">Dokter</div>
                     <div class="v-value">
-                        <?= htmlspecialchars($row->fullname) ?: htmlspecialchars($row->doctby) ?: '<span style="color:#b7d5c4">—</span>' ?>
+                        <?= htmlspecialchars($row->fullname ?? '') ?: htmlspecialchars($row->doctby ?? '') ?: '<span style="color:#b7d5c4">—</span>' ?>
                         <?php if (!empty($row->nip)): ?>
                         <br><span style="font-size:11.5px;color:#8aa89a;font-weight:400;">SIP. <?= htmlspecialchars($row->nip) ?></span>
                         <?php endif; ?>

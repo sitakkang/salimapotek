@@ -64,14 +64,14 @@ class Reportobat extends CI_Controller {
             $data[] = array(
                 'DT_RowId'   => $row->id_trans_obat,
                 '0'          => $i++,
-                '1'          => htmlspecialchars($row->trans_obat_name),
-                '2'          => htmlspecialchars($row->trans_obat_satuan),
+                '1'          => htmlspecialchars($row->trans_obat_name ?? ''),
+                '2'          => htmlspecialchars($row->trans_obat_satuan ?? ''),
                 '3'          => intval($row->trans_obat_qty),
                 '4'          => htmlspecialchars($row->trans_obat_dosis ?: '-'),
                 '5'          => 'Rp ' . number_format($row->trans_obat_price, 0, ',', '.'),
                 '6'          => 'Rp ' . number_format($row->trans_obat_total_price, 0, ',', '.'),
-                '7'          => htmlspecialchars($row->patient_name),
-                '8'          => htmlspecialchars($row->trans_patient_code),
+                '7'          => htmlspecialchars($row->patient_name ?? ''),
+                '8'          => htmlspecialchars($row->trans_patient_code ?? ''),
                 '9'          => !empty($row->trans_doc) ? date('d/m/Y', strtotime($row->trans_doc)) : '-',
             );
         }
@@ -151,14 +151,14 @@ class Reportobat extends CI_Controller {
             $grand_total += $total;
             echo '<tr>';
             echo '<td align="center">' . $no++ . '</td>';
-            echo '<td>' . htmlspecialchars($row->trans_obat_name) . '</td>';
-            echo '<td align="center">' . htmlspecialchars($row->trans_obat_satuan) . '</td>';
+            echo '<td>' . htmlspecialchars($row->trans_obat_name ?? '') . '</td>';
+            echo '<td align="center">' . htmlspecialchars($row->trans_obat_satuan ?? '') . '</td>';
             echo '<td align="center">' . intval($row->trans_obat_qty) . '</td>';
             echo '<td>' . htmlspecialchars($row->trans_obat_dosis ?: '-') . '</td>';
             echo '<td align="right">' . number_format($row->trans_obat_price, 0, ',', '.') . '</td>';
             echo '<td align="right">' . number_format($total, 0, ',', '.') . '</td>';
-            echo '<td>' . htmlspecialchars($row->patient_name) . '</td>';
-            echo '<td align="center">' . htmlspecialchars($row->trans_patient_code) . '</td>';
+            echo '<td>' . htmlspecialchars($row->patient_name ?? '') . '</td>';
+            echo '<td align="center">' . htmlspecialchars($row->trans_patient_code ?? '') . '</td>';
             echo '<td align="center">' . (!empty($row->trans_doc) ? date('d/m/Y', strtotime($row->trans_doc)) : '-') . '</td>';
             echo '</tr>';
         }
