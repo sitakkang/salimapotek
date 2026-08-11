@@ -76,7 +76,7 @@
         <table>
             <tr><td>Nama</td><td class="lbl">:</td><td><strong><?= htmlspecialchars($row->skbs_patient_name) ?></strong></td></tr>
             <tr><td>Tempat dan Tanggal Lahir</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_birth_place ?: '-') ?> / <?= !empty($row->skbs_bod) ? date('d-m-Y', strtotime($row->skbs_bod)) : '-' ?></td></tr>
-            <tr><td>Umur / Jenis Kelamin</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun / <?= strtoupper($row->skbs_gender) == 'L' ? 'Laki-laki' : (strtoupper($row->skbs_gender) == 'P' ? 'Perempuan' : '-') ?></td></tr>
+            <tr><td>Umur / Jenis Kelamin</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_patient_age ?: '-') ?> Tahun / <?= strtoupper($row->skbs_gender ?? '') == 'L' ? 'Laki-laki' : (strtoupper($row->skbs_gender ?? '') == 'P' ? 'Perempuan' : '-') ?></td></tr>
             <tr><td>Alamat</td><td class="lbl">:</td><td><?= htmlspecialchars($row->skbs_address ?: '-') ?></td></tr>
         </table>
     </div>
@@ -135,7 +135,7 @@
             <div class="ttd-qr"><?= isset($qrcode) ? '<img src="'.$qrcode.'" alt="QR Code">' : '' ?></div>
             <p class="ttd-name"><?= htmlspecialchars($row->skbs_doct_name ?: '_________________') ?></p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip ?? '') ?></p>
             <?php endif; ?>
         </div>
     </div>

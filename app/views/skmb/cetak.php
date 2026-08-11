@@ -59,7 +59,7 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb) ?></p>
+        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
@@ -69,19 +69,19 @@
         </p>
         
         <table>
-            <tr><td>Nama Pengantar</td><td>:</td><td><?= htmlspecialchars($row->pengantar) ?: '-' ?></td></tr>
-            <tr><td>NIK Pengantar</td><td>:</td><td><?= htmlspecialchars($row->nik_pengantar) ?: '-' ?></td></tr>
-            <tr><td>Perusahaan</td><td>:</td><td><?= htmlspecialchars($row->company_pengantar) ?: '-' ?></td></tr>
+            <tr><td>Nama Pengantar</td><td>:</td><td><?= !empty($row->pengantar) ? htmlspecialchars($row->pengantar) : '-' ?></td></tr>
+            <tr><td>NIK Pengantar</td><td>:</td><td><?= !empty($row->nik_pengantar) ? htmlspecialchars($row->nik_pengantar) : '-' ?></td></tr>
+            <tr><td>Perusahaan</td><td>:</td><td><?= !empty($row->company_pengantar) ? htmlspecialchars($row->company_pengantar) : '-' ?></td></tr>
         </table>
     </div>
 
     <div class="section">
         <p class="ket-text">
             Pada tanggal <strong><?= !empty($row->tgl_datang) ? date('d-m-Y', strtotime($row->tgl_datang)) : '-' ?></strong>
-            Jam : <strong><?= htmlspecialchars($row->jam) ?: '-' ?> WITA</strong>.
+            Jam : <strong><?= !empty($row->jam) ? htmlspecialchars($row->jam) : '-' ?> WITA</strong>.
             Telah datang ke Praktek Dokter Umum untuk mengantar berobat
             <?php
-            $hubungan = htmlspecialchars($row->hubungan);
+            $hubungan = htmlspecialchars($row->hubungan ?? '');
             $hubungan_label = '';
             switch ($hubungan) {
                 case 'SUAMI':    $hubungan_label = 'Suami';    break;
@@ -96,9 +96,9 @@
         </p>
         
         <table>
-            <tr><td>Nama Diantar</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
-            <tr><td>NIK Diantar</td><td>:</td><td><?= htmlspecialchars($row->nik) ?: '-' ?></td></tr>
-            <tr><td>Perusahaan</td><td>:</td><td><?= htmlspecialchars($row->company_name) ?: '-' ?></td></tr>
+            <tr><td>Nama Diantar</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
+            <tr><td>NIK Diantar</td><td>:</td><td><?= !empty($row->nik) ? htmlspecialchars($row->nik) : '-' ?></td></tr>
+            <tr><td>Perusahaan</td><td>:</td><td><?= !empty($row->company_name) ? htmlspecialchars($row->company_name) : '-' ?></td></tr>
         </table>
 
 
@@ -145,7 +145,7 @@
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
             <p class="ttd-name">( <?= htmlspecialchars($row->doct_name ?? $row->fullname ?? '') ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip ?? '') ?></p>
             <?php endif; ?>
         </div>
     </div>

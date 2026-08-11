@@ -40,7 +40,7 @@
 
     <div class="header">
         <h2>SURAT KETERANGAN BEKERJA KEMBALI</h2>
-        <p>No. Dokumen: <?= htmlspecialchars($row->docnumb) ?></p>
+        <p>No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
@@ -49,11 +49,11 @@
             Yang bertanda tangan di bawah ini menerangkan bahwa:
         </p>
         <table>
-            <tr><td>Nama</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
-            <tr><td>Umur</td><td>:</td><td><?= htmlspecialchars($row->age) ?: '-' ?> Thn</td></tr>
-            <tr><td>NIK</td><td>:</td><td><?= htmlspecialchars($row->nik) ?: '-' ?></td></tr>
-            <tr><td>PT / Dept</td><td>:</td><td><?= htmlspecialchars($row->company_name) ?: '-' ?> / <?= htmlspecialchars($row->bagian) ?: '-' ?></td></tr>
-            <tr><td>Jabatan</td><td>:</td><td><?= htmlspecialchars($row->jabatan) ?: '-' ?></td></tr>
+            <tr><td>Nama</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
+            <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Thn</td></tr>
+            <tr><td>NIK</td><td>:</td><td><?= !empty($row->nik) ? htmlspecialchars($row->nik) : '-' ?></td></tr>
+            <tr><td>PT / Dept</td><td>:</td><td><?= !empty($row->company_name) ? htmlspecialchars($row->company_name) : '-' ?> / <?= !empty($row->bagian) ? htmlspecialchars($row->bagian) : '-' ?></td></tr>
+            <tr><td>Jabatan</td><td>:</td><td><?= !empty($row->jabatan) ? htmlspecialchars($row->jabatan) : '-' ?></td></tr>
         </table>
     </div>
 
@@ -70,7 +70,7 @@
     <?php if (!empty($row->catatan)): ?>
     <div class="section">
         <div class="section-title">Catatan Dokter</div>
-        <p class="ket-text"><?= nl2br(htmlspecialchars($row->catatan)) ?></p>
+        <p class="ket-text"><?= nl2br(htmlspecialchars($row->catatan ?? '')) ?></p>
     </div>
     <?php endif; ?>
 
@@ -106,9 +106,9 @@
             <p class="ttd-place">Fatufia, <?= $tgl_doc ?></p>
             <p class="ttd-role">Dokter Pemeriksa</p>
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
-            <p class="ttd-name">( <?= htmlspecialchars($row->fullname) ?: $fullname ?> )</p>
+            <p class="ttd-name">( <?= htmlspecialchars($row->fullname ?? '') ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip ?? '') ?></p>
             <?php endif; ?>
         </div>
     </div>

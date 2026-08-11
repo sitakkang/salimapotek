@@ -57,17 +57,17 @@
         </div>
         <hr style="border:1px solid #2d6a4f;margin:4px 0 5px;">
         <h2 style="font-size:15px;margin:0;">SURAT KETERANGAN SAKIT (SKS)</h2>
-        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb) ?></p>
+        <p style="font-size:10px;margin:0;">No. Dokumen: <?= htmlspecialchars($row->docnumb ?? '-') ?></p>
     </div>
 
     <div class="section">
         <div class="section-title">Identitas Pasien</div>
         <table>
             <tr><td>Nama Pasien</td><td>:</td><td><?= htmlspecialchars($row->patient_name) ?></td></tr>
-            <tr><td>NIK / No. ID Card</td><td>:</td><td><?= htmlspecialchars($row->sks_nik) ?: '-' ?></td></tr>
-            <tr><td>Umur</td><td>:</td><td><?= htmlspecialchars($row->age) ?: '-' ?> Tahun</td></tr>
+            <tr><td>NIK / No. ID Card</td><td>:</td><td><?= !empty($row->sks_nik) ? htmlspecialchars($row->sks_nik) : '-' ?></td></tr>
+            <tr><td>Umur</td><td>:</td><td><?= !empty($row->age) ? htmlspecialchars($row->age) : '-' ?> Tahun</td></tr>
             <tr><td>Jenis Kelamin</td><td>:</td><td><?= $row->gender === 'L' ? 'Laki-laki' : ($row->gender === 'P' ? 'Perempuan' : '-') ?></td></tr>
-            <tr><td>Pekerjaan</td><td>:</td><td><?= htmlspecialchars($row->patient_job) ?: '-' ?></td></tr>
+            <tr><td>Pekerjaan</td><td>:</td><td><?= !empty($row->patient_job) ? htmlspecialchars($row->patient_job) : '-' ?></td></tr>
         </table>
     </div>
 
@@ -84,14 +84,14 @@
     <div class="section">
         <div class="section-title">Diagnosa</div>
         <table>
-            <tr><td>Diagnosa</td><td>:</td><td><?= nl2br(htmlspecialchars($row->diagnosa)) ?></td></tr>
+            <tr><td>Diagnosa</td><td>:</td><td><?= nl2br(htmlspecialchars($row->diagnosa ?? '')) ?></td></tr>
         </table>
     </div>
 
     <div class="section">
         <div class="section-title">Terapi</div>
         <table>
-            <tr><td>Terapi</td><td>:</td><td><?= nl2br(htmlspecialchars($row->terapi)) ?></td></tr>
+            <tr><td>Terapi</td><td>:</td><td><?= nl2br(htmlspecialchars($row->terapi ?? '')) ?></td></tr>
         </table>
     </div>
 
@@ -161,9 +161,9 @@
             <p class="ttd-place">Bahodopi, <?= $tgl_doc ?></p>
             <p class="ttd-role">Dokter Pemeriksa</p>
             <div class="ttd-qr"><img src="<?= $qrcode ?>" alt="QR Code"></div>
-            <p class="ttd-name">( <?= htmlspecialchars($row->fullname) ?: $fullname ?> )</p>
+            <p class="ttd-name">( <?= htmlspecialchars($row->fullname ?? '') ?: $fullname ?> )</p>
             <?php if (!empty($row->nip)): ?>
-            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip) ?></p>
+            <p class="ttd-nip">SIP. <?= htmlspecialchars($row->nip ?? '') ?></p>
             <?php endif; ?>
         </div>
     </div>
