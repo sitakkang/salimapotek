@@ -326,7 +326,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = 'FCD9649AF3D993FE';
+$config['encryption_key'] = '7E20ED2A65BB17E05F0920E37020D906EA4EC2503D6A5B44912A1DDEAF9C6E11';
 
 /*
 |--------------------------------------------------------------------------
@@ -380,7 +380,7 @@ $config['encryption_key'] = 'FCD9649AF3D993FE';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'imip_core4';
+$config['sess_cookie_name'] = 'salimapotek_core';
 $config['sess_expiration'] = 3600;
 $config['sess_save_path'] = sys_get_temp_dir();
 $config['sess_match_ip'] = FALSE;

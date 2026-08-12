@@ -87,9 +87,13 @@ class M_dokter extends CI_Model {
 
     /**
      * Get all diagnosa (ms_diagnosa) for select option
+     * Urutkan berdasarkan kategori (dgn_cat), lalu nama (dgn_name)
      */
     public function get_all_diagnosa() {
-        return $this->db->get_where('ms_diagnosa', array('dgn_status' => 1))->result();
+        $this->db->where('dgn_status', 1);
+        $this->db->order_by('dgn_cat', 'ASC');
+        $this->db->order_by('dgn_name', 'ASC');
+        return $this->db->get('ms_diagnosa')->result();
     }
 
     /**
