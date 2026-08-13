@@ -453,7 +453,6 @@ class Dokter extends CI_Controller {
         $age    = !empty($row->patient_bod) ? date_diff(date_create($row->patient_bod), date_create('now'))->y : ($existing->age ?? '');
         $gender = !empty($row->patient_gender) ? $row->patient_gender : ($existing->gender ?? '');
 
-        // Nomor dokumen SKS: diisi manual, default 00000/SKS/PMDMH-SAC/BULAN/TAHUN
         $docnumb = strtoupper(trim($this->input->post('docnumb') ?? ''));
         if (empty($docnumb)) {
             $docnumb = $this->M_dokter->generate_docnumb_sks();
@@ -711,7 +710,7 @@ class Dokter extends CI_Controller {
         $year = date('Y');
         $data['docnumb'] = !empty($row->skbs_docnumb)
             ? $row->skbs_docnumb
-            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP-SAC/' . $month_roman . '/' . $year;
+            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP/' . $month_roman . '/' . $year;
         $data['row'] = $row;
         $data['qrcode'] = $this->generate_qrcode_skbs($id);
 

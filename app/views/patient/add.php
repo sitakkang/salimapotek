@@ -49,8 +49,8 @@
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Lahir <span class="text-danger">*</span></label>
-            <input type="text" id="patient_bod" name="patient_bod" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="patient_bod" name="patient_bod" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>

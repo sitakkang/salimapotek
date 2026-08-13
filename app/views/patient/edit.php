@@ -51,9 +51,9 @@
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Lahir <span class="text-danger">*</span></label>
-            <input type="text" id="edit_patient_bod" name="patient_bod" class="form-control datepicker"
-                   value="<?= !empty($row->patient_bod) ? date('d/m/Y', strtotime($row->patient_bod)) : '' ?>"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="edit_patient_bod" name="patient_bod" class="form-control date-mask"
+                   value="<?= !empty($row->patient_bod) ? date('d-m-Y', strtotime($row->patient_bod)) : '' ?>"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>

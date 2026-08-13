@@ -3,15 +3,8 @@ var url_ctrl = site_url+"patient/";
 	
 $(document).ready(function () {
 
-    // --- Init Datepicker (xdsoft datetimepicker) ---
-    $('.datepicker').datetimepicker({
-        datepicker: true,
-        timepicker: false,
-        format: 'd/m/Y',
-        closeOnDateSelect: true,
-        scrollMonth: false,
-        scrollInput: false,
-    });
+    // --- Init Date Mask (jQuery Mask Plugin) ---
+    $('.date-mask').mask('00-00-0000');
 
     $(".autocomplete").chosen(); 
 
@@ -128,18 +121,11 @@ $(document).ready(function () {
         if (size) {
             $('.modal-dialog').addClass(size);
         }
-        // Init datepicker on modal content (xdsoft datetimepicker)
+        // Init date mask on modal content (jQuery Mask Plugin)
         // Simpan value sebelum init agar tidak hilang
-        $('#MyModalContent .datepicker').each(function () {
+        $('#MyModalContent .date-mask').each(function () {
             var val = $(this).val();
-            $(this).datetimepicker({
-                datepicker: true,
-                timepicker: false,
-                format: 'd/m/Y',
-                closeOnDateSelect: true,
-                scrollMonth: false,
-                scrollInput: false,
-            });
+            $(this).mask('00-00-0000');
             if (val) $(this).val(val);
         });
         $('#MyModal').modal('show');
@@ -148,7 +134,8 @@ $(document).ready(function () {
 
     // --- Tambah Pasien ---
     $('#add_btn').on('click', function () {
-        $.get(site_url + 'patient/add', function (html) {
+        // cache-busting agar selalu memuat konten form terbaru dari server
+        $.get(site_url + 'patient/add', { t: Date.now() }, function (html) {
             showDsModal(
                 '<i class="fa fa-plus-circle"></i> Tambah Pasien',
                 html,
@@ -216,7 +203,7 @@ $(document).ready(function () {
             patient_job:  $('#patient_job').val(),
             patient_ktp:         $('#patient_ktp').val(),
             patient_birth_place: $('#patient_birth_place').val(),
-            patient_bod:         $('#patient_bod').val(),
+            patient_bod:         $('#patient_bod').val().replace(/\//g, '-'),
             patient_phone:       $('#patient_phone').val(),
             patient_address:     $('#patient_address').val(),
         };
@@ -230,6 +217,10 @@ $(document).ready(function () {
 		}
         if($('#patient_bod').val()==''){
 			notifNo("Silahkan isi tanggal lahir");
+            return false;
+		}
+        if(!/^\d{2}[-/]\d{2}[-/]\d{4}$/.test($('#patient_bod').val())){
+			notifNo("Format tanggal lahir tidak valid (dd-mm-yyyy atau dd/mm/yyyy)");
             return false;
 		}
         if($('#patient_phone').val()==''){
@@ -259,7 +250,8 @@ $(document).ready(function () {
     // --- Lihat Detail Pasien ---
     $('#tabel_patient tbody').on('click', '.view-row-btn', function () {
         var id = $(this).data('id');
-        $.get(site_url + 'patient/detail', { id: id }, function (html) {
+        // cache-busting agar selalu memuat konten form terbaru dari server
+        $.get(site_url + 'patient/detail', { id: id, t: Date.now() }, function (html) {
             showDsModal(
                 '<i class="fa fa-file-text-o"></i> Detail Pasien',
                 html,
@@ -272,7 +264,8 @@ $(document).ready(function () {
     // --- Edit Pasien ---
     $('#tabel_patient tbody').on('click', '.edit-row-btn', function () {
         var id = $(this).data('id');
-        $.get(site_url + 'patient/edit', { id: id }, function (html) {
+        // cache-busting agar selalu memuat konten form terbaru dari server
+        $.get(site_url + 'patient/edit', { id: id, t: Date.now() }, function (html) {
             showDsModal(
                 '<i class="fa fa-pencil"></i> Edit Pasien',
                 html,
@@ -293,7 +286,7 @@ $(document).ready(function () {
             patient_job:  $('#edit_patient_job').val(),
             patient_ktp:         $('#edit_patient_ktp').val(),
             patient_birth_place: $('#edit_patient_birth_place').val(),
-            patient_bod:         $('#edit_patient_bod').val(),
+            patient_bod:         $('#edit_patient_bod').val().replace(/\//g, '-'),
             patient_phone:       $('#edit_patient_phone').val(),
             patient_address:     $('#edit_patient_address').val(),
         };
@@ -307,6 +300,10 @@ $(document).ready(function () {
 		}
         if($('#edit_patient_bod').val()==''){
 			notifNo("Silahkan isi tanggal lahir");
+            return false;
+		}
+        if(!/^\d{2}[-/]\d{2}[-/]\d{4}$/.test($('#edit_patient_bod').val())){
+			notifNo("Format tanggal lahir tidak valid (dd-mm-yyyy atau dd/mm/yyyy)");
             return false;
 		}
         if($('#edit_patient_phone').val()==''){

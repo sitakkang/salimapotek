@@ -4,7 +4,7 @@
 <div class="ds-form-group">
     <label>No. Dokumen / Nomor SKBS <span class="text-danger">*</span></label>
     <input type="text" id="edit_skbs_docnumb" name="skbs_docnumb" class="form-control" maxlength="100"
-           value="<?= htmlspecialchars(!empty($row->skbs_docnumb) ? $row->skbs_docnumb : ($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP-SAC')) ?>">
+           value="<?= htmlspecialchars(!empty($row->skbs_docnumb) ? $row->skbs_docnumb : ($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP')) ?>">
 </div>
 
 <hr style="border-color: var(--ds-border); margin: 6px 0 12px;">

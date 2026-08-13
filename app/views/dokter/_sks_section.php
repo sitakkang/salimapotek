@@ -20,7 +20,7 @@
         <div class="ds-form-group">
             <label>No. Dokumen / Nomor SKS <span class="text-danger">*</span></label>
             <input type="text" id="sks_docnumb" class="form-control" maxlength="100"
-                   value="<?= htmlspecialchars($sks && !empty($sks->docnumb) ? $sks->docnumb : ($sks_docnumb_default ?? '00000/SKS/PMDMH-SAC')) ?>">
+                   value="<?= htmlspecialchars($sks && !empty($sks->docnumb) ? $sks->docnumb : ($sks_docnumb_default ?? '00000/SKS/PMDMH')) ?>">
         </div>
     </div>
 </div>

@@ -77,7 +77,7 @@
     <div class="section">
         <p class="ket-text">
             Pada tanggal <strong><?= !empty($row->tgl_datang) ? date('d-m-Y', strtotime($row->tgl_datang)) : '-' ?></strong>
-            Telah datang ke Praktek Dokter Umum untuk mengantar berobat
+            Telah datang ke Praktek Dokter Umum untuk mengantar berobat anggota keluarga yang sakit yaitu :
             <?php
             $hubungan = htmlspecialchars($row->hubungan ?? '');
             $hubungan_label = '';
@@ -90,11 +90,11 @@
                 default:         $hubungan_label = $hubungan;   break;
             }
             ?>
-            <strong><?= $hubungan_label ?: '-' ?></strong>
         </p>
         
         <table>
             <tr><td>Nama Diantar</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
+            <tr><td>Hubungan</td><td>:</td><td><?= !empty($hubungan_label) ? htmlspecialchars($hubungan_label) : '-' ?></td></tr>
             <tr><td>Diagnosa</td><td>:</td><td><?= !empty($row->patient_diagnosa) ? htmlspecialchars($row->patient_diagnosa) : '-' ?></td></tr>
         </table>
 

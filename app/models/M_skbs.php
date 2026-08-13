@@ -12,7 +12,7 @@ class M_skbs extends CI_Model {
      * Generate nomor dokumen SKBS (default 00000, nomor diisi manual)
      */
     public function generate_docnumb_skbs() {
-        return '00000/SKBS/PDUKRWP-SAC/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKBS/PDUKRWP/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     private function month_roman($n) {

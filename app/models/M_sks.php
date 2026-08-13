@@ -158,10 +158,10 @@ class M_sks extends CI_Model {
     /**
      * Generate default nomor dokumen SKS.
      * Running number default 00000, yang otomatis hanya bulan & tahun.
-     * Format: 00000/SKS/PMDMH-SAC/VII/2026
+     * Format: 00000/SKS/PMDMH/VII/2026
      */
     public function generate_docnumb() {
-        return '00000/SKS/PMDMH-SAC/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKS/PMDMH/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**
