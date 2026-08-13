@@ -37,9 +37,9 @@ class Reportobat extends CI_Controller {
      * DataTables JSON source — filter by date range & obat name
      */
     public function table() {
-        $date_from = trim($this->input->get('date_from'));
-        $date_to   = trim($this->input->get('date_to'));
-        $obat_name = trim($this->input->get('obat_name'));
+        $date_from = trim($this->input->get('date_from') ?? '');
+        $date_to   = trim($this->input->get('date_to') ?? '');
+        $obat_name = trim($this->input->get('obat_name') ?? '');
 
         if (empty($date_from) || empty($date_to)) {
             echo json_encode(array(
@@ -101,9 +101,9 @@ class Reportobat extends CI_Controller {
      * Download Excel — filter sama dengan table()
      */
     public function download_excel() {
-        $date_from = trim($this->input->get('date_from'));
-        $date_to   = trim($this->input->get('date_to'));
-        $obat_name = trim($this->input->get('obat_name'));
+        $date_from = trim($this->input->get('date_from') ?? '');
+        $date_to   = trim($this->input->get('date_to') ?? '');
+        $obat_name = trim($this->input->get('obat_name') ?? '');
 
         if (empty($date_from) || empty($date_to)) {
             show_404();
