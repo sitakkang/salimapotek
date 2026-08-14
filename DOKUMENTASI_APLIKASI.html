@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dokumentasi Aplikasi &mdash; Sistem Informasi Apotek Salim</title>
+<style>
+  :root {
+    --primary: #0f766e;
+    --primary-dark: #134e4a;
+    --primary-soft: #ccfbf1;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --ok: #15803d;
+    --ok-soft: #dcfce7;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 28px 80px; }
+
+  /* ---------- HERO / COVER ---------- */
+  .hero {
+    background: linear-gradient(135deg, #0f766e 0%, #134e4a 55%, #0b3a36 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 54px 48px;
+    margin: 10px 0 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute; right: -80px; top: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(255,255,255,.06);
+  }
+  .hero::before {
+    content: "";
+    position: absolute; right: 40px; bottom: -120px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: rgba(255,255,255,.05);
+  }
+  .hero .eyebrow {
+    display: inline-block; background: rgba(255,255,255,.16);
+    border-radius: 999px; padding: 4px 14px; font-size: 12px;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 34px; line-height: 1.25; margin-bottom: 10px; }
+  .hero p { font-size: 16px; opacity: .92; max-width: 640px; }
+  .hero .meta { margin-top: 22px; font-size: 13px; opacity: .8; }
+  .hero .meta span { margin-right: 22px; }
+  .hero .meta i { margin-right: 6px; opacity: .7; }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 30px;
+  }
+  .toc h2 { font-size: 15px; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px; }
+  .toc ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 4px 24px; padding-left: 20px; }
+  .toc a { color: var(--ink); text-decoration: none; font-size: 14px; }
+  .toc a:hover { color: var(--primary); text-decoration: underline; }
+
+  /* ---------- SECTIONS ---------- */
+  section {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 30px 34px;
+    margin-bottom: 26px;
+    scroll-margin-top: 16px;
+  }
+  section > h2 {
+    font-size: 22px; color: var(--primary-dark);
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 12px; margin-bottom: 20px;
+    border-bottom: 3px solid var(--primary-soft);
+  }
+  section > h2 .num {
+    background: var(--primary); color: #fff; font-size: 14px;
+    min-width: 34px; height: 34px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  h3 { font-size: 17px; margin: 22px 0 10px; color: var(--ink); }
+  h4 { font-size: 15px; margin: 14px 0 8px; }
+  p { margin-bottom: 10px; font-size: 15px; }
+  ul, ol { margin: 8px 0 16px 22px; }
+  li { margin-bottom: 6px; font-size: 15px; }
+  code {
+    background: #f1f5f9; border: 1px solid var(--line); border-radius: 4px;
+    padding: 1px 6px; font-size: 13px;
+    font-family: Consolas, "Courier New", monospace; color: var(--primary-dark);
+  }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { background: #f1f5f9; font-weight: 600; }
+  tr:nth-child(even) td { background: #fbfdfd; }
+
+  /* ---------- CALL OUTS ---------- */
+  .note { border-left: 5px solid var(--accent); background: var(--accent-soft); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+  .warn { border-left: 5px solid var(--warn); background: var(--warn-soft); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+  .ok   { border-left: 5px solid var(--ok);   background: var(--ok-soft);   padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+  .ok b, .note b, .warn b { color: var(--ink); }
+
+  /* ---------- CARDS ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 18px 0; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px; background: #fbfdfd; }
+  .card .ico { font-size: 26px; margin-bottom: 8px; display: block; }
+  .card h4 { color: var(--primary-dark); font-size: 15px; margin-bottom: 6px; }
+  .card p, .card li { font-size: 13.5px; }
+  .card ul { margin: 4px 0 0 18px; }
+  .card ul li { margin-bottom: 3px; }
+
+  /* ---------- BADGES ---------- */
+  .badge { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; margin-right: 4px; }
+  .b-teal { background: var(--primary-soft); color: var(--primary-dark); }
+  .b-blue { background: var(--accent-soft); color: var(--accent); }
+  .b-green { background: var(--ok-soft); color: var(--ok); }
+  .b-amber { background: var(--warn-soft); color: var(--warn); }
+  .b-gray { background: #f1f5f9; color: #475569; }
+
+  /* ---------- FLOW (CSS diagram) ---------- */
+  .flow-v { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 14px;
+    position: relative; padding-bottom: 22px;
+  }
+  .flow-step .dot {
+    flex: 0 0 auto; width: 42px; height: 42px; border-radius: 12px;
+    background: var(--primary); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+    box-shadow: 0 4px 10px rgba(15,118,110,.25); z-index: 2;
+  }
+  .flow-step .body { flex: 1; background: #fbfdfd; border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .flow-step .body b { color: var(--primary-dark); font-size: 15px; }
+  .flow-step .body p { margin: 4px 0 0; font-size: 13.5px; color: #334155; }
+  .flow-step:not(:last-child)::before {
+    content: ""; position: absolute; left: 20px; top: 44px; bottom: 4px;
+    width: 3px; background: var(--primary-soft); border-radius: 3px;
+  }
+  .flow-h { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin: 16px 0; }
+  .flow-h .box { flex: 1 1 130px; background: #f1f5f9; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; text-align: center; }
+  .flow-h .box b { display: block; color: var(--primary-dark); font-size: 13px; margin-bottom: 2px; }
+  .flow-h .box small { color: var(--muted); }
+  .flow-h .arrow { align-self: center; color: var(--muted); font-weight: 800; font-size: 16px; }
+
+  /* ---------- KPI ---------- */
+  .kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin: 18px 0; }
+  .kpi .k { background: #fbfdfd; border: 1px solid var(--line); border-radius: 12px; padding: 18px; text-align: center; }
+  .kpi .k .num { font-size: 30px; font-weight: 800; color: var(--primary); }
+  .kpi .k .lbl { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- ROLE ROW ---------- */
+  .roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 18px 0; }
+  .role { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: #fbfdfd; }
+  .role .r-ico { font-size: 28px; display: block; margin-bottom: 8px; }
+  .role h4 { color: var(--primary-dark); }
+  .role p { font-size: 13.5px; color: #334155; margin-bottom: 8px; }
+  .role .chips span { display: inline-block; background: #e2e8f0; border-radius: 6px; padding: 2px 8px; font-size: 11.5px; margin: 2px; color: #334155; }
+
+  /* ---------- FEATURE MATRIX ---------- */
+  .module { border: 1px solid var(--line); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+  .module .m-head { display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .module .m-head .m-ico { font-size: 20px; }
+  .module .m-head b { color: var(--primary-dark); font-size: 16px; flex: 1; }
+  .module .m-body { padding: 16px 20px; }
+  .module .m-body ul { margin: 0 0 0 20px; }
+  .module .m-body ul li { font-size: 14px; margin-bottom: 5px; }
+
+  /* ---------- FOOTER ---------- */
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 10px 0 40px; }
+  footer .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); margin: 0 8px; vertical-align: middle; }
+
+  /* ---------- PRINT (PDF presentation) ---------- */
+  @media print {
+    body { background: #fff; }
+    section { break-inside: avoid; border-color: #d6dde5; box-shadow: none; }
+    .hero { border-radius: 0; }
+    .toc { break-inside: avoid; }
+    a { text-decoration: none; color: inherit; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= COVER ================= -->
+  <div class="hero">
+    <span class="eyebrow">Dokumentasi Produk</span>
+    <h1>Sistem Informasi Apotek Salim<br>Manajemen Klinik, Resep &amp; Surat Keterangan Medis</h1>
+    <p>Solusi digital terintegrasi untuk mengelola pendaftaran pasien, pemeriksaan dokter, resep obat, apotek, hingga penerbitan surat keterangan medis &amp; laporan &mdash; dalam satu aplikasi berbasis web.</p>
+    <div class="meta">
+      <span><i>🗓️</i> Versi Dokumen: 1.0 &mdash; 14 Agustus 2026</span>
+      <span><i>🛠️</i> Platform: Web (PHP / MySQL)</span>
+      <span><i>👥</i> Dibuat untuk kebutuhan apotek &amp; klinik</span>
+    </div>
+  </div>
+
+  <!-- ================= TOC ================= -->
+  <div class="toc">
+    <h2>Daftar Isi</h2>
+    <ol>
+      <li><a href="#overview">Ringkasan &amp; Tujuan</a></li>
+      <li><a href="#tech">Teknologi</a></li>
+      <li><a href="#roles">Peran Pengguna (Role)</a></li>
+      <li><a href="#flow">Alur Layanan Utama</a></li>
+      <li><a href="#modules">Fitur &amp; Modul Aplikasi</a></li>
+      <li><a href="#surat">Alur Surat Keterangan Medis</a></li>
+      <li><a href="#farmasi">Alur Farmasi (Resep &amp; Obat)</a></li>
+      <li><a href="#laporan">Alur Laporan</a></li>
+      <li><a href="#keamanan">Keamanan &amp; Kontrol Akses</a></li>
+      <li><a href="#keunggulan">Keunggulan Aplikasi</a></li>
+      <li><a href="#roadmap">Rencana Pengembangan</a></li>
+    </ol>
+  </div>
+
+  <!-- ================= 1. OVERVIEW ================= -->
+  <section id="overview">
+    <h2><span class="num">1</span> Ringkasan &amp; Tujuan</h2>
+    <p><b>Sistem Informasi Apotek Salim</b> adalah aplikasi berbasis web yang mempermudah operasional harian apotek/klinik dalam satu alur yang terpadu: dari pasien mendaftar, diperiksa dokter, mendapatkan resep, obat disiapkan apotek, hingga surat keterangan medis &amp; laporan manajemen.</p>
+    <div class="kpi">
+      <div class="k"><div class="num">3</div><div class="lbl">Level pengguna</div></div>
+      <div class="k"><div class="num">15+</div><div class="lbl">Menu &amp; modul</div></div>
+      <div class="k"><div class="num">4</div><div class="lbl">Jenis surat medis</div></div>
+      <div class="k"><div class="num">3+</div><div class="lbl">Jenis laporan</div></div>
+    </div>
+    <h3>Tujuan Aplikasi</h3>
+    <div class="cards">
+      <div class="card"><span class="ico">🗂️</span><h4>Data Terpusat</h4><p>Seluruh data pasien, kunjungan, rekam medis, dan obat tersimpan dalam satu database sehingga mudah dicari dan ditelusuri.</p></div>
+      <div class="card"><span class="ico">⚡</span><h4>Proses Cepat</h4><p>Pendaftaran hingga resep tersaji dalam alur digital &mdash; mengurangi antrean dan pekerjaan manual.</p></div>
+      <div class="card"><span class="ico">📄</span><h4>Surat Otomatis</h4><p>Penerbitan SKS, SKMB, SKBS, SKKB dengan nomor dokumen otomatis dan halaman verifikasi.</p></div>
+      <div class="card"><span class="ico">📊</span><h4>Laporan Manajemen</h4><p>Laporan kunjungan &amp; pemakaian obat harian/bulanan dengan ekspor Excel untuk pengambilan keputusan.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= 2. TECH ================= -->
+  <section id="tech">
+    <h2><span class="num">2</span> Teknologi</h2>
+    <table>
+      <thead><tr><th>Lapisan</th><th>Teknologi</th><th>Keterangan</th></tr></thead>
+      <tbody>
+        <tr><td>Backend</td><td>PHP &mdash; Framework CodeIgniter 3</td><td>Struktur MVC yang rapi &amp; mudah dikembangkan</td></tr>
+        <tr><td>Database</td><td>MySQL</td><td>Penyimpanan data terstruktur &amp; relasional</td></tr>
+        <tr><td>Frontend</td><td>Bootstrap 4, jQuery, FontAwesome</td><td>Tampilan responsif untuk desktop &amp; tablet</td></tr>
+        <tr><td>Komponen UI</td><td>DataTables, SweetAlert2, Datepicker, Chosen Select, Mask</td><td>Tabel cepat, konfirmasi ramah, form mudah</td></tr>
+        <tr><td>Keamanan</td><td>Session, token CSRF, filter input</td><td>Autentikasi login &amp; proteksi form</td></tr>
+        <tr><td>Deployment</td><td>XAMPP / Web Server</td><td>Dapat dijalankan lokal maupun server</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================= 3. ROLES ================= -->
+  <section id="roles">
+    <h2><span class="num">3</span> Peran Pengguna (Role)</h2>
+    <p>Aplikasi menggunakan sistem <b>hak akses berbasis level</b>. Setiap menu hanya dapat diakses oleh level yang diizinkan, sehingga tiap petugas hanya melihat fitur yang menjadi tanggung jawabnya.</p>
+    <div class="roles">
+      <div class="role">
+        <span class="r-ico">🛡️</span>
+        <h4>Superadmin</h4>
+        <p>Pengelola utama sistem dengan akses penuh, termasuk pengaturan aplikasi &amp; hak akses.</p>
+        <div class="chips"><span>Semua menu</span><span>Pengaturan</span><span>Manajemen user</span></div>
+      </div>
+      <div class="role">
+        <span class="r-ico">🧑‍💼</span>
+        <h4>Admin</h4>
+        <p>Petugas operasional: pendaftaran pasien, master data, apotek, dan laporan.</p>
+        <div class="chips"><span>Pendaftaran</span><span>Master Obat</span><span>Pharmacy</span><span>Laporan</span></div>
+      </div>
+      <div class="role">
+        <span class="r-ico">🩺</span>
+        <h4>Dokter</h4>
+        <p>Petugas medis: melihat antrean, melakukan pemeriksaan, menulis resep &amp; menerbitkan surat.</p>
+        <div class="chips"><span>Antrean Dokter</span><span>Anamnesa</span><span>Diagnosa</span><span>Resep</span><span>SKS/SKMB</span></div>
+      </div>
+    </div>
+    <div class="note"><b>Pengaturan menu &amp; hak akses:</b> daftar menu, sub-menu, dan level akses dikelola oleh Superadmin melalui menu <b>Pengaturan</b>, sehingga mudah ditambah/disesuaikan seiring kebutuhan.</div>
+  </section>
+
+  <!-- ================= 4. FLOW UTAMA ================= -->
+  <section id="flow">
+    <h2><span class="num">4</span> Alur Layanan Utama</h2>
+    <p>Berikut alur end-to-end pelayanan pasien di apotek/klinik:</p>
+    <div class="flow-v">
+      <div class="flow-step"><div class="dot">1</div><div class="body"><b>Pendaftaran Pasien</b><p>Petugas mendaftarkan pasien (data diri, NIK/KTP, perusahaan, departemen) dan mencatat kunjungan. Data pasien lama otomatis terdeteksi.</p></div></div>
+      <div class="flow-step"><div class="dot">2</div><div class="body"><b>Antrean Dokter</b><p>Dokter melihat daftar kunjungan hari itu, lalu memilih pasien untuk diperiksa.</p></div></div>
+      <div class="flow-step"><div class="dot">3</div><div class="body"><b>Anamnesa &amp; Diagnosa</b><p>Dokter mencatat tanda vital (tensi, nadi, suhu, dll.) dan menetapkan diagnosa (berbasis ICD-10).</p></div></div>
+      <div class="flow-step"><div class="dot">4</div><div class="body"><b>Penulisan Resep</b><p>Dokter meresepkan obat (obat jadi) dan/atau racikan/puyer beserta dosis. Data otomatis tersimpan pada rekam medis pasien.</p></div></div>
+      <div class="flow-step"><div class="dot">5</div><div class="body"><b>Pharmacy (Apotek)</b><p>Petugas apotek melihat detail resep, menyiapkan &amp; menyerahkan obat kepada pasien.</p></div></div>
+      <div class="flow-step"><div class="dot">6</div><div class="body"><b>Surat Keterangan Medis</b><p>Bila diperlukan, dokter menerbitkan SKS/SKMB/SKBS/SKKB lengkap dengan nomor dokumen.</p></div></div>
+      <div class="flow-step"><div class="dot">7</div><div class="body"><b>Laporan</b><p>Seluruh transaksi terekam dan dapat dilihat dalam laporan kunjungan &amp; pemakaian obat harian/bulanan.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ================= 5. MODULES ================= -->
+  <section id="modules">
+    <h2><span class="num">5</span> Fitur &amp; Modul Aplikasi</h2>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">🏠</span><b>Beranda / Dashboard</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li>Ringkasan angka penting: jumlah SKS hari ini &amp; bulan ini, total pasien terdaftar, dan jumlah dokter.</li>
+        <li>Titik awal navigasi menuju seluruh menu sesuai hak akses.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">👤</span><b>Manajemen Pengguna</b><span class="badge b-teal">Superadmin / Admin</span></div>
+      <div class="m-body"><ul>
+        <li>CRUD data pengguna (nama, username, avatar, level).</li>
+        <li>Penetapan level akses: Superadmin, Admin, Dokter.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">📋</span><b>Pendaftaran Pasien</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li>Data lengkap pasien: kode pasien otomatis, NIK, KTP, nama, jenis kelamin, tempat/tanggal lahir.</li>
+        <li>Informasi perusahaan, departemen &amp; pekerjaan (untuk pasien karyawan perusahaan).</li>
+        <li>Alamat, kontak, dan riwayat kunjungan pasien.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">🩺</span><b>Modul Dokter</b><span class="badge b-teal">Superadmin / Dokter</span></div>
+      <div class="m-body"><ul>
+        <li>Daftar antrean kunjungan per tanggal dengan pencarian pasien.</li>
+        <li>Halaman pemeriksaan: anamnesa, diagnosa, dan resep dalam satu layar.</li>
+        <li>Resep obat jadi &amp; racikan (puyer) dengan dosis.</li>
+        <li>Penerbitan surat keterangan langsung dari hasil pemeriksaan (diagnosa &amp; terapi otomatis terisi).</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">🌡️</span><b>Anamnesa</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li>Pencatatan tanda vital: berat badan, suhu, nadi, respirasi, tekanan darah, tinggi badan.</li>
+        <li>Catatan keluhan / pemeriksaan fisik.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">🧬</span><b>Manajemen Diagnosa</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li>Master diagnosa dengan kode (standar ICD-10).</li>
+        <li>Pemberian diagnosa pada rekam medis pasien.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">💊</span><b>Manajemen Obat</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li>Master data obat: nama, harga, satuan, dan status aktif.</li>
+        <li>Menjadi sumber pilihan saat dokter menulis resep.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">🧪</span><b>Pharmacy (Apotek)</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li>Daftar kunjungan yang sudah diperiksa (memiliki rekam medis) per tanggal.</li>
+        <li>Detail resep: obat jadi &amp; racikan yang siap diserahkan.</li>
+        <li>Fokus kerja petugas apotek dalam menyiapkan obat.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">📄</span><b>Surat Keterangan Medis</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li><b>SKS</b> &mdash; Surat Keterangan Sakit.</li>
+        <li><b>SKMB</b> &mdash; Surat Keterangan Membawa Berobat (untuk pengantar).</li>
+        <li><b>SKBS</b> &mdash; Surat Keterangan Berbadan Sehat (hasil FIT / tidak fit).</li>
+        <li><b>SKKB</b> &mdash; Surat Keterangan Bekerja Kembali.</li>
+        <li>Nomor dokumen otomatis, cetak rapi, dan halaman verifikasi keaslian surat.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">📊</span><b>Laporan</b><span class="badge b-teal">Semua role</span></div>
+      <div class="m-body"><ul>
+        <li><b>Laporan Kunjungan</b> &mdash; rekap kunjungan pasien per periode.</li>
+        <li><b>Laporan Obat Harian</b> &mdash; pemakaian obat per rentang tanggal, bisa difilter nama obat.</li>
+        <li><b>Laporan Obat Bulanan</b> &mdash; rekap pemakaian obat per bulan/tahun, mode bulanan atau mingguan.</li>
+        <li>Semua laporan dapat diekspor ke <b>Excel</b>.</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="m-head"><span class="m-ico">⚙️</span><b>Pengaturan &amp; Lainnya</b><span class="badge b-gray">Superadmin</span></div>
+      <div class="m-body"><ul>
+        <li>Manajemen pengguna, level, menu, dan sub-menu.</li>
+        <li>Pengaturan akun profil.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ================= 6. SURAT ================= -->
+  <section id="surat">
+    <h2><span class="num">6</span> Alur Surat Keterangan Medis</h2>
+    <p>Aplikasi menyediakan empat jenis surat keterangan medis yang dapat dibuat langsung oleh dokter dan diverifikasi keasliannya oleh pihak yang membutuhkan.</p>
+    <table>
+      <thead><tr><th>Jenis Surat</th><th>Kepanjangan</th><th>Kegunaan</th></tr></thead>
+      <tbody>
+        <tr><td><b>SKS</b></td><td>Surat Keterangan Sakit</td><td>Keterangan izin sakit bagi pasien / karyawan</td></tr>
+        <tr><td><b>SKMB</b></td><td>Surat Keterangan Membawa Berobat</td><td>Surat untuk orang yang mengantar/membawa pasien berobat</td></tr>
+        <tr><td><b>SKBS</b></td><td>Surat Keterangan Berbadan Sehat</td><td>Hasil pemeriksaan kesehatan (FIT / tidak fit untuk bekerja)</td></tr>
+        <tr><td><b>SKKB</b></td><td>Surat Keterangan Bekerja Kembali</td><td>Surat izin kembali bekerja setelah sakit</td></tr>
+      </tbody>
+    </table>
+    <div class="flow-h">
+      <div class="box"><b>Pemeriksaan</b><small>diagnosa &amp; terapi dari rekam medis</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Penerbitan</b><small>pilih jenis surat, nomor otomatis</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Cetak</b><small>format resmi siap tanda tangan</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Verifikasi</b><small>cek keaslian via nomor dokumen</small></div>
+    </div>
+    <div class="ok"><b>Nilai tambah:</b> setiap surat memiliki <b>nomor dokumen otomatis</b> dan <b>halaman verifikasi</b> sehingga pihak perusahaan/instansi dapat memastikan keaslian surat yang diterima.</div>
+  </section>
+
+  <!-- ================= 7. FARMASI ================= -->
+  <section id="farmasi">
+    <h2><span class="num">7</span> Alur Farmasi (Resep &amp; Obat)</h2>
+    <div class="flow-v">
+      <div class="flow-step"><div class="dot">1</div><div class="body"><b>Dokter menulis resep</b><p>Memilih obat dari master obat atau membuat racikan/puyer beserta dosis.</p></div></div>
+      <div class="flow-step"><div class="dot">2</div><div class="body"><b>Tersimpan pada rekam medis</b><p>Setiap obat tercatat lengkap: nama, satuan, harga, jumlah, dan total harga.</p></div></div>
+      <div class="flow-step"><div class="dot">3</div><div class="body"><b>Apotek melihat antrean resep</b><p>Petugas apotek membuka modul Pharmacy, memilih pasien yang sudah diperiksa.</p></div></div>
+      <div class="flow-step"><div class="dot">4</div><div class="body"><b>Detail resep &amp; racikan</b><p>Menampilkan obat jadi dan racikan untuk disiapkan.</p></div></div>
+      <div class="flow-step"><div class="dot">5</div><div class="body"><b>Penyerahan obat</b><p>Obat diserahkan ke pasien; transaksi terekam untuk laporan pemakaian obat.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ================= 8. LAPORAN ================= -->
+  <section id="laporan">
+    <h2><span class="num">8</span> Alur Laporan</h2>
+    <div class="flow-h">
+      <div class="box"><b>Transaksi Tersimpan</b><small>kunjungan, resep, surat</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Pilih Periode</b><small>rentang tanggal / bulan / tahun</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Filter Data</b><small>misal per nama obat</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Tampil Tabel</b><small>DataTables cepat &amp; cari</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Export Excel</b><small>arsip &amp; rekap</small></div>
+    </div>
+    <table>
+      <thead><tr><th>Laporan</th><th>Isi</th><th>Filter</th></tr></thead>
+      <tbody>
+        <tr><td>Laporan Kunjungan</td><td>Rekap kunjungan pasien per periode</td><td>Rentang tanggal</td></tr>
+        <tr><td>Laporan Obat Harian</td><td>Pemakaian obat: nama, satuan, qty, dosis, harga, total, pasien</td><td>Rentang tanggal + nama obat</td></tr>
+        <tr><td>Laporan Obat Bulanan</td><td>Rekap pemakaian obat per periode (bulanan/mingguan)</td><td>Tahun + bulan + mode</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>Manfaat:</b> laporan menjadi dasar untuk memantau penggunaan obat, tren kunjungan, dan kebutuhan pengadaan stok ke depan.</div>
+  </section>
+
+  <!-- ================= 9. KEAMANAN ================= -->
+  <section id="keamanan">
+    <h2><span class="num">9</span> Keamanan &amp; Kontrol Akses</h2>
+    <div class="cards">
+      <div class="card"><span class="ico">🔐</span><h4>Autentikasi Login</h4><p>Setiap pengguna wajib login dengan username &amp; password. Sesi aman menggunakan session terenkripsi.</p></div>
+      <div class="card"><span class="ico">🛂</span><h4>Hak Akses per Level</h4><p>Setiap menu hanya tampil untuk level yang diizinkan &mdash; petugas tidak dapat membuka menu di luar kewenangannya.</p></div>
+      <div class="card"><span class="ico">🛡️</span><h4>Proteksi Form</h4><p>Validasi token (CSRF) &amp; filter input untuk mencegah serangan umum pada aplikasi web.</p></div>
+      <div class="card"><span class="ico">📜</span><h4>Jejak Audit</h4><p>Pencatatan waktu &amp; petugas pada data penting (insert/update) untuk penelusuran.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= 10. KEUNGGULAN ================= -->
+  <section id="keunggulan">
+    <h2><span class="num">10</span> Keunggulan Aplikasi</h2>
+    <div class="cards">
+      <div class="card"><span class="ico">🔗</span><h4>Alur Terintegrasi</h4><p>Pendaftaran &rarr; pemeriksaan &rarr; resep &rarr; apotek &rarr; surat &rarr; laporan dalam satu sistem.</p></div>
+      <div class="card"><span class="ico">⏱️</span><h4>Antrean Tertata</h4><p>Dokter langsung melihat daftar pasien per hari, meminimalkan kebingungan antrean.</p></div>
+      <div class="card"><span class="ico">🧾</span><h4>Resep &amp; Racikan</h4><p>Mendukung obat jadi dan racikan/puyer beserta dosis.</p></div>
+      <div class="card"><span class="ico">✅</span><h4>Surat Dapat Diverifikasi</h4><p>Keaslian SKS/SKMB/SKBS/SKKB dapat dicek via nomor dokumen.</p></div>
+      <div class="card"><span class="ico">📈</span><h4>Laporan Siap Pakai</h4><p>Rekap harian/bulanan + ekspor Excel tanpa proses manual.</p></div>
+      <div class="card"><span class="ico">🌐</span><h4>Berbasis Web</h4><p>Akses dari browser, mudah dipasang di komputer lokal maupun server jaringan.</p></div>
+      <div class="card"><span class="ico">🔧</span><h4>Mudah Dikembangkan</h4><p>Arsitektur MVC (CodeIgniter) memudahkan penambahan modul di masa depan.</p></div>
+      <div class="card"><span class="ico">🎨</span><h4>Tampilan Modern</h4><p>Antarmuka responsif dengan Bootstrap &amp; konfirmasi SweetAlert yang ramah pengguna.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= 11. ROADMAP ================= -->
+  <section id="roadmap">
+    <h2><span class="num">11</span> Rencana Pengembangan</h2>
+    <p>Untuk semakin melengkapi kebutuhan operasional apotek, berikut rencana pengembangan lanjutan:</p>
+    <div class="flow-h">
+      <div class="box"><b>Tahap 1</b><small>Manajemen stok obat, batch &amp; expired (FEFO)</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Tahap 2</b><small>Modul pembelian &amp; supplier</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Tahap 3</b><small>Kasir / pembayaran &amp; notifikasi stok</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Tahap 4</b><small>Analitik penjualan &amp; laba rugi</small></div>
+    </div>
+    <div class="warn"><b>Prioritas berikutnya:</b> penambahan <b>manajemen stok obat</b> (kuantitas, batch, tanggal kedaluwarsa, dan metode FEFO) sehingga pemakaian obat otomatis mengurangi stok dan apotek terhindar dari stok kosong maupun obat kedaluwarsa.</div>
+  </section>
+
+  <footer>
+    <b>Sistem Informasi Apotek Salim</b> &nbsp;<span class="dot"></span>&nbsp; Dokumentasi Produk v1.0 &nbsp;<span class="dot"></span>&nbsp; 14 Agustus 2026
+  </footer>
+</div>
+</body>
+</html>

@@ -161,7 +161,7 @@ class M_sks extends CI_Model {
      * Format: 00000/SKS/PMDMH/VII/2026
      */
     public function generate_docnumb() {
-        return '00000/SKS/PMDMH/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKS/PMDMH/ASM/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

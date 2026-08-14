@@ -295,7 +295,7 @@ class Skbs extends CI_Controller {
         $year = date('Y');
         $data['docnumb'] = !empty($row->skbs_docnumb)
             ? $row->skbs_docnumb
-            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP/' . $month_roman . '/' . $year;
+            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP/ASM/' . $month_roman . '/' . $year;
         $data['row'] = $row;
         $data['qrcode'] = $this->generate_qrcode($id);
 

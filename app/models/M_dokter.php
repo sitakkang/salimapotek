@@ -325,21 +325,21 @@ class M_dokter extends CI_Model {
      * Generate nomor dokumen SKS (copied from M_sks)
      */
     public function generate_docnumb_sks() {
-        return '00000/SKS/PMDMH/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKS/PMDMH/ASM/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**
      * Generate nomor dokumen SKBS (default 00000, nomor diisi manual)
      */
     public function generate_docnumb_skbs() {
-        return '00000/SKBS/PDUKRWP/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKBS/PDUKRWP/ASM/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**
      * Generate nomor dokumen SKMB (default 00000, nomor diisi manual)
      */
     public function generate_docnumb_skmb() {
-        return '00000/SKMB/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKMB/ASM/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

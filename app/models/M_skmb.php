@@ -151,7 +151,7 @@ class M_skmb extends CI_Model {
      * Format: 00000/SKMB/VII/2026
      */
     public function generate_docnumb() {
-        return '00000/SKMB/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKMB/ASM/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

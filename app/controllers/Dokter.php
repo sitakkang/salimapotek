@@ -707,7 +707,7 @@ class Dokter extends CI_Controller {
         $year = date('Y');
         $data['docnumb'] = !empty($row->skbs_docnumb)
             ? $row->skbs_docnumb
-            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP/' . $month_roman . '/' . $year;
+            : sprintf('%05d', $row->id_skbs) . '/SKBS/PDUKRWP/ASM/' . $month_roman . '/' . $year;
         $data['row'] = $row;
         $data['qrcode'] = $this->generate_qrcode_skbs($id);
 
@@ -837,7 +837,7 @@ class Dokter extends CI_Controller {
         // Generate nomor dokumen
         $month_roman = $this->month_roman(date('n'));
         $year = date('Y');
-        $data['docnumb'] = !empty($row->docnumb) ? $row->docnumb : sprintf('%05d', $row->id) . '/SKMB/' . $month_roman . '/' . $year;
+        $data['docnumb'] = !empty($row->docnumb) ? $row->docnumb : sprintf('%05d', $row->id) . '/SKMB/ASM/' . $month_roman . '/' . $year;
         $data['row'] = $row;
         $data['qrcode'] = $this->generate_qrcode_skmb($id);
 
@@ -888,7 +888,7 @@ class Dokter extends CI_Controller {
      * Generate nomor dokumen SKMB (default 00000, nomor diisi manual)
      */
     private function generate_docnumb_skmb() {
-        return '00000/SKMB/' . $this->month_roman(date('n')) . '/' . date('Y');
+        return '00000/SKMB/ASM/' . $this->month_roman(date('n')) . '/' . date('Y');
     }
 
     /**

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rancangan Aplikasi &mdash; Manajemen Stok Obat Apotek</title>
+<style>
+  :root {
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-soft: #e0e7ff;
+    --teal: #0f766e;
+    --teal-soft: #ccfbf1;
+    --accent: #0ea5e9;
+    --accent-soft: #e0f2fe;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --ok: #15803d;
+    --ok-soft: #dcfce7;
+    --danger: #b91c1c;
+    --danger-soft: #fee2e2;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --bg: #f8fafc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 24px 28px 80px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background: linear-gradient(135deg, #4f46e5 0%, #3730a3 55%, #1e1b4b 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 54px 48px;
+    margin: 10px 0 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(255,255,255,.07);
+  }
+  .hero::before {
+    content: ""; position: absolute; right: 40px; bottom: -120px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: rgba(255,255,255,.05);
+  }
+  .hero .eyebrow {
+    display: inline-block; background: rgba(255,255,255,.16);
+    border-radius: 999px; padding: 4px 14px; font-size: 12px;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .hero h1 { font-size: 32px; line-height: 1.25; margin-bottom: 10px; }
+  .hero p { font-size: 16px; opacity: .92; max-width: 680px; }
+  .hero .meta { margin-top: 22px; font-size: 13px; opacity: .8; }
+  .hero .meta span { margin-right: 22px; }
+
+  /* ---------- TOC ---------- */
+  .toc { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; margin-bottom: 30px; }
+  .toc h2 { font-size: 15px; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px; }
+  .toc ol { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 4px 24px; padding-left: 20px; }
+  .toc a { color: var(--ink); text-decoration: none; font-size: 14px; }
+  .toc a:hover { color: var(--primary); text-decoration: underline; }
+
+  /* ---------- SECTIONS ---------- */
+  section { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 30px 34px; margin-bottom: 26px; scroll-margin-top: 16px; }
+  section > h2 {
+    font-size: 22px; color: var(--primary-dark);
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 12px; margin-bottom: 20px;
+    border-bottom: 3px solid var(--primary-soft);
+  }
+  section > h2 .num {
+    background: var(--primary); color: #fff; font-size: 14px;
+    min-width: 34px; height: 34px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  h3 { font-size: 17px; margin: 22px 0 10px; }
+  h4 { font-size: 15px; margin: 14px 0 8px; }
+  p { margin-bottom: 10px; font-size: 15px; }
+  ul, ol { margin: 8px 0 16px 22px; }
+  li { margin-bottom: 6px; font-size: 15px; }
+  code { background: #f1f5f9; border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; font-size: 13px; font-family: Consolas, "Courier New", monospace; color: var(--primary-dark); }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { background: #f1f5f9; font-weight: 600; }
+  tr:nth-child(even) td { background: #fbfdfd; }
+
+  /* ---------- CALL OUTS ---------- */
+  .note { border-left: 5px solid var(--accent); background: var(--accent-soft); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+  .warn { border-left: 5px solid var(--warn); background: var(--warn-soft); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+  .ok   { border-left: 5px solid var(--ok);   background: var(--ok-soft);   padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+  .danger { border-left: 5px solid var(--danger); background: var(--danger-soft); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; font-size: 14px; }
+
+  /* ---------- CARDS ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 18px 0; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: #fbfdfd; }
+  .card .ico { font-size: 26px; margin-bottom: 8px; display: block; }
+  .card h4 { color: var(--primary-dark); font-size: 15px; margin-bottom: 6px; }
+  .card p, .card li { font-size: 13.5px; }
+  .card ul { margin: 4px 0 0 18px; }
+  .card ul li { margin-bottom: 3px; }
+
+  /* ---------- BADGES ---------- */
+  .badge { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 11.5px; font-weight: 600; margin-right: 4px; }
+  .b-ind { background: var(--primary-soft); color: var(--primary-dark); }
+  .b-teal { background: var(--teal-soft); color: var(--teal); }
+  .b-blue { background: var(--accent-soft); color: #0369a1; }
+  .b-green { background: var(--ok-soft); color: var(--ok); }
+  .b-amber { background: var(--warn-soft); color: var(--warn); }
+  .b-red { background: var(--danger-soft); color: var(--danger); }
+  .b-gray { background: #f1f5f9; color: #475569; }
+
+  /* ---------- FLOW ---------- */
+  .flow-v { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .flow-step { display: flex; align-items: flex-start; gap: 14px; position: relative; padding-bottom: 22px; }
+  .flow-step .dot {
+    flex: 0 0 auto; width: 42px; height: 42px; border-radius: 12px;
+    background: var(--primary); color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+    box-shadow: 0 4px 10px rgba(79,70,229,.25); z-index: 2;
+  }
+  .flow-step .dot.teal { background: var(--teal); }
+  .flow-step .dot.amber { background: var(--warn); }
+  .flow-step .body { flex: 1; background: #fbfdfd; border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; }
+  .flow-step .body b { color: var(--primary-dark); font-size: 15px; }
+  .flow-step .body p { margin: 4px 0 0; font-size: 13.5px; color: #334155; }
+  .flow-step:not(:last-child)::before { content: ""; position: absolute; left: 20px; top: 44px; bottom: 4px; width: 3px; background: var(--primary-soft); border-radius: 3px; }
+  .flow-h { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin: 16px 0; }
+  .flow-h .box { flex: 1 1 130px; background: #f1f5f9; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; text-align: center; }
+  .flow-h .box b { display: block; color: var(--primary-dark); font-size: 13px; margin-bottom: 2px; }
+  .flow-h .box small { color: var(--muted); }
+  .flow-h .arrow { align-self: center; color: var(--muted); font-weight: 800; font-size: 16px; }
+
+  /* ---------- ER / DATA MODEL ---------- */
+  .er { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 20px 0; }
+  .er-table { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fbfdfd; }
+  .er-table .et-head { background: var(--primary); color: #fff; padding: 10px 14px; font-weight: 600; font-size: 14px; }
+  .er-table .et-head small { display: block; font-weight: 400; font-size: 11px; opacity: .85; }
+  .er-table ul { list-style: none; margin: 0; padding: 8px 14px; }
+  .er-table li { font-size: 13px; padding: 3px 0; border-bottom: 1px dashed var(--line); font-family: Consolas, monospace; color: #334155; }
+  .er-table li:last-child { border-bottom: none; }
+  .er-table li .pk { color: var(--primary); font-weight: 700; }
+  .er-table li .fk { color: var(--accent); }
+  .er-table li .req { color: var(--danger); }
+
+  /* ---------- WIREFRAME ---------- */
+  .wf { border: 1px solid var(--line); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+  .wf .wf-head { display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 13px 18px; border-bottom: 1px solid var(--line); }
+  .wf .wf-head .wf-ico { font-size: 20px; }
+  .wf .wf-head b { color: var(--primary-dark); font-size: 15.5px; flex: 1; }
+  .wf .wf-body { padding: 16px 20px; }
+  .wf .wf-body ul { margin: 0 0 0 20px; }
+  .wf .wf-body ul li { font-size: 14px; margin-bottom: 5px; }
+  .mock {
+    border: 1px dashed #c7d2fe; background: #f5f6ff; border-radius: 10px;
+    padding: 12px 16px; font-size: 12.5px; color: #475569; margin-top: 8px;
+  }
+  .mock b { color: var(--primary-dark); }
+
+  /* ---------- KPI ---------- */
+  .kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin: 18px 0; }
+  .kpi .k { background: #fbfdfd; border: 1px solid var(--line); border-radius: 12px; padding: 18px; text-align: center; }
+  .kpi .k .num { font-size: 28px; font-weight: 800; color: var(--primary); }
+  .kpi .k .lbl { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- ROLES ---------- */
+  .roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 18px 0; }
+  .role { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: #fbfdfd; }
+  .role .r-ico { font-size: 28px; display: block; margin-bottom: 8px; }
+  .role h4 { color: var(--primary-dark); }
+  .role p { font-size: 13.5px; color: #334155; margin-bottom: 8px; }
+  .role .chips span { display: inline-block; background: #e2e8f0; border-radius: 6px; padding: 2px 8px; font-size: 11.5px; margin: 2px; color: #334155; }
+
+  footer { text-align: center; color: var(--muted); font-size: 13px; padding: 10px 0 40px; }
+  footer .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); margin: 0 8px; vertical-align: middle; }
+
+  @media print {
+    body { background: #fff; }
+    section { break-inside: avoid; border-color: #d6dde5; }
+    .hero { border-radius: 0; }
+    .toc { break-inside: avoid; }
+    a { text-decoration: none; color: inherit; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= COVER ================= -->
+  <div class="hero">
+    <span class="eyebrow">Rancangan Aplikasi</span>
+    <h1>Rancangan Aplikasi Manajemen Stok Obat<br>Modul Pengendalian Persediaan Obat Apotek</h1>
+    <p>Dokumen rancangan (blueprint) pengembangan modul <b>manajemen stok obat</b> yang terintegrasi dengan aplikasi apotek: pencatatan pembelian, batch &amp; tanggal kedaluwarsa, pengeluaran resep, kartu stok, hingga peringatan otomatis.</p>
+    <div class="meta">
+      <span>🗓️ Versi: 1.0 &mdash; 14 Agustus 2026</span>
+      <span>🛠️ Platform: Web (PHP / MySQL)</span>
+      <span>🧩 Terintegrasi: Modul Dokter, Pharmacy &amp; Laporan</span>
+    </div>
+  </div>
+
+  <!-- ================= TOC ================= -->
+  <div class="toc">
+    <h2>Daftar Isi</h2>
+    <ol>
+      <li><a href="#ringkasan">Ringkasan Rancangan</a></li>
+      <li><a href="#konsep">Konsep &amp; Prinsip Dasar</a></li>
+      <li><a href="#data">Perancangan Basis Data</a></li>
+      <li><a href="#alur">Alur Bisnis (Flow)</a></li>
+      <li><a href="#fitur">Fitur &amp; Halaman Aplikasi</a></li>
+      <li><a href="#role">Hak Akses Pengguna</a></li>
+      <li><a href="#laporan">Laporan &amp; Monitoring</a></li>
+      <li><a href="#issue">Penanganan Issue Tak Terduga</a></li>
+      <li><a href="#roadmap">Roadmap Implementasi</a></li>
+      <li><a href="#manfaat">Manfaat bagi Apotek</a></li>
+    </ol>
+  </div>
+
+  <!-- ================= 1. RINGKASAN ================= -->
+  <section id="ringkasan">
+    <h2><span class="num">1</span> Ringkasan Rancangan</h2>
+    <p>Aplikasi saat ini mencatat resep &amp; pemakaian obat, tetapi <b>belum memiliki pengendalian stok</b>. Rancangan ini mengusulkan modul <b>Manajemen Stok Obat</b> untuk melengkapi aplikasi sehingga apotek dapat:</p>
+    <div class="kpi">
+      <div class="k"><div class="num">FEFO</div><div class="lbl">Keluarkan batch kedaluwarsa terdekat</div></div>
+      <div class="k"><div class="num">BATCH</div><div class="lbl">Pelacakan lot &amp; tanggal kedaluwarsa</div></div>
+      <div class="k"><div class="num">LEDGER</div><div class="lbl">Semua mutasi stok tercatat &amp; auditabel</div></div>
+      <div class="k"><div class="num">3</div><div class="lbl">Tahap implementasi</div></div>
+    </div>
+    <div class="ok"><b>Prinsip utama:</b> stok <b>tidak pernah diedit langsung</b>. Setiap perubahan (masuk/keluar/adjust) selalu melalui transaksi yang tercatat di <b>kartu stok</b> sehingga data selalu dapat ditelusuri kembali.</div>
+  </section>
+
+  <!-- ================= 2. KONSEP ================= -->
+  <section id="konsep">
+    <h2><span class="num">2</span> Konsep &amp; Prinsip Dasar</h2>
+    <div class="cards">
+      <div class="card"><span class="ico">🍃</span><h4>FEFO (First Expired First Out)</h4><p>Obat yang tanggal kedaluwarsanya paling dekat dikeluarkan terlebih dahulu saat penjualan/resep. Meminimalkan obat kedaluwarsa.</p></div>
+      <div class="card"><span class="ico">🏷️</span><h4>Batch &amp; Expired Wajib</h4><p>Setiap penerimaan mengharuskan input nomor batch &amp; tanggal kedaluwarsa untuk pelacakan dan penarikan obat.</p></div>
+      <div class="card"><span class="ico">⚖️</span><h4>Satuan Dasar</h4><p>Stok disimpan dalam satuan terkecil (mis. tablet) dengan tabel konversi (strip/box/tablet) agar akurat.</p></div>
+      <div class="card"><span class="ico">💹</span><h4>Harga per Batch (HPP)</h4><p>Harga beli disimpan per batch, sehingga laba &amp; nilai stok dapat dihitung akurat walau harga antar batch berbeda.</p></div>
+      <div class="card"><span class="ico">📉</span><h4>Min-Max &amp; Reorder Point</h4><p>Batas stok minimal &amp; maksimal per obat untuk memicu peringatan saat harus membeli ulang.</p></div>
+      <div class="card"><span class="ico">🔍</span><h4>Audit Trail</h4><p>Setiap mutasi stok tercatat: kapan, oleh siapa, referensi transaksi, dan saldo setelahnya.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= 3. DATA ================= -->
+  <section id="data">
+    <h2><span class="num">3</span> Perancangan Basis Data</h2>
+    <p>Rancangan menambahkan tabel baru dan menyempurnakan tabel obat yang sudah ada. Berikut model data utamanya:</p>
+    <div class="er">
+      <div class="er-table">
+        <div class="et-head">ms_obat <small>master obat (disempurnakan)</small></div>
+        <ul>
+          <li><span class="pk">id_obat</span> <span class="req">PK</span></li>
+          <li>obat_name</li>
+          <li>obat_price (harga jual)</li>
+          <li>obat_satuan</li>
+          <li>stok_min / stok_max <span class="req">baru</span></li>
+          <li>id_satuan_dasar <span class="req">baru</span></li>
+          <li>obat_status</li>
+        </ul>
+      </div>
+      <div class="er-table">
+        <div class="et-head">obat_batch <small>stok per lot/expired</small></div>
+        <ul>
+          <li><span class="pk">id_batch</span> <span class="req">PK</span></li>
+          <li>id_obat <span class="fk">FK</span></li>
+          <li>batch_no <span class="req">wajib</span></li>
+          <li>expired_date <span class="req">wajib</span></li>
+          <li>harga_beli (HPP)</li>
+          <li>qty (sisa stok batch)</li>
+          <li>status (aktif/kedaluwarsa)</li>
+        </ul>
+      </div>
+      <div class="er-table">
+        <div class="et-head">stock_movement <small>kartu stok / jurnal</small></div>
+        <ul>
+          <li><span class="pk">id_movement</span> <span class="req">PK</span></li>
+          <li>id_obat <span class="fk">FK</span> / id_batch <span class="fk">FK</span></li>
+          <li>tipe: <i>masuk / keluar / adjust</i></li>
+          <li>qty, saldo_akhir</li>
+          <li>ref_tipe + ref_id <span class="fk">(pembelian / resep / opname)</span></li>
+          <li>insert_by / insert_dt</li>
+        </ul>
+      </div>
+      <div class="er-table">
+        <div class="et-head">supplier &amp; pembelian <small>arus masuk stok</small></div>
+        <ul>
+          <li><span class="pk">supplier</span>: nama, kontak</li>
+          <li><span class="pk">pembelian</span>: no. dok, tanggal, supplier, total</li>
+          <li>detail_pembelian: id_obat, batch_no, expired_date, qty, harga_beli</li>
+        </ul>
+      </div>
+      <div class="er-table">
+        <div class="et-head">stock_opname <small>hitung fisik</small></div>
+        <ul>
+          <li><span class="pk">opname</span>: tanggal, catatan, status</li>
+          <li>detail_opname: id_obat, stok_sistem, stok_fisik, selisih</li>
+          <li>adjustment: alasan + approval apoteker</li>
+        </ul>
+      </div>
+      <div class="er-table">
+        <div class="et-head">satuan &amp; konversi <small>baru</small></div>
+        <ul>
+          <li>id_satuan: nama (tablet/strip/box)</li>
+          <li>konversi: id_obat, id_satuan, jumlah (isi)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note"><b>Integrasi dengan modul lama:</b> tabel <code>trans_obat</code> (resep) yang sudah ada akan dijadikan sumber <b>stok keluar</b> &mdash; saat resep disimpan, sistem otomatis mengurangi stok batch berdasarkan FEFO. Data resep historis tetap utuh.</div>
+  </section>
+
+  <!-- ================= 4. ALUR ================= -->
+  <section id="alur">
+    <h2><span class="num">4</span> Alur Bisnis (Flow)</h2>
+
+    <h3>a. Alur Stok Masuk (Pembelian)</h3>
+    <div class="flow-v">
+      <div class="flow-step"><div class="dot teal">1</div><div class="body"><b>Pemesanan / PO</b><p>Buat pesanan pembelian ke supplier.</p></div></div>
+      <div class="flow-step"><div class="dot teal">2</div><div class="body"><b>Penerimaan barang</b><p>Input obat, <b>nomor batch</b> &amp; <b>tanggal kedaluwarsa</b>, qty, dan harga beli.</p></div></div>
+      <div class="flow-step"><div class="dot teal">3</div><div class="body"><b>Stok masuk otomatis</b><p>Sistem membuat batch baru &amp; mencatat mutasi "masuk" ke kartu stok.</p></div></div>
+      <div class="flow-step"><div class="dot teal">4</div><div class="body"><b>Retur beli (opsional)</b><p>Barang rusak/salah dikembalikan ke supplier, stok berkurang otomatis.</p></div></div>
+    </div>
+
+    <h3>b. Alur Stok Keluar (Resep / Dispensing)</h3>
+    <div class="flow-v">
+      <div class="flow-step"><div class="dot">1</div><div class="body"><b>Dokter menulis resep</b><p>Obat jadi &amp; racikan disimpan pada rekam medis (modul yang sudah ada).</p></div></div>
+      <div class="flow-step"><div class="dot">2</div><div class="body"><b>Validasi stok</b><p>Sistem cek ketersediaan; bila kurang, muncul peringatan stok menipis / habis.</p></div></div>
+      <div class="flow-step"><div class="dot">3</div><div class="body"><b>Pengurangan FEFO</b><p>Stok dikurangi dari batch dengan tanggal kedaluwarsa paling dekat.</p></div></div>
+      <div class="flow-step"><div class="dot">4</div><div class="body"><b>Kartu stok tercatat</b><p>Mutasi "keluar" terekam dengan referensi ke resep &amp; pasien.</p></div></div>
+    </div>
+
+    <h3>c. Alur Stock Opname &amp; Peringatan</h3>
+    <div class="flow-h">
+      <div class="box"><b>Stock Opname</b><small>hitung fisik &rarr; bandingkan sistem &rarr; selisih &rarr; approval</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Peringatan Min Stok</b><small>stok &le; reorder point &rarr; muncul notifikasi beli</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Peringatan Expired</b><small>hampir expired &amp; expired &rarr; blokir jual otomatis</small></div>
+      <div class="arrow">&rarr;</div>
+      <div class="box"><b>Write-off</b><small>obat rusak/expired massal &rarr; catat kerugian</small></div>
+    </div>
+  </section>
+
+  <!-- ================= 5. FITUR & HALAMAN ================= -->
+  <section id="fitur">
+    <h2><span class="num">5</span> Fitur &amp; Halaman Aplikasi</h2>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">📊</span><b>Dashboard Stok</b><span class="badge b-ind">Ringkasan</span></div>
+      <div class="wf-body"><ul>
+        <li>Ringkasan: total item stok, nilai stok, obat hampir habis, obat hampir expired.</li>
+        <li>Daftar peringatan yang butuh tindakan hari ini.</li>
+      </ul>
+      <div class="mock"><b>Mock-up:</b> kartu-kartu statistik (Stok Menipis, Hampir Expired, Nilai Stok, Transaksi Hari Ini) + tabel daftar peringatan.</div></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">💊</span><b>Master Obat (disempurnakan)</b><span class="badge b-ind">Master</span></div>
+      <div class="wf-body"><ul>
+        <li>Kolom baru: stok minimal &amp; maksimal, satuan dasar, pilihan satuan konversi.</li>
+        <li>Tampilan sisa stok keseluruhan di samping tiap obat.</li>
+      </ul>
+      <div class="mock"><b>Mock-up:</b> tabel DataTables obat + kolom "Sisa Stok", "Status" (Aman/Menipis/Habis).</div></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">🏷️</span><b>Daftar Batch &amp; Kedaluwarsa</b><span class="badge b-ind">Stok</span></div>
+      <div class="wf-body"><ul>
+        <li>Lihat semua batch per obat: nomor batch, tanggal expired, sisa qty, harga beli.</li>
+        <li>Fitur filter: hampir expired (&lt; 3 bulan), sudah expired.</li>
+      </ul>
+      <div class="mock"><b>Mock-up:</b> tabel batch dengan badge status (Aman / Hampir Expired / Expired).</div></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">🚚</span><b>Pembelian &amp; Penerimaan</b><span class="badge b-teal">Transaksi</span></div>
+      <div class="wf-body"><ul>
+        <li>Master supplier (nama, kontak).</li>
+        <li>Input pembelian: pilih obat &rarr; isi batch, expired, qty, harga beli.</li>
+        <li>Riwayat pembelian &amp; retur beli.</li>
+      </ul>
+      <div class="mock"><b>Mock-up:</b> form penerimaan dengan baris dinamis (obat, batch, expired, qty, harga) + tombol "Simpan &amp; Masuk Stok".</div></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">📜</span><b>Kartu Stok</b><span class="badge b-ind">Kontrol</span></div>
+      <div class="wf-body"><ul>
+        <li>Riwayat mutasi per obat: masuk/keluar/adjust dengan saldo berjalan.</li>
+        <li>Dapat difilter periode &amp; jenis mutasi; dapat diekspor.</li>
+      </ul>
+      <div class="mock"><b>Mock-up:</b> tabel kronologis: Tanggal | Jenis | Ref (No. Pembelian/Resep) | Masuk | Keluar | Saldo.</div></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">🔍</span><b>Stock Opname</b><span class="badge b-amber">Kontrol</span></div>
+      <div class="wf-body"><ul>
+        <li>Buat sesi opname, input stok fisik hasil hitung.</li>
+        <li>Sistem hitung selisih vs stok sistem, lalu buat adjustment dengan alasan.</li>
+        <li>Adjustment wajib disetujui (approval) apoteker.</li>
+      </ul>
+      <div class="mock"><b>Mock-up:</b> form opname (obat, stok sistem, stok fisik, selisih) + tombol "Approve Adjustment".</div></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">⚙️</span><b>Adjustment &amp; Write-off</b><span class="badge b-amber">Kontrol</span></div>
+      <div class="wf-body"><ul>
+        <li>Penyesuaian stok: susut, rusak, hilang, kedaluwarsa &mdash; wajib alasan.</li>
+        <li>Write-off massal untuk obat expired dengan rekap nilai kerugian.</li>
+      </ul></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">🔗</span><b>Integrasi Resep (Dokter &amp; Pharmacy)</b><span class="badge b-blue">Integrasi</span></div>
+      <div class="wf-body"><ul>
+        <li>Saat dokter menyimpan resep, stok otomatis berkurang (FEFO).</li>
+        <li>Pharmacy menampilkan ketersediaan stok saat menyiapkan obat.</li>
+        <li>Racikan (puyer) menghitung bahan baku yang terpakai.</li>
+      </ul></div>
+    </div>
+
+    <div class="wf">
+      <div class="wf-head"><span class="wf-ico">🔔</span><b>Peringatan &amp; Notifikasi</b><span class="badge b-red">Monitoring</span></div>
+      <div class="wf-body"><ul>
+        <li>Notifikasi stok di bawah reorder point.</li>
+        <li>Notifikasi hampir expired (&lt; 3 bulan) &amp; expired (auto-blokir jual).</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- ================= 6. ROLE ================= -->
+  <section id="role">
+    <h2><span class="num">6</span> Hak Akses Pengguna</h2>
+    <div class="roles">
+      <div class="role">
+        <span class="r-ico">🛡️</span><h4>Superadmin</h4>
+        <p>Akses penuh seluruh modul, termasuk pengaturan sistem &amp; master.</p>
+        <div class="chips"><span>Semua modul stok</span><span>Pengaturan</span></div>
+      </div>
+      <div class="role">
+        <span class="r-ico">🧑‍🔬</span><h4>Apoteker / Admin Stok</h4>
+        <p>Pengelola stok harian: pembelian, opname, adjustment, peringatan, laporan.</p>
+        <div class="chips"><span>Pembelian</span><span>Kartu Stok</span><span>Opname</span><span>Laporan</span></div>
+      </div>
+      <div class="role">
+        <span class="r-ico">🩺</span><h4>Dokter</h4>
+        <p>Menulis resep; sistem otomatis mengurangi stok &amp; menampilkan ketersediaan.</p>
+        <div class="chips"><span>Resep (kurangi stok)</span><span>Lihat ketersediaan</span></div>
+      </div>
+    </div>
+    <div class="note"><b>Kontrol approval:</b> perubahan stok yang menyimpang (adjustment, opname, void) memerlukan persetujuan apoteker untuk menjaga keakuratan &amp; mencegah penyalahgunaan.</div>
+  </section>
+
+  <!-- ================= 7. LAPORAN ================= -->
+  <section id="laporan">
+    <h2><span class="num">7</span> Laporan &amp; Monitoring</h2>
+    <table>
+      <thead><tr><th>Laporan</th><th>Isi / Manfaat</th></tr></thead>
+      <tbody>
+        <tr><td><b>Kartu Stok</b></td><td>Riwayat mutasi per obat beserta saldo &mdash; dasar audit &amp; rekonsiliasi</td></tr>
+        <tr><td><b>Stok per Batch</b></td><td>Daftar batch &amp; tanggal kedaluwarsa &mdash; kontrol FEFO</td></tr>
+        <tr><td><b>Laporan Kedaluwarsa</b></td><td>Daftar hampir expired &amp; expired &mdash; cegah kerugian</td></tr>
+        <tr><td><b>Laporan Pembelian</b></td><td>Riwayat pembelian &amp; retur &mdash; kontrol pengeluaran</td></tr>
+        <tr><td><b>Laporan Pemakaian Obat</b></td><td>Obat keluar via resep (harian/bulanan) &mdash; tren permintaan</td></tr>
+        <tr><td><b>Laporan Stock Opname</b></td><td>Hasil opname &amp; selisih &mdash; evaluasi akurasi stok</td></tr>
+        <tr><td><b>Laporan Nilai Stok &amp; Laba</b></td><td>Nilai stok (HPP per batch) &amp; estimasi laba &mdash; pengambilan keputusan</td></tr>
+      </tbody>
+    </table>
+    <div class="ok"><b>Semua laporan dapat diekspor ke Excel</b> &mdash; mengikuti pola laporan yang sudah ada pada aplikasi.</div>
+  </section>
+
+  <!-- ================= 8. ISSUE ================= -->
+  <section id="issue">
+    <h2><span class="num">8</span> Penanganan Issue Tak Terduga</h2>
+    <div class="cards">
+      <div class="card"><span class="ico">🔻</span><h4>Stok Minus / Selisih</h4><p>Stok dicegah negatif di level database. Bila ada selisih, diselesaikan lewat opname/adjustment resmi dengan approval &mdash; bukan edit langsung.</p></div>
+      <div class="card"><span class="ico">✏️</span><h4>Salah Entry</h4><p>Mekanisme <b>void/koreksi</b>: transaksi dibatalkan (stok kembali otomatis) lalu diinput ulang. Audit trail tetap bersih.</p></div>
+      <div class="card"><span class="ico">⚠️</span><h4>Expired Massal</h4><p>Fitur write-off massal + rekap kerugian. FEFO meminimalkan kejadian ini sejak awal.</p></div>
+      <div class="card"><span class="ico">🏷️</span><h4>Harga Antar Batch Beda</h4><p>Harga jual diambil dari batch terpilih (FEFO), bukan rata-rata &mdash; margin &amp; laba tetap akurat.</p></div>
+      <div class="card"><span class="ico">🖥️</span><h4>Multi-Kasir</h4><p>Pengurangan stok memakai transaksi database + lock baris agar tidak terjadi overselling saat dua petugas melayani bersamaan.</p></div>
+      <div class="card"><span class="ico">💾</span><h4>Backup &amp; Recovery</h4><p>Backup database harian otomatis &amp; prosedur restore &mdash; melindungi data stok &amp; transaksi.</p></div>
+    </div>
+  </section>
+
+  <!-- ================= 9. ROADMAP ================= -->
+  <section id="roadmap">
+    <h2><span class="num">9</span> Roadmap Implementasi</h2>
+    <div class="flow-v">
+      <div class="flow-step"><div class="dot">1</div><div class="body"><b>Tahap 1 &mdash; Fondasi</b><p>Tabel stok &amp; batch, kartu stok (stock_movement), modul pembelian &amp; supplier, integrasi resep &rarr; pengurangan stok FEFO.</p></div></div>
+      <div class="flow-step"><div class="dot">2</div><div class="body"><b>Tahap 2 &mdash; Kontrol &amp; Laporan</b><p>Kartu stok &amp; laporan, stock opname &amp; adjustment (approval), retur beli/pasien, laporan kedaluwarsa.</p></div></div>
+      <div class="flow-step"><div class="dot">3</div><div class="body"><b>Tahap 3 &mdash; Optimasi</b><p>Min-max &amp; reorder point + notifikasi, auto-blokir expired, HPP &amp; laba rugi per batch, multi-satuan &amp; konversi.</p></div></div>
+    </div>
+    <div class="warn"><b>Prioritas:</b> Tahap 1 adalah fondasi &mdash; setelah selesai, setiap resep otomatis mengurangi stok dan apotek mulai memiliki data stok yang akurat. Tahap 2 &amp; 3 menyusul untuk pengendalian yang lebih mendalam.</div>
+  </section>
+
+  <!-- ================= 10. MANFAAT ================= -->
+  <section id="manfaat">
+    <h2><span class="num">10</span> Manfaat bagi Apotek</h2>
+    <div class="cards">
+      <div class="card"><span class="ico">💸</span><h4>Hindari Kerugian</h4><p>Mencegah obat kedaluwarsa menumpuk dan stok kosong saat dibutuhkan.</p></div>
+      <div class="card"><span class="ico">⚡</span><h4>Pelayanan Lebih Cepat</h4><p>Ketersediaan stok langsung terlihat saat dokter menulis resep &mdash; mengurangi komplain pasien.</p></div>
+      <div class="card"><span class="ico">📋</span><h4>Data Akurat &amp; Auditabel</h4><p>Setiap mutasi tercatat jelas (siapa, kapan, untuk apa) &mdash; mudah diaudit.</p></div>
+      <div class="card"><span class="ico">📈</span><h4>Keputusan Tepat</h4><p>Laporan nilai stok, tren pemakaian, &amp; laba membantu merencanakan pembelian.</p></div>
+      <div class="card"><span class="ico">🔧</span><h4>Terintegrasi</h4><p>Menyatu dengan modul dokter &amp; apotek yang sudah berjalan &mdash; tanpa mengulang dari nol.</p></div>
+      <div class="card"><span class="ico">🛡️</span><h4>Kontrol Akses</h4><p>Hak akses per level + approval mencegah manipulasi stok.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <b>Rancangan Aplikasi Manajemen Stok Obat</b> &nbsp;<span class="dot"></span>&nbsp; Dokumen Rancangan v1.0 &nbsp;<span class="dot"></span>&nbsp; 14 Agustus 2026
+  </footer>
+</div>
+</body>
+</html>

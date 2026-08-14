@@ -5,7 +5,7 @@
         <div class="ds-form-group">
             <label>No. Dokumen / Nomor SKBS <span class="text-danger">*</span></label>
             <input type="text" id="skbs_docnumb" class="form-control" maxlength="100"
-                   value="<?= htmlspecialchars($skbs && !empty($skbs->skbs_docnumb) ? $skbs->skbs_docnumb : ($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP')) ?>">
+                   value="<?= htmlspecialchars($skbs && !empty($skbs->skbs_docnumb) ? $skbs->skbs_docnumb : ($skbs_docnumb_default ?? '00000/SKBS/PDUKRWP/ASM')) ?>">
         </div>
     </div>
 </div>
