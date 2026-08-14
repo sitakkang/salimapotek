@@ -76,7 +76,7 @@ $(document).ready(function () {
             emptyTable: 'Belum ada data SKS',
             paginate: { previous: '&laquo;', next: '&raquo;' },
         },
-        order: [[6, 'desc']],
+        order: [],
         responsive: true,
         autoWidth: false,
     });
