@@ -123,8 +123,7 @@
         }
         ?>
         <p style="font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0;">
-            Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <b><?= $lama ?> (hari)</b>,
-            terhitung tanggal <b><?= $datefrom ?> s/d <?= $dateto ?></b>.
+            Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <b><?= $lama ?> (hari)</b>.
         </p>
         <p style="font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0;">
             Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana perlunya.
