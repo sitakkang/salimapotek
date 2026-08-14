@@ -75,15 +75,6 @@
         </table>
     </div>
 
-    <div class="section">
-        <div class="section-title">Masa Berlaku</div>
-        <table>
-            <tr><td>Dari Tanggal</td><td>:</td><td><?= !empty($row->datefrom) ? date('d/m/Y', strtotime($row->datefrom)) : '-' ?></td></tr>
-            <tr><td>Sampai Tanggal</td><td>:</td><td><?= !empty($row->dateto) ? date('d/m/Y', strtotime($row->dateto)) : '-' ?></td></tr>
-            <!-- <tr><td>Tanggal Dokumen</td><td>:</td><td><?= !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '-' ?></td></tr> -->
-        </table>
-    </div>
-
     <!-- Medical Certificate Statement -->
     <div class="section">
         <div class="section-title">Keterangan Dokter</div>
@@ -123,7 +114,8 @@
         }
         ?>
         <p style="font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0;">
-            Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <b><?= $lama ?> (hari)</b>.
+            Berdasarkan hasil pemeriksaan medis bahwa benar yang bersangkutan dalam keadaan sakit dan membutuhkan waktu istirahat selama <b><?= $lama ?> (hari)</b>,
+            terhitung tanggal <b><?= $datefrom ?> s/d <?= $dateto ?></b>.
         </p>
         <p style="font-size: 14px; line-height: 1.6; text-align: justify; margin: 4px 0;">
             Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana perlunya.
