@@ -51,7 +51,7 @@
     <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tgl Dokumen <span class="text-danger">*</span></label>
-            <input type="text" id="sks_docdate" class="form-control datepicker" value="<?= $sks && !empty($sks->docdate) ? date('d/m/Y', strtotime($sks->docdate)) : date('d/m/Y') ?>" readonly>
+            <input type="text" id="sks_docdate" class="form-control date-mask" placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off" value="<?= $sks && !empty($sks->docdate) ? date('d-m-Y', strtotime($sks->docdate)) : date('d-m-Y') ?>">
         </div>
     </div>
 </div>
@@ -60,13 +60,13 @@
     <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Berlaku Dari <span class="text-danger">*</span></label>
-            <input type="text" id="sks_datefrom" class="form-control datepicker" value="<?= $sks && !empty($sks->datefrom) ? date('d/m/Y', strtotime($sks->datefrom)) : '' ?>" placeholder="dd/mm/yyyy" readonly>
+            <input type="text" id="sks_datefrom" class="form-control date-mask" value="<?= $sks && !empty($sks->datefrom) ? date('d-m-Y', strtotime($sks->datefrom)) : date('d-m-Y') ?>" placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
     <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Sampai <span class="text-danger">*</span></label>
-            <input type="text" id="sks_dateto" class="form-control datepicker" value="<?= $sks && !empty($sks->dateto) ? date('d/m/Y', strtotime($sks->dateto)) : '' ?>" placeholder="dd/mm/yyyy" readonly>
+            <input type="text" id="sks_dateto" class="form-control date-mask" value="<?= $sks && !empty($sks->dateto) ? date('d-m-Y', strtotime($sks->dateto)) : date('d-m-Y') ?>" placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>

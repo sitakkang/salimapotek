@@ -120,8 +120,6 @@
             <tr>
                 <td><strong>Buta Warna</strong></td>
                 <td>: <?= htmlspecialchars($row->skbs_bw ?: '-') ?></td>
-                <td><strong>Visus R / L</strong></td>
-                <td>: <?= htmlspecialchars($row->skbs_r ?: '-') ?> / <?= htmlspecialchars($row->skbs_l ?: '-') ?></td>
             </tr>
         </table>
         <?php if (!empty($row->skbs_note)): ?>

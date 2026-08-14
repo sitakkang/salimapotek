@@ -30,10 +30,6 @@
                         <span class="ds-detail-label">Hubungan</span>
                         <span class="ds-detail-value"><?= htmlspecialchars($row->hubungan ?? '') ?: '<span class="text-muted">-</span>' ?></span>
                     </div>
-                    <div class="ds-detail-field">
-                        <span class="ds-detail-label">Diagnosa</span>
-                        <span class="ds-detail-value"><?= htmlspecialchars($row->patient_diagnosa ?? '') ?: '<span class="text-muted">-</span>' ?></span>
-                    </div>
                 </div>
             </div>
         </div>

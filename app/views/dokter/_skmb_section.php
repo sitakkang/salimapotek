@@ -76,9 +76,9 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Datang <span class="text-danger">*</span></label>
-            <input type="text" id="skmb_tgl_datang" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly
-                   value="<?= $skmb && !empty($skmb->tgl_datang) ? date('d/m/Y', strtotime($skmb->tgl_datang)) : $now_tz->format('d/m/Y') ?>">
+            <input type="text" id="skmb_tgl_datang" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off"
+                   value="<?= $skmb && !empty($skmb->tgl_datang) ? date('d-m-Y', strtotime($skmb->tgl_datang)) : $now_tz->format('d-m-Y') ?>">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
@@ -95,12 +95,6 @@ $now_tz = new DateTime('now', new DateTimeZone('Asia/Makassar'));
             </select>
         </div>
     </div>
-</div>
-
-<div class="ds-form-group">
-    <label>Diagnosa</label>
-    <textarea id="skmb_diagnosa" class="form-control" rows="3"
-              placeholder="Diagnosa / keterangan"><?= htmlspecialchars($skmb && !empty($skmb->patient_diagnosa) ? $skmb->patient_diagnosa : ($skmb_diagnosa_default ?? '')) ?></textarea>
 </div>
 
 <hr style="border-color:var(--ds-border);margin:6px 0 12px;">

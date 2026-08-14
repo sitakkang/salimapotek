@@ -55,9 +55,9 @@
     <div class="col-md-3" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Lahir</label>
-            <input type="text" id="edit_skbs_bod" name="skbs_bod" class="form-control datepicker"
-                   value="<?= !empty($row->skbs_bod) ? date('d/m/Y', strtotime($row->skbs_bod)) : '' ?>"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="edit_skbs_bod" name="skbs_bod" class="form-control date-mask"
+                   value="<?= !empty($row->skbs_bod) ? date('d-m-Y', strtotime($row->skbs_bod)) : '' ?>"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>
@@ -184,20 +184,6 @@ $show_note   = ($result_name == 'FIT DENGAN CATATAN') ? '' : 'display:none;';
 </div>
 
 <div class="row" style="margin: 0 -6px;">
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Kanan (R)</label>
-            <input type="text" id="edit_skbs_r" name="skbs_r" class="form-control" placeholder="cth: 6/6"
-                   value="<?= htmlspecialchars($row->skbs_r ?? '') ?>">
-        </div>
-    </div>
-    <div class="col-md-4" style="padding: 0 6px;">
-        <div class="ds-form-group">
-            <label>Visus Kiri (L)</label>
-            <input type="text" id="edit_skbs_l" name="skbs_l" class="form-control" placeholder="cth: 6/6"
-                   value="<?= htmlspecialchars($row->skbs_l ?? '') ?>">
-        </div>
-    </div>
     <div class="col-md-4" style="padding: 0 6px;<?= $show_note ?>" id="skbs_note_wrap">
         <div class="ds-form-group">
             <label>Catatan</label>
@@ -236,9 +222,9 @@ $show_note   = ($result_name == 'FIT DENGAN CATATAN') ? '' : 'display:none;';
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Dokumen</label>
-            <input type="text" id="edit_docdate" name="docdate" class="form-control datepicker"
-                   value="<?= !empty($row->skbs_doc_date) ? date('d/m/Y', strtotime($row->skbs_doc_date)) : date('d/m/Y') ?>"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="edit_docdate" name="docdate" class="form-control date-mask"
+                   value="<?= !empty($row->skbs_doc_date) ? date('d-m-Y', strtotime($row->skbs_doc_date)) : date('d-m-Y') ?>"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>

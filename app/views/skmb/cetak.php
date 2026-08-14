@@ -95,7 +95,6 @@
         <table>
             <tr><td>Nama Diantar</td><td>:</td><td><?= htmlspecialchars($row->patient_name ?? '') ?></td></tr>
             <tr><td>Hubungan</td><td>:</td><td><?= !empty($hubungan_label) ? htmlspecialchars($hubungan_label) : '-' ?></td></tr>
-            <tr><td>Diagnosa</td><td>:</td><td><?= !empty($row->patient_diagnosa) ? htmlspecialchars($row->patient_diagnosa) : '-' ?></td></tr>
         </table>
 
 

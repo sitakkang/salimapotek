@@ -100,6 +100,13 @@ $(document).ready(function () {
             scrollMonth: false,
             scrollInput: false,
         });
+        // Init date mask on modal content (jQuery Mask Plugin)
+        // Simpan value sebelum init agar tidak hilang
+        $('#MyModalContent .date-mask').each(function () {
+            var val = $(this).val();
+            $(this).mask('00-00-0000');
+            if (val) $(this).val(val);
+        });
         $('#MyModal').modal('show');
         $('.autocomplete').chosen();
     }

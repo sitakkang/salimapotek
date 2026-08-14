@@ -105,6 +105,13 @@ $(document).ready(function () {
             scrollMonth: false,
             scrollInput: false,
         });
+        // Init date mask on modal content (jQuery Mask Plugin)
+        // Simpan value sebelum init agar tidak hilang
+        $('#MyModalContent .date-mask').each(function () {
+            var val = $(this).val();
+            $(this).mask('00-00-0000');
+            if (val) $(this).val(val);
+        });
         $('#MyModalContent .autocomplete').chosen();
         $('#MyModal').modal('show');
     }
@@ -161,8 +168,6 @@ $(document).ready(function () {
             skbs_tb:           $('#skbs_tb').val(),
             skbs_bb:           $('#skbs_bb').val(),
             skbs_bw:           $('#skbs_bw').val(),
-            skbs_r:            $('#skbs_r').val(),
-            skbs_l:            $('#skbs_l').val(),
             doctby:            $('#doctby').val(),
             docdate:           $('#docdate').val(),
             skbs_docnumb:      $('#skbs_docnumb').val(),
@@ -224,8 +229,6 @@ $(document).ready(function () {
             skbs_tb:           $('#edit_skbs_tb').val(),
             skbs_bb:           $('#edit_skbs_bb').val(),
             skbs_bw:           $('#edit_skbs_bw').val(),
-            skbs_r:            $('#edit_skbs_r').val(),
-            skbs_l:            $('#edit_skbs_l').val(),
             doctby:            $('#edit_doctby').val(),
             docdate:           $('#edit_docdate').val(),
             skbs_docnumb:      $('#edit_skbs_docnumb').val(),

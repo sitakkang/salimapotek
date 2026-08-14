@@ -109,25 +109,25 @@
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Mulai</label>
-            <input type="text" id="edit_datefrom" name="datefrom" class="form-control datepicker"
-                   value="<?= !empty($row->datefrom) ? date('d/m/Y', strtotime($row->datefrom)) : '' ?>"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="edit_datefrom" name="datefrom" class="form-control date-mask"
+                   value="<?= !empty($row->datefrom) ? date('d-m-Y', strtotime($row->datefrom)) : date('d-m-Y') ?>"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Selesai</label>
-            <input type="text" id="edit_dateto" name="dateto" class="form-control datepicker"
-                   value="<?= !empty($row->dateto) ? date('d/m/Y', strtotime($row->dateto)) : '' ?>"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="edit_dateto" name="dateto" class="form-control date-mask"
+                   value="<?= !empty($row->dateto) ? date('d-m-Y', strtotime($row->dateto)) : date('d-m-Y') ?>"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Dokumen</label>
-            <input type="text" id="edit_docdate" name="docdate" class="form-control datepicker"
-                   value="<?= !empty($row->docdate) ? date('d/m/Y', strtotime($row->docdate)) : '' ?>"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="edit_docdate" name="docdate" class="form-control date-mask"
+                   value="<?= !empty($row->docdate) ? date('d-m-Y', strtotime($row->docdate)) : date('d-m-Y') ?>"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off">
         </div>
     </div>
 </div>

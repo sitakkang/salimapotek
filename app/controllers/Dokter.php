@@ -112,7 +112,6 @@ class Dokter extends CI_Controller {
             }
         }
         $data['sks_diagnosa_default'] = $sks_diagnosa_default;
-        $data['skmb_diagnosa_default'] = $sks_diagnosa_default;
         // Generate default terapi dari obat
         $sks_terapi_default = '';
         if (!empty($data['obat_terpilih'])) {
@@ -670,8 +669,6 @@ class Dokter extends CI_Controller {
             'skbs_bw'              => trim($this->input->post('skbs_bw')),
             'skbs_tb'              => trim($this->input->post('skbs_tb')),
             'skbs_bb'              => trim($this->input->post('skbs_bb')),
-            'skbs_r'               => trim($this->input->post('skbs_r')),
-            'skbs_l'               => trim($this->input->post('skbs_l')),
             'skbs_doc_date'        => date('Y-m-d'),
             'skbs_doct_id'         => $insert_by,
             'skbs_doct_name'       => $doct_by,
@@ -804,7 +801,6 @@ class Dokter extends CI_Controller {
             'hubungan'          => $this->input->post('hubungan'),
             'tgl_datang'        => $this->format_date_db($this->input->post('tgl_datang')),
             'jam'               => '00:00',
-            'patient_diagnosa'  => trim($this->input->post('diagnosa')),
             'docdate'           => date('Y-m-d'),
             'doct_by_id'        => $insert_by,
             'doct_by_name'      => $doct ? $doct->fullname : '',
@@ -884,19 +880,6 @@ class Dokter extends CI_Controller {
         $data['skmb'] = $this->M_dokter->get_skmb_by_visit_id($visit_id);
         $data['skmb_docnumb_default'] = $this->M_dokter->generate_docnumb_skmb();
         $data['dokter_list'] = $this->M_dokter->get_all_doctor();
-
-        // Default diagnosa text untuk SKMB (sama seperti SKS)
-        $mrd_id = $row->id_medical_record;
-        $diagnosa_terpilih = $this->M_dokter->get_diagnosa_by_medical_record($mrd_id);
-        $skmb_diagnosa_default = '';
-        if (!empty($diagnosa_terpilih)) {
-            $no = 1;
-            foreach ($diagnosa_terpilih as $d) {
-                $skmb_diagnosa_default .= $no . '. ' . $d->trans_dgn_name . "\r\n";
-                $no++;
-            }
-        }
-        $data['skmb_diagnosa_default'] = $skmb_diagnosa_default;
 
         $this->load->view($this->dir_v.'_skmb_section', $data);
     }

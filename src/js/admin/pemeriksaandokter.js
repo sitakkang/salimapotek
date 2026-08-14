@@ -36,6 +36,12 @@ function reloadSksSection() {
             datepicker: true, timepicker: false, format: 'd/m/Y',
             closeOnDateSelect: true, scrollMonth: false, scrollInput: false,
         });
+        // Init date mask (jQuery Mask Plugin) — simpan value agar tidak hilang
+        $('#sks-section-wrap .date-mask').each(function () {
+            var val = $(this).val();
+            $(this).mask('00-00-0000');
+            if (val) $(this).val(val);
+        });
         $('#sks-section-wrap .autocomplete').chosen();
     }).fail(function () {
         notifNo('Gagal memuat ulang data SKS');
@@ -61,6 +67,12 @@ function reloadSkmbSection() {
             datepicker: true, timepicker: false, format: 'd/m/Y',
             closeOnDateSelect: true, scrollMonth: false, scrollInput: false,
         });
+        // Init date mask (jQuery Mask Plugin) — simpan value agar tidak hilang
+        $('#skmb-section-wrap .date-mask').each(function () {
+            var val = $(this).val();
+            $(this).mask('00-00-0000');
+            if (val) $(this).val(val);
+        });
         $('#skmb-section-wrap .clockpicker').clockpicker({
             autoclose: true, donetext: 'OK', placement: 'bottom', align: 'left',
         });
@@ -70,6 +82,13 @@ function reloadSkmbSection() {
 }
 
 $(document).ready(function () {
+
+    // Init date mask (jQuery Mask Plugin) — untuk field tanggal pada section yang sudah dirender
+    $('.date-mask').each(function () {
+        var val = $(this).val();
+        $(this).mask('00-00-0000');
+        if (val) $(this).val(val);
+    });
 
     // ================================================================
     // PEMERIKSAAN PAGE — Diagnosa
@@ -237,8 +256,6 @@ $(document).ready(function () {
             skbs_tb:       $('#skbs_tb').val(),
             skbs_bb:       $('#skbs_bb').val(),
             skbs_bw:       $('#skbs_bw').val(),
-            skbs_r:        $('#skbs_r').val(),
-            skbs_l:        $('#skbs_l').val(),
             skbs_docnumb:  $('#skbs_docnumb').val(),
         };
         if (!payload.skbs_result) { notifNo('Silakan pilih hasil'); return false; }
@@ -315,7 +332,6 @@ $(document).ready(function () {
             hubungan:         $('#skmb_hubungan').val(),
             tgl_datang:       $('#skmb_tgl_datang').val(),
             skmb_docnumb:     $('#skmb_docnumb').val(),
-            diagnosa:         $('#skmb_diagnosa').val(),
         };
 
         if (!payload.patient_name) { notifNo('Silakan isi nama yang diantar'); return false; }

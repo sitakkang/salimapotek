@@ -55,20 +55,14 @@
     </div>
 </div>
 
-<div class="ds-form-group">
-    <label>Diagnosa</label>
-    <textarea id="diagnosa" name="patient_diagnosa" class="form-control" rows="3"
-              placeholder="Diagnosa / keterangan"></textarea>
-</div>
-
 <hr style="border-color: var(--ds-border); margin: 6px 0 14px;">
 
 <div class="row" style="margin: 0 -6px;">
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Datang <span class="text-danger">*</span></label>
-            <input type="text" id="tgl_datang" name="tgl_datang" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="tgl_datang" name="tgl_datang" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off" value="<?= date('d-m-Y') ?>">
         </div>
     </div>
     <div class="col-md-6" style="padding: 0 6px;">
@@ -110,8 +104,8 @@
     <div class="col-md-6" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Dokumen</label>
-            <input type="text" id="docdate" name="docdate" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" value="<?= date('d-m-Y') ?>" readonly>
+            <input type="text" id="docdate" name="docdate" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off" value="<?= date('d-m-Y') ?>">
         </div>
     </div>
 </div>

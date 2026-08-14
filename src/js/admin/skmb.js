@@ -112,6 +112,13 @@ $(document).ready(function () {
             placement: 'bottom',
             align: 'left',
         });
+        // Init date mask on modal content (jQuery Mask Plugin)
+        // Simpan value sebelum init agar tidak hilang
+        $('#MyModalContent .date-mask').each(function () {
+            var val = $(this).val();
+            $(this).mask('00-00-0000');
+            if (val) $(this).val(val);
+        });
         $('#MyModal').modal('show');
         $('.autocomplete').chosen();
     }
@@ -139,7 +146,6 @@ $(document).ready(function () {
             pekerjaan_pengantar: $('#pekerjaan_pengantar').val(),
             hubungan:        $('#hubungan').val(),
             tgl_datang:      $('#tgl_datang').val(),
-            patient_diagnosa: $('#diagnosa').val(),
             docdate:         $('#docdate').val(),
             doctby:          $('#doctby').val(),
             skmb_docnumb:    $('#skmb_docnumb').val(),
@@ -213,7 +219,6 @@ $(document).ready(function () {
             pekerjaan_pengantar: $('#edit_pekerjaan_pengantar').val(),
             hubungan:         $('#edit_hubungan').val(),
             tgl_datang:       $('#edit_tgl_datang').val(),
-            patient_diagnosa: $('#edit_diagnosa').val(),
             docdate:          $('#edit_docdate').val(),
             doctby:           $('#edit_doctby').val(),
             skmb_docnumb:     $('#edit_skmb_docnumb').val(),

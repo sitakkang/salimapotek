@@ -109,22 +109,22 @@ $pf_alamat = isset($patient) ? ($patient->patient_address ?? '') : '';
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Mulai <span class="text-danger">*</span></label>
-            <input type="text" id="datefrom" name="datefrom" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="datefrom" name="datefrom" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off" value="<?= date('d-m-Y') ?>">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Selesai <span class="text-danger">*</span></label>
-            <input type="text" id="dateto" name="dateto" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" readonly>
+            <input type="text" id="dateto" name="dateto" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off" value="<?= date('d-m-Y') ?>">
         </div>
     </div>
     <div class="col-md-4" style="padding: 0 6px;">
         <div class="ds-form-group">
             <label>Tanggal Dokumen <span class="text-danger">*</span></label>
-            <input type="text" id="docdate" name="docdate" class="form-control datepicker"
-                   placeholder="dd/mm/yyyy" autocomplete="off" value="<?= date('d-m-Y') ?>" readonly>
+            <input type="text" id="docdate" name="docdate" class="form-control date-mask"
+                   placeholder="dd-mm-yyyy" maxlength="10" autocomplete="off" value="<?= date('d-m-Y') ?>">
         </div>
     </div>
 </div>
